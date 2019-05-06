@@ -14,7 +14,7 @@ public final class DatabaseUserDao extends AbstractDao implements UserDao {
     }
 
     public List<User> findAll() throws SQLException {
-        String sql = "SELECT id, email, password FROM users";
+        String sql = "SELECT id, user_name, administrator, email, user_password FROM users";
         try (Statement statement = connection.createStatement();
              ResultSet resultSet = statement.executeQuery(sql)) {
             List<User> users = new ArrayList<>();
@@ -24,13 +24,27 @@ public final class DatabaseUserDao extends AbstractDao implements UserDao {
             return users;
         }
     }
+    
+    public List<User> findAllAdmin(boolean admin) throws SQLException {
+        String sql = "SELECT id, user_name, administrator, email, user_password FROM users where administrator =?";
+        try (PreparedStatement statement = connection.prepareStatement(sql)){
+             statement.setBoolean(1, admin);
+             try(ResultSet resultSet = statement.executeQuery()){
+                 List<User> users = new ArrayList<>();
+                 while (resultSet.next()){
+                     users.add(fetchUser(resultSet));
+                 }
+                 return users;
+             }
+        }
+    }
 
     @Override
     public User findByEmail(String email) throws SQLException {
         if (email == null || "".equals(email)) {
             throw new IllegalArgumentException("Email cannot be null or empty");
         }
-        String sql = "SELECT id, email, password FROM users WHERE email = ?";
+        String sql = "SELECT id, user_name, administrator, email, user_password FROM users WHERE email = ?";
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setString(1, email);
             try (ResultSet resultSet = statement.executeQuery()) {
@@ -44,8 +58,10 @@ public final class DatabaseUserDao extends AbstractDao implements UserDao {
 
     private User fetchUser(ResultSet resultSet) throws SQLException {
         int id = resultSet.getInt("id");
+        String name = resultSet.getString("user_name");
+        boolean admin = resultSet.getBoolean("administrator");
         String email = resultSet.getString("email");
         String password = resultSet.getString("password");
-        return new User(id, email, password);
+        return new User(id, name, admin, email, password);
     }
 }
