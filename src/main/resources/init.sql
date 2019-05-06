@@ -18,7 +18,7 @@ CREATE TABLE schedule (
 	schedule_id SERIAL NOT NULL PRIMARY KEY,
 	schedule_published BOOLEAN DEFAULT FALSE,
 	user_id INT NOT NULL,
-	FOREIGN KEY (user_id) REFERENCES users(user_id)
+	FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE
 );
 
 CREATE TABLE days (
@@ -33,7 +33,7 @@ CREATE TABLE task (
 	task_name TEXT NOT NULL,
 	task_content TEXT NOT NULL,
 	schedule_id INT NOT NULL,
-	FOREIGN KEY (schedule_id) REFERENCES schedule(schedule_id)
+	FOREIGN KEY (schedule_id) REFERENCES schedule(schedule_id) ON DELETE CASCADE
 );
 
 CREATE TABLE hour (
@@ -41,7 +41,7 @@ CREATE TABLE hour (
 	hour_value INT NOT NULL,
 	task_id INT NOT NULL,
 	day_id INT NOT NULL,
-	FOREIGN KEY (task_id) REFERENCES task(task_id),
-	FOREIGN KEY (day_id) REFERENCES days(day_id),
+	FOREIGN KEY (task_id) REFERENCES task(task_id) ON DELETE CASCADE,
+	FOREIGN KEY (day_id) REFERENCES days(day_id) ON DELETE CASCADE,
 	CHECK (hour_value BETWEEN 0 AND 24)
 );
