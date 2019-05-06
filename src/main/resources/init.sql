@@ -1,7 +1,7 @@
 DROP TABLE IF EXISTS users CASCADE;
 DROP TABLE IF EXISTS schedule CASCADE;
 DROP TABLE IF EXISTS days CASCADE;
-DROP TABLE IF EXISTS slot CASCADE;
+DROP TABLE IF EXISTS hour CASCADE;
 DROP TABLE IF EXISTS task CASCADE;
 
 CREATE TABLE users (
@@ -36,12 +36,12 @@ CREATE TABLE task (
 	FOREIGN KEY (schedule_id) REFERENCES schedule(schedule_id)
 );
 
-CREATE TABLE slot (
-	slot_id SERIAL NOT NULL PRIMARY KEY,
-	slot_value INT NOT NULL,
+CREATE TABLE hour (
+	hour_id SERIAL NOT NULL PRIMARY KEY,
+	hour_value INT NOT NULL,
 	task_id INT NOT NULL,
 	day_id INT NOT NULL,
 	FOREIGN KEY (task_id) REFERENCES task(task_id),
 	FOREIGN KEY (day_id) REFERENCES days(day_id),
-	CHECK (slot_value BETWEEN 0 AND 24)
+	CHECK (hour_value BETWEEN 0 AND 24)
 );
