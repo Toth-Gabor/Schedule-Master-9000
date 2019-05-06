@@ -70,6 +70,15 @@ public class DatabaseHourDao extends AbstractDao implements HourDao {
         }
     }
 
+    @Override
+    public void delete(Hour hour) throws SQLException {
+        String sql = "DELETE FROM hour WHERE hour_id = ?";
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setInt(1, hour.getDayId());
+            statement.execute();
+        }
+    }
+
     private Hour fetchHour(ResultSet resultSet) throws SQLException {
         int id = resultSet.getInt("hour_id");
         int hourValue = resultSet.getInt("hour_value");
