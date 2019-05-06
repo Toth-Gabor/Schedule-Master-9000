@@ -53,6 +53,15 @@ public class DatabaseDayDao extends AbstractDao implements DayDao {
         }
     }
     
+    @Override
+    public void delete(Day day) throws SQLException {
+        String sql = "DELETE FROM days WHERE day_id=?";
+        try (PreparedStatement statement = connection.prepareStatement(sql)){
+            statement.setInt(1, day.getId());
+            statement.execute();
+        }
+    }
+    
     private Day fetchDay(ResultSet resultSet) throws SQLException {
         int id = resultSet.getInt("day_id");
         String name = resultSet.getString("day_name");
