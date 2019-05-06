@@ -33,7 +33,7 @@ CREATE TABLE task (
 	task_name TEXT NOT NULL,
 	task_content TEXT NOT NULL,
 	schedule_id INT NOT NULL,
-	FOREIGN KEY (schedule_id) REFERENCES schedule(schedule_id) ON DELETE CASCADE
+	FOREIGN KEY (schedule_id) REFERENCES schedule(schedule_id)
 );
 
 CREATE TABLE hour (
