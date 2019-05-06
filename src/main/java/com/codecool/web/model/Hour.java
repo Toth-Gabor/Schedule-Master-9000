@@ -1,20 +1,20 @@
 package com.codecool.web.model;
 
-public class Slot extends AbstractModel {
+public class Hour extends AbstractModel {
     
-    private int slotValue;
+    private int hourValue;
     private int taskId;
     private int dayId;
     
-    public Slot(int id, int slotValue, int taskId, int dayId) {
+    public Hour(int id, int hourValue, int taskId, int dayId) {
         super(id);
-        this.slotValue = slotValue;
+        this.hourValue = hourValue;
         this.taskId = taskId;
         this.dayId = dayId;
     }
     
-    public int getSlotValue() {
-        return slotValue;
+    public int getHourValue() {
+        return hourValue;
     }
     
     public int getTaskId() {
