@@ -10,4 +10,5 @@ public interface TaskDao {
     List<Task> findbyName(String name) throws SQLException;
     List<Task> findbyContent(String content) throws SQLException;
     List<Task> findbyScheduleId(int scheduleId) throws SQLException;
+    void delete(Task task) throws SQLException;
 }
