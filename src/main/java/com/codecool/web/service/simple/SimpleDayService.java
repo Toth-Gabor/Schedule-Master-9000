@@ -7,6 +7,7 @@ import com.codecool.web.service.exception.ServiceException;
 
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Objects;
 
 public class SimpleDayService implements DayService {
     
@@ -49,8 +50,12 @@ public class SimpleDayService implements DayService {
     }
     
     @Override
-    public void delete(Day day) throws SQLException {
-    
+    public void delete(Object o) throws SQLException, ServiceException {
+        if (o instanceof Day){
+            dayDao.delete((Day)o);
+        } else {
+            throw new ServiceException("Not type of day");
+        }
     }
     
     @Override
@@ -62,11 +67,14 @@ public class SimpleDayService implements DayService {
         } catch (IllegalArgumentException ex) {
             throw new ServiceException(ex.getMessage());
         }
-    
     }
     
     @Override
-    public void update(Day day, String name) throws SQLException {
-    
+    public void update(Object o, String name) throws SQLException, ServiceException {
+        if (o instanceof Day){
+            dayDao.update((Day)o, name);
+        } else {
+            throw new ServiceException("Not type of day");
+        }
     }
 }
