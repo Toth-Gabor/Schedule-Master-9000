@@ -61,9 +61,9 @@ public final class DatabaseUserDao extends AbstractDao implements UserDao {
         String sql = "INSERT INTO users(username, email, user_password, administrator) VALUES(?,?,?,?);";
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setString(1, username);
-            statement.setString(1, email);
-            statement.setString(1, pw);
-            statement.setBoolean(1, admin);
+            statement.setString(2, email);
+            statement.setString(3, pw);
+            statement.setBoolean(4, admin);
             statement.execute();
 
         }
