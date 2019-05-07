@@ -3,6 +3,8 @@ DROP TABLE IF EXISTS schedule CASCADE;
 DROP TABLE IF EXISTS days CASCADE;
 DROP TABLE IF EXISTS hour CASCADE;
 DROP TABLE IF EXISTS task CASCADE;
+DROP FUNCTION IF EXISTS count_days();
+DROP FUNCTION IF EXISTS count_hours;
 
 CREATE TABLE users (
 	user_id SERIAL NOT NULL PRIMARY KEY,
@@ -45,3 +47,64 @@ CREATE TABLE hour (
 	FOREIGN KEY (day_id) REFERENCES days(day_id),
 	CHECK (hour_value BETWEEN 0 AND 24)
 );
+
+CREATE OR REPLACE FUNCTION count_days() RETURNS TRIGGER AS '
+DECLARE 
+	day_counter INTEGER := 0;
+	need_to_check BOOLEAN := false;
+	
+BEGIN
+	IF TG_OP = ''INSERT'' THEN
+        need_to_check := true;
+    END IF;
+    IF TG_OP = ''UPDATE'' THEN
+        IF (NEW.schedule_id != OLD.schedule_id) THEN
+            need_to_check := true;
+        END IF;
+    END IF;
+    IF need_to_check THEN
+        SELECT INTO day_counter COUNT(*)
+        FROM days
+        WHERE OLD.schedule_id = NEW.schedule_id;
+        IF count_days >= 7 THEN
+            RAISE EXCEPTION ''Cannot create more than 7 days for a schedule!'';
+        END IF;
+    END IF;
+    RETURN NEW;
+END;
+' LANGUAGE plpgsql;
+
+CREATE TRIGGER count_days
+    BEFORE INSERT OR UPDATE ON days
+    FOR EACH ROW EXECUTE PROCEDURE count_days();
+	
+
+CREATE OR REPLACE FUNCTION count_hours() RETURNS TRIGGER AS '
+DECLARE
+	hour_counter INTEGER := 0;
+	need_to_check BOOLEAN := false;
+
+BEGIN
+	IF TG_OP = ''INSERT'' THEN
+        need_to_check := true;
+    END IF;
+    IF TG_OP = ''UPDATE'' THEN
+        IF (NEW.day_id != OLD.day_id) THEN
+            need_to_check := true;
+        END IF;
+    END IF;
+    IF need_to_check THEN
+        SELECT INTO hour_counter COUNT(*)
+        FROM hour
+        WHERE OLD.day_id = NEW.day_id;
+        IF count_hour >= 24 THEN
+            RAISE EXCEPTION ''Cannot create more than 24 task for a day!'';
+        END IF;
+    END IF;
+    RETURN NEW;
+END;
+' LANGUAGE plpgsql;
+
+CREATE TRIGGER count_hours
+    BEFORE INSERT OR UPDATE ON hour
+    FOR EACH ROW EXECUTE PROCEDURE count_hours();
