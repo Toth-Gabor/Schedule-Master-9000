@@ -79,6 +79,18 @@ public class DatabaseHourDao extends AbstractDao implements HourDao {
         }
     }
 
+    @Override
+    public void add(int hourValue, int taskId, int dayId) throws SQLException {
+        String sql = "INSERT INTO hour(hour_value, task_id, day_id) VALUES(?,?,?);";
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setInt(1, hourValue);
+            statement.setInt(1, taskId);
+            statement.setInt(1, dayId);
+            statement.execute();
+
+        }
+    }
+
     private Hour fetchHour(ResultSet resultSet) throws SQLException {
         int id = resultSet.getInt("hour_id");
         int hourValue = resultSet.getInt("hour_value");
