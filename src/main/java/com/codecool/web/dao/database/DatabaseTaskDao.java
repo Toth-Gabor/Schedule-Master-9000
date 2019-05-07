@@ -68,7 +68,7 @@ public class DatabaseTaskDao extends AbstractDao implements TaskDao {
     }
     
     @Override
-    public void add(String name, String content, int scheduleId) throws SQLException {
+    public void add(String name, String content) throws SQLException {
         String sql = "INSERT INTO task (task_name, task_content) VALUES (?, ?)";
         try (PreparedStatement statement = connection.prepareStatement(sql)){
             statement.setString(1, name);
