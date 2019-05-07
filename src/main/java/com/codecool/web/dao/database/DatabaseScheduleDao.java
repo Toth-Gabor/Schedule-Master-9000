@@ -77,10 +77,10 @@ public class DatabaseScheduleDao extends AbstractDao implements ScheduleDao {
 
     @Override
     public void update(Schedule schedule, boolean isPublished) throws SQLException {
-        String sql = "UPDATE schedule SET schedule_published = ? WHERE schedule_published = ?";
+        String sql = "UPDATE schedule SET schedule_published = ? WHERE schedule_id = ?";
         try (PreparedStatement statement = connection.prepareStatement(sql)){
             statement.setBoolean(1, isPublished);
-            statement.setBoolean(1, schedule.isPublished());
+            statement.setInt(1, schedule.getId());
             statement.execute();
         }
     }

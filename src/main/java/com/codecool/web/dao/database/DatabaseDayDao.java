@@ -74,10 +74,10 @@ public class DatabaseDayDao extends AbstractDao implements DayDao {
 
     @Override
     public void update(Day day, String name) throws SQLException {
-        String sql = "UPDATE days SET day_name = ? WHERE day_name = ?";
+        String sql = "UPDATE days SET day_name = ? WHERE day_id = ?";
         try (PreparedStatement statement = connection.prepareStatement(sql)){
             statement.setString(1, name);
-            statement.setString(2, day.getName());
+            statement.setInt(2, day.getId());
             statement.execute();
         }
     }
