@@ -56,6 +56,19 @@ public final class DatabaseUserDao extends AbstractDao implements UserDao {
         return null;
     }
 
+    @Override
+    public void add(String username, String email, String pw, boolean admin) throws SQLException {
+        String sql = "INSERT INTO users(username, email, user_password, administrator) VALUES(?,?,?,?);";
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setString(1, username);
+            statement.setString(1, email);
+            statement.setString(1, pw);
+            statement.setBoolean(1, admin);
+            statement.execute();
+
+        }
+    }
+
     private User fetchUser(ResultSet resultSet) throws SQLException {
         int id = resultSet.getInt("id");
         String name = resultSet.getString("user_name");
