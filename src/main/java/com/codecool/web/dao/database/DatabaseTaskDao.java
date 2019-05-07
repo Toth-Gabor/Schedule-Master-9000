@@ -57,20 +57,6 @@ public class DatabaseTaskDao extends AbstractDao implements TaskDao {
         }
     }
 
-    @Override
-    public List<Task> findbyScheduleId(int scheduleId) throws SQLException {
-        String sql = "SELECT task_id, task_name, task_content, schedule_id FROM task WHERE schedule_id = ?";
-        try (PreparedStatement statement = connection.prepareStatement(sql)) {
-            statement.setInt(1, scheduleId);
-            List<Task> tasks = new ArrayList<>();
-            try (ResultSet resultSet = statement.executeQuery()) {
-                while (resultSet.next()) {
-                    tasks.add(fetchTask(resultSet));
-                }
-                return tasks;
-            }
-        }
-    }
     
     @Override
     public void delete(Task task) throws SQLException {
