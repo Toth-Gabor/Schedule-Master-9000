@@ -32,7 +32,7 @@ CREATE TABLE task (
 	task_id SERIAL NOT NULL PRIMARY KEY,
 	task_name TEXT NOT NULL,
 	task_content TEXT NOT NULL,
-	schedule_id INT NOT NULL,
+	schedule_id INT,
 	FOREIGN KEY (schedule_id) REFERENCES schedule(schedule_id) ON DELETE CASCADE
 );
 
