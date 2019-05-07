@@ -62,6 +62,16 @@ public class DatabaseDayDao extends AbstractDao implements DayDao {
         }
     }
     
+    @Override
+    public void add(String name, int scheduleId) throws SQLException {
+        String sql = "INSERT INTO days (day_name, schedule_id) VALUES(?, ?)";
+        try (PreparedStatement statement = connection.prepareStatement(sql)){
+            statement.setString(1, name);
+            statement.setInt(2, scheduleId);
+            statement.execute();
+        }
+    }
+    
     private Day fetchDay(ResultSet resultSet) throws SQLException {
         int id = resultSet.getInt("day_id");
         String name = resultSet.getString("day_name");
