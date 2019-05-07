@@ -64,7 +64,17 @@ public class DatabaseScheduleDao extends AbstractDao implements ScheduleDao {
             statement.execute();
         }
     }
-    
+
+    @Override
+    public void add(boolean isPublished, int userId) throws SQLException {
+        String sql = "INSERT INTO schedule(schedule_published, user_id) VALUES(?,?);";
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setBoolean(1, isPublished);
+            statement.setInt(1, userId);
+            statement.execute();
+        }
+    }
+
     private Schedule fetchSchedule(ResultSet resultSet) throws SQLException {
         int id = resultSet.getInt("schedule_id");
         boolean isPublished = resultSet.getBoolean("schedule_published");

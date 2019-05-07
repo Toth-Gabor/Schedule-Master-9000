@@ -10,4 +10,5 @@ public interface ScheduleDao {
     List<Schedule> findbyIsPublished(boolean isPublished) throws SQLException;
     List<Schedule> findbyUserId(int userId) throws SQLException;
     void delete(Schedule schedule) throws SQLException;
+    void add(boolean isPublished, int userId) throws SQLException;
 }
