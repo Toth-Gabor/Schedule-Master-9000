@@ -70,7 +70,7 @@ public class DatabaseScheduleDao extends AbstractDao implements ScheduleDao {
         String sql = "INSERT INTO schedule(schedule_published, user_id) VALUES(?,?);";
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setBoolean(1, isPublished);
-            statement.setInt(1, userId);
+            statement.setInt(2, userId);
             statement.execute();
         }
     }
@@ -80,7 +80,7 @@ public class DatabaseScheduleDao extends AbstractDao implements ScheduleDao {
         String sql = "UPDATE schedule SET schedule_published = ? WHERE schedule_id = ?";
         try (PreparedStatement statement = connection.prepareStatement(sql)){
             statement.setBoolean(1, isPublished);
-            statement.setInt(1, schedule.getId());
+            statement.setInt(2, schedule.getId());
             statement.execute();
         }
     }
