@@ -69,6 +69,17 @@ public final class DatabaseUserDao extends AbstractDao implements UserDao {
         }
     }
 
+    @Override
+    public void update(User user, String name, String pw) throws SQLException {
+        String sql = "UPDATE users SET username = ?, user_password = ? WHERE user_id = ?;";
+        try (PreparedStatement statement = connection.prepareStatement(sql)){
+            statement.setString(1, name);
+            statement.setString(2, pw);
+            statement.setInt(3, user.getId());;
+            statement.execute();
+        }
+    }
+
     private User fetchUser(ResultSet resultSet) throws SQLException {
         int id = resultSet.getInt("id");
         String name = resultSet.getString("user_name");
