@@ -32,19 +32,23 @@ CREATE TABLE task (
 	task_id SERIAL NOT NULL PRIMARY KEY,
 	task_name TEXT NOT NULL,
 	task_content TEXT NOT NULL,
-	schedule_id INT,
-	FOREIGN KEY (schedule_id) REFERENCES schedule(schedule_id) ON DELETE CASCADE
 );
 
 CREATE TABLE hour (
 	hour_id SERIAL NOT NULL PRIMARY KEY,
 	hour_value INT NOT NULL,
-	task_id INT NOT NULL,
 	day_id INT NOT NULL,
-	FOREIGN KEY (task_id) REFERENCES task(task_id) ON DELETE CASCADE,
 	FOREIGN KEY (day_id) REFERENCES days(day_id) ON DELETE CASCADE,
 	CHECK (hour_value BETWEEN 0 AND 24)
 );
+
+CREATE TABLE hour_task (
+    hour_id INT,
+    task_id INT,
+    FOREIGN KEY (hour_id) REFERENCES hour(hour_id),
+    FOREIGN KEY (task_id) REFERENCES task(task_id)
+);
+
 
 INSERT INTO users (username, email, user_password, administrator) VALUES
 ('Péter', 'user1@user1', 'user1', TRUE), -- 1
