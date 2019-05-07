@@ -16,7 +16,7 @@ public class DatabaseTaskDao extends AbstractDao implements TaskDao {
 
     @Override
     public List<Task> findAll() throws SQLException {
-        String sql = "SELECT task_id, task_name, task_content, schedule_id FROM task";
+        String sql = "SELECT task_id, task_name, task_content FROM task";
         try (Statement statement = connection.createStatement();
              ResultSet resultSet = statement.executeQuery(sql)) {
             List<Task> tasks = new ArrayList<>();
@@ -29,7 +29,7 @@ public class DatabaseTaskDao extends AbstractDao implements TaskDao {
 
     @Override
     public List<Task> findbyName(String name) throws SQLException {
-        String sql = "SELECT task_id, task_name, task_content, schedule_id FROM task WHERE task_name = ?";
+        String sql = "SELECT task_id, task_name, task_content FROM task WHERE task_name = ?";
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setString(1, name);
             List<Task> tasks = new ArrayList<>();
@@ -44,7 +44,7 @@ public class DatabaseTaskDao extends AbstractDao implements TaskDao {
 
     @Override
     public List<Task> findbyContent(String content) throws SQLException {
-        String sql = "SELECT task_id, task_name, task_content, schedule_id FROM task WHERE task_content = ?";
+        String sql = "SELECT task_id, task_name, task_content FROM task WHERE task_content = ?";
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setString(1, content);
             List<Task> tasks = new ArrayList<>();
@@ -69,11 +69,10 @@ public class DatabaseTaskDao extends AbstractDao implements TaskDao {
     
     @Override
     public void add(String name, String content, int scheduleId) throws SQLException {
-        String sql = "INSERT INTO task (task_name, task_content, schedule_id) VALUES (?, ?, ?)";
+        String sql = "INSERT INTO task (task_name, task_content) VALUES (?, ?)";
         try (PreparedStatement statement = connection.prepareStatement(sql)){
             statement.setString(1, name);
             statement.setString(2, content);
-            statement.setInt(3, scheduleId);
             statement.execute();
         }
     }
@@ -92,7 +91,6 @@ public class DatabaseTaskDao extends AbstractDao implements TaskDao {
         int id = resultSet.getInt("task_id");
         String name = resultSet.getString("task_name");
         String content = resultSet.getString("task_content");
-        int scheduleId = resultSet.getInt("schedule_id");
-        return new Task(id, name, content, scheduleId);
+        return new Task(id, name, content);
     }
 }
