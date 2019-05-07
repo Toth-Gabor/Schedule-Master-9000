@@ -55,7 +55,12 @@ public class SimpleHourService implements HourService {
     }
 
     @Override
-    public void delete(Hour hour) throws SQLException {
+    public void delete(Object object) throws SQLException, ServiceException {
+        if (object instanceof Hour){
+            hourDao.delete((Hour)object);
+        }else{
+            throw new ServiceException("Not type a of schedule");
+        }
 
     }
 
@@ -72,7 +77,16 @@ public class SimpleHourService implements HourService {
     }
 
     @Override
-    public void update(Hour hour, String hourValue) throws SQLException {
+    public void update(Object object, String hourValue) throws SQLException, ServiceException {
+        if (object instanceof Hour){
+            try{
+                hourDao.update((Hour) object, Integer.parseInt(hourValue));
+            }catch (NumberFormatException ex) {
+                throw new ServiceException("Hour value must be an integer");
+            } catch (IllegalArgumentException ex) {
+                throw new ServiceException(ex.getMessage());
+            }
+        }
 
     }
 
