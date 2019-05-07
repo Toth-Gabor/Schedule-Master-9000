@@ -2,11 +2,9 @@ package com.codecool.web.dao.database;
 
 import com.codecool.web.dao.DayDao;
 import com.codecool.web.model.Day;
+import com.codecool.web.model.Hour;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,7 +13,21 @@ public class DatabaseDayDao extends AbstractDao implements DayDao {
     DatabaseDayDao(Connection connection) {
         super(connection);
     }
-    
+
+    @Override
+    public List<Day> findAll() throws SQLException {
+        String sql = "Select day_id, day_name, schedule_id from days";
+        try (Statement statement = connection.createStatement();
+             ResultSet resultSet = statement.executeQuery(sql)) {
+            List<Day> days = new ArrayList<>();
+            while (resultSet.next()) {
+                days.add(fetchDay(resultSet));
+            }
+            return days;
+        }
+
+    }
+
     @Override
     public Day findById(int id) throws SQLException {
         String sql = "Select day_id, day_name, schedule_id from days where day_id=?";
