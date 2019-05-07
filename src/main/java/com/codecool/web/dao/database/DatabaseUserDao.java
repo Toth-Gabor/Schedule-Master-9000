@@ -12,7 +12,8 @@ public final class DatabaseUserDao extends AbstractDao implements UserDao {
     public DatabaseUserDao(Connection connection) {
         super(connection);
     }
-
+    
+    @Override
     public List<User> findAll() throws SQLException {
         String sql = "SELECT id, user_name, administrator, email, user_password FROM users";
         try (Statement statement = connection.createStatement();
@@ -25,6 +26,7 @@ public final class DatabaseUserDao extends AbstractDao implements UserDao {
         }
     }
     
+    @Override
     public List<User> findAllAdmin(boolean admin) throws SQLException {
         String sql = "SELECT id, user_name, administrator, email, user_password FROM users where administrator =?";
         try (PreparedStatement statement = connection.prepareStatement(sql)){

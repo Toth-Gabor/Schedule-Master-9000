@@ -13,7 +13,8 @@ public class DatabaseScheduleDao extends AbstractDao implements ScheduleDao {
     DatabaseScheduleDao(Connection connection) {
         super(connection);
     }
-
+    
+    @Override
     public List<Schedule> findAll() throws SQLException {
         String sql = "SELECT schedule_id, schedule_published, user_id FROM schedule";
         try (Statement statement = connection.createStatement();

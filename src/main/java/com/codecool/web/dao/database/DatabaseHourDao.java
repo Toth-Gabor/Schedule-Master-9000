@@ -12,7 +12,8 @@ public class DatabaseHourDao extends AbstractDao implements HourDao {
     DatabaseHourDao(Connection connection) {
         super(connection);
     }
-
+    
+    @Override
     public List<Hour> findAll() throws SQLException {
         String sql = "SELECT hour_id, hour_value, task_id, day_id FROM hour";
         try (Statement statement = connection.createStatement();
