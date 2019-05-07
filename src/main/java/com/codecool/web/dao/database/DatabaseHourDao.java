@@ -90,7 +90,17 @@ public class DatabaseHourDao extends AbstractDao implements HourDao {
 
         }
     }
-
+    
+    @Override
+    public void update(Hour hour,int hourValue) throws SQLException {
+        String sql = "UPDATE days SET hour_value = ? WHERE hour_id = ?";
+        try (PreparedStatement statement = connection.prepareStatement(sql)){
+            statement.setInt(1, hourValue);
+            statement.setInt(2, hour.getId());
+            statement.execute();
+        }
+    }
+    
     private Hour fetchHour(ResultSet resultSet) throws SQLException {
         int id = resultSet.getInt("hour_id");
         int hourValue = resultSet.getInt("hour_value");
