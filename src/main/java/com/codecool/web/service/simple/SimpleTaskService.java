@@ -31,7 +31,18 @@ public class SimpleTaskService implements TaskService {
         return taskDao.findbyContent(content);
     }
 
-    
+    @Override
+    public List<Task> findbyScheduleId(String scheduleId) throws SQLException, ServiceException {
+        try {
+            return taskDao.findbyScheduleId(Integer.parseInt(scheduleId));
+        }catch (NumberFormatException ex) {
+            throw new ServiceException("User ID must be an integer");
+        } catch (IllegalArgumentException ex) {
+            throw new ServiceException(ex.getMessage());
+        }
+    }
+
+
     @Override
     public void delete(Object o) throws SQLException, ServiceException {
         if (o instanceof Task){
