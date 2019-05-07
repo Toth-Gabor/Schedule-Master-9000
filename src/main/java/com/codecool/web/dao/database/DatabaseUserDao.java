@@ -12,7 +12,8 @@ public final class DatabaseUserDao extends AbstractDao implements UserDao {
     public DatabaseUserDao(Connection connection) {
         super(connection);
     }
-
+    
+    @Override
     public List<User> findAll() throws SQLException {
         String sql = "SELECT id, user_name, administrator, email, user_password FROM users";
         try (Statement statement = connection.createStatement();
@@ -25,6 +26,7 @@ public final class DatabaseUserDao extends AbstractDao implements UserDao {
         }
     }
     
+    @Override
     public List<User> findAllAdmin(boolean admin) throws SQLException {
         String sql = "SELECT id, user_name, administrator, email, user_password FROM users where administrator =?";
         try (PreparedStatement statement = connection.prepareStatement(sql)){
@@ -54,6 +56,30 @@ public final class DatabaseUserDao extends AbstractDao implements UserDao {
             }
         }
         return null;
+    }
+
+    @Override
+    public void add(String username, String email, String pw, boolean admin) throws SQLException {
+        String sql = "INSERT INTO users(username, email, user_password, administrator) VALUES(?,?,?,?);";
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setString(1, username);
+            statement.setString(2, email);
+            statement.setString(3, pw);
+            statement.setBoolean(4, admin);
+            statement.execute();
+
+        }
+    }
+
+    @Override
+    public void update(User user, String name, String pw) throws SQLException {
+        String sql = "UPDATE users SET username = ?, user_password = ? WHERE user_id = ?;";
+        try (PreparedStatement statement = connection.prepareStatement(sql)){
+            statement.setString(1, name);
+            statement.setString(2, pw);
+            statement.setInt(3, user.getId());;
+            statement.execute();
+        }
     }
 
     private User fetchUser(ResultSet resultSet) throws SQLException {

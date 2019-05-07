@@ -13,7 +13,8 @@ public class DatabaseScheduleDao extends AbstractDao implements ScheduleDao {
     DatabaseScheduleDao(Connection connection) {
         super(connection);
     }
-
+    
+    @Override
     public List<Schedule> findAll() throws SQLException {
         String sql = "SELECT schedule_id, schedule_published, user_id FROM schedule";
         try (Statement statement = connection.createStatement();
@@ -53,6 +54,35 @@ public class DatabaseScheduleDao extends AbstractDao implements ScheduleDao {
                 }
                 return schedules;
             }
+        }
+    }
+    
+    @Override
+    public void delete(Schedule schedule) throws SQLException {
+        String sql = "DELETE FROM schedule WHERE schedule_id = ?";
+        try (PreparedStatement statement = connection.prepareStatement(sql)){
+            statement.setInt(1, schedule.getId());
+            statement.execute();
+        }
+    }
+
+    @Override
+    public void add(boolean isPublished, int userId) throws SQLException {
+        String sql = "INSERT INTO schedule(schedule_published, user_id) VALUES(?,?);";
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setBoolean(1, isPublished);
+            statement.setInt(2, userId);
+            statement.execute();
+        }
+    }
+
+    @Override
+    public void update(Schedule schedule, boolean isPublished) throws SQLException {
+        String sql = "UPDATE schedule SET schedule_published = ? WHERE schedule_id = ?";
+        try (PreparedStatement statement = connection.prepareStatement(sql)){
+            statement.setBoolean(1, isPublished);
+            statement.setInt(2, schedule.getId());
+            statement.execute();
         }
     }
 
