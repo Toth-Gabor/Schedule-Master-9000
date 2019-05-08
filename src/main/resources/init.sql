@@ -36,7 +36,7 @@ CREATE TABLE task (
 	task_name TEXT NOT NULL,
 	task_content TEXT NOT NULL,
 	user_id INT NOT NULL,
-	FOREIGN KEY (user_id) REFERENCES user(user_id) ON DELETE CASCADE
+	FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE
 
 );
 
@@ -76,14 +76,10 @@ INSERT INTO days (day_name, schedule_id) VALUES
 ('Wednesday', 3),('Thursday', 4),
 ('Wednesday', 5),('Wednesday', 6),('Friday', 7);
 
-INSERT INTO task (task_name, task_content) VALUES
-('First', 'Feed the birds'),('Second', 'Go to gym'),
-('Third', 'Cook something'),('Fourth', 'Write some code'),
-('Fifth', 'Do homework'),('Sixth', 'Do relax'),
-('Seventh', 'Do nothing'),('Eighth', 'Clean the room'),
-('Nineth', 'Paint the fence'),('Tenth', 'Buy food'),
-('Eleventh', 'Go to doctor'),('Twelfth', 'Wash car'),
-('Thirteenth', 'Watch tv'),('Fourteenth', 'Mow the lawn');
+INSERT INTO task (task_name, task_content, user_id) VALUES
+('First', 'Feed the birds',1),('Second', 'Go to gym',1),
+('Third', 'Cook something',2),('Fourth', 'Write some code',2),
+('Fifth', 'Do homework',3),('Sixth', 'Do relax',3);
 
 INSERT INTO hour (hour_value, day_id)
 VALUES (8,1),(9,1),(11,2);
