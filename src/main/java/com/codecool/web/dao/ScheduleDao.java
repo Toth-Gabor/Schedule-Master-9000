@@ -1,6 +1,7 @@
 package com.codecool.web.dao;
 
 import com.codecool.web.model.Schedule;
+import com.codecool.web.model.Task;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -13,5 +14,6 @@ public interface ScheduleDao {
     Schedule findById(int scheduleId) throws SQLException;
     void delete(Schedule schedule) throws SQLException;
     void add(boolean isPublished, int userId) throws SQLException;
+    void addTask(Task task, int scheduleId) throws SQLException;
     void update(Schedule schedule, boolean isPublished) throws SQLException;
 }
