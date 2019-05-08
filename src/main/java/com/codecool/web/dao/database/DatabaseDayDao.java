@@ -3,6 +3,7 @@ package com.codecool.web.dao.database;
 import com.codecool.web.dao.DayDao;
 import com.codecool.web.model.Day;
 import com.codecool.web.model.Hour;
+import com.codecool.web.model.Schedule;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -75,11 +76,11 @@ public class DatabaseDayDao extends AbstractDao implements DayDao {
     }
     
     @Override
-    public void add(String name, int scheduleId) throws SQLException {
+    public void add(String name, Schedule schedule) throws SQLException {
         String sql = "INSERT INTO days (day_name, schedule_id) VALUES(?, ?)";
         try (PreparedStatement statement = connection.prepareStatement(sql)){
             statement.setString(1, name);
-            statement.setInt(2, scheduleId);
+            statement.setInt(2, schedule.getId());
             statement.execute();
         }
     }
