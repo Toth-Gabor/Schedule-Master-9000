@@ -41,7 +41,18 @@ public class SchedulesServlet extends AbstractServlet {
     
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        super.doPost(req, resp);
+        try (Connection connection = getConnection(req.getServletContext())){
+            ScheduleDao scheduleDao = new DatabaseScheduleDao(connection);
+            ScheduleService scheduleService = new SimpleScheduleService(scheduleDao);
+            User user = (User) req.getSession().getAttribute("user");
+            boolean isPublished = (Boolean)req.getAttribute("schedule-published");
+            scheduleService.add(isPublished, user.getId());
+            
+        } catch (SQLException e) {
+            handleSqlError(resp, e);
+        } catch (ServiceException e) {
+            e.printStackTrace();
+        }
     }
     
     @Override

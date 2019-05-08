@@ -25,7 +25,6 @@ public class ScheduleServlet extends AbstractServlet{
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try (Connection connection = getConnection(req.getServletContext())){
             ScheduleDao scheduleDao = new DatabaseScheduleDao(connection);
-            Schedule schedule = scheduleDao.
         
         } catch (SQLException e) {
             handleSqlError(resp, e);
