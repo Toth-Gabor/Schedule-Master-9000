@@ -3,6 +3,7 @@ DROP TABLE IF EXISTS schedule CASCADE;
 DROP TABLE IF EXISTS days CASCADE;
 DROP TABLE IF EXISTS hour CASCADE;
 DROP TABLE IF EXISTS task CASCADE;
+DROP TABLE IF EXISTS hour_task CASCADE;
 DROP FUNCTION IF EXISTS count_days();
 DROP FUNCTION IF EXISTS count_hours;
 
@@ -81,8 +82,8 @@ INSERT INTO task (task_name, task_content) VALUES
 ('Eleventh', 'Go to doctor'),('Twelfth', 'Wash car'),
 ('Thirteenth', 'Watch tv'),('Fourteenth', 'Mow the lawn');
 
-INSERT INTO hour (hour_value, task_id, day_id)
-VALUES (8, 1, 1),(9, 1, 1),(11, 2, 2);
+INSERT INTO hour (hour_value, day_id)
+VALUES (8,1),(9,1),(11,2);
 
 CREATE OR REPLACE FUNCTION count_days() RETURNS TRIGGER AS '
 DECLARE
