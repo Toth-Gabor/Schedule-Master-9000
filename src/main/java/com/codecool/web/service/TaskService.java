@@ -12,6 +12,7 @@ public interface TaskService {
     List<Task> getbyName(String name) throws SQLException;
     List<Task> getbyContent(String content) throws SQLException;
     List<Task> findbyScheduleId(String scheduleId) throws SQLException, ServiceException;
+    Task getbyId(int taskId) throws SQLException;
     void delete(Object o) throws SQLException, ServiceException;
     void add(String name, String content) throws SQLException, ServiceException;
     void update(Object o, String name, String content) throws SQLException, ServiceException;

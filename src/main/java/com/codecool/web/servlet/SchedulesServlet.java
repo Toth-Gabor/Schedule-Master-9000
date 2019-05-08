@@ -8,7 +8,6 @@ import com.codecool.web.service.ScheduleService;
 import com.codecool.web.service.exception.ServiceException;
 import com.codecool.web.service.simple.SimpleScheduleService;
 
-import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -37,31 +36,5 @@ public class SchedulesServlet extends AbstractServlet {
         } catch (ServiceException e) {
             e.printStackTrace();
         }
-    }
-    
-    @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        try (Connection connection = getConnection(req.getServletContext())){
-            ScheduleDao scheduleDao = new DatabaseScheduleDao(connection);
-            ScheduleService scheduleService = new SimpleScheduleService(scheduleDao);
-            User user = (User) req.getSession().getAttribute("user");
-            boolean isPublished = (Boolean)req.getAttribute("schedule-published");
-            scheduleService.add(isPublished, user.getId());
-            
-        } catch (SQLException e) {
-            handleSqlError(resp, e);
-        } catch (ServiceException e) {
-            e.printStackTrace();
-        }
-    }
-    
-    @Override
-    protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        super.doPut(req, resp);
-    }
-    
-    @Override
-    protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        super.doDelete(req, resp);
     }
 }

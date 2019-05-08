@@ -31,7 +31,12 @@ public class SimpleScheduleService implements ScheduleService {
     public List<Schedule> getbyUserId(int userId) throws SQLException {
         return scheduleDao.findbyUserId(userId);
     }
-
+    
+    @Override
+    public Schedule getbyId(int scheduleId) throws SQLException, ServiceException {
+        return scheduleDao.findById(scheduleId);
+    }
+    
     @Override
     public void delete(Object object) throws SQLException, ServiceException {
         if (object instanceof Schedule) {
@@ -53,7 +58,5 @@ public class SimpleScheduleService implements ScheduleService {
         } else {
             throw new ServiceException("Not type a of schedule");
         }
-
     }
-
 }

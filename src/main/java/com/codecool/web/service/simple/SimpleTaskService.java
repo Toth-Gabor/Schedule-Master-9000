@@ -42,6 +42,11 @@ public class SimpleTaskService implements TaskService {
         }
     }
 
+    @Override
+    public Task getbyId(int taskId) throws SQLException {
+        return taskDao.findbyId(taskId);
+    }
+
 
     @Override
     public void delete(Object o) throws SQLException, ServiceException {
