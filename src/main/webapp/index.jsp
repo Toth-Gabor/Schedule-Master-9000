@@ -70,7 +70,7 @@
                 <h2>Editing your schedule:</h2>
                 <h3>Select the visibility of your schedule:</h3>
                   <h3>Select the ID of the schedule, which you would like to delete:</h3>
-                  <input type="number" name="quantity" min="minValue" max="maxValue">
+                  <input type="number" name="schedule-id" min="minValue" max="maxValue">
                 <input type="radio" name="schedule-published" value="true">Public
                 <input type="radio" name="schedule-published" value="false">Private
                 <input type="submit" name="Submit" value="submit">
