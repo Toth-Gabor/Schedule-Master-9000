@@ -49,6 +49,7 @@
           </div>
             <div id="servlet-form-content">
               <form id="add-schedule-content" class="hidden content" action="index.html" method="post">
+                <h2>Adding a new schedule:</h2>
                 <h3>Select how long your schedule will be:</h3>
                 <select>
                   <option value="1">1</option>
@@ -73,7 +74,12 @@
                 <input type="submit" name="Submit" value="submit">
               </form>
               <form id="remove-schedule-content" class="hidden content" action="index.html" method="post">
-                
+                <form>
+                  <h2>Removing a schedule:</h2>
+                  <h3>Select the ID of the schedule, which you would like to delete:</h3>
+                  <input type="number" name="quantity" min="minValue" max="maxValue">
+                  <input type="submit" name="Submit" value="submit">
+                </form>
               </form>
               <form id="add-task-content" class="hidden content" action="index.html" method="post">
 
