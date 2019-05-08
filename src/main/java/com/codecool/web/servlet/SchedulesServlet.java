@@ -75,6 +75,17 @@ public class SchedulesServlet extends AbstractServlet {
     
     @Override
     protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        super.doDelete(req, resp);
+        try (Connection connection = getConnection(req.getServletContext())){
+            ScheduleDao scheduleDao = new DatabaseScheduleDao(connection);
+            ScheduleService scheduleService = new SimpleScheduleService(scheduleDao);
+            int scheduleId = (Integer) req.getAttribute("schedule-id");
+            Schedule schedule = scheduleService.getbyId(scheduleId);
+            scheduleService.delete(schedule);
+            
+        } catch (SQLException e) {
+            handleSqlError(resp, e);
+        } catch (ServiceException e) {
+            e.printStackTrace();
+        }
     }
 }
