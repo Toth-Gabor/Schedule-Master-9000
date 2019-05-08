@@ -140,3 +140,32 @@ END;
 CREATE TRIGGER count_hours
     BEFORE INSERT OR UPDATE ON hour
     FOR EACH ROW EXECUTE PROCEDURE count_hours();
+
+CREATE OR REPLACE FUNCTION hour_check() RETURNS trigger AS '
+		DECLARE
+		    need_to_check BOOLEAN := false;
+			result_hour INTEGER := 0;
+		BEGIN
+		    IF TG_OP = ''INSERT'' THEN
+		        need_to_check := true;
+		    END IF;
+		    IF TG_OP = ''UPDATE'' THEN
+		        IF (NEW.day_id != OLD.day_id) THEN
+		            need_to_check := true;
+		        END IF;
+		    END IF;
+		    IF need_to_check THEN
+		        Select hour into result_hour  FROM hour
+		        	WHERE day_id = NEW.day_id;
+		        IF result_hour = NEW.hour THEN
+		            RAISE EXCEPTION ''There is already a task scheduled for this time!'';
+		        END IF;
+		    END IF;
+		    RETURN NEW;
+		END;
+		' LANGUAGE plpgsql;
+
+
+		CREATE TRIGGER hour_check
+		    BEFORE INSERT OR UPDATE ON hour
+		    FOR EACH ROW EXECUTE PROCEDURE hour_check();
