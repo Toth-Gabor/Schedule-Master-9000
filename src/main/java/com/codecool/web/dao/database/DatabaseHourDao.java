@@ -81,12 +81,11 @@ public class DatabaseHourDao extends AbstractDao implements HourDao {
     }
 
     @Override
-    public void add(int hourValue, int taskId, int dayId) throws SQLException {
-        String sql = "INSERT INTO hour(hour_value, task_id, day_id) VALUES(?,?,?);";
+    public void add(int hourValue, int dayId) throws SQLException {
+        String sql = "INSERT INTO hour(hour_value, task_id, day_id) VALUES(?,?);";
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setInt(1, hourValue);
-            statement.setInt(2, taskId);
-            statement.setInt(3, dayId);
+            statement.setInt(2, dayId);
             statement.execute();
 
         }
