@@ -19,6 +19,8 @@ import java.sql.SQLException;
 @WebServlet("/protected/task")
 public class TaskServlet extends AbstractServlet {
 
+    private static final String SQL_ERROR_CODE_UNIQUE_VIOLATION = "23505";
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try (Connection connection = getConnection(req.getServletContext())){
