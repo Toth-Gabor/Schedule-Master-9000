@@ -47,6 +47,11 @@ public class SimpleTaskService implements TaskService {
         return taskDao.findbyId(taskId);
     }
 
+    @Override
+    public List<Task> getbyUserId(int userId) throws SQLException {
+        return taskDao.findbyUserId(userId);
+    }
+
 
     @Override
     public void delete(Object o) throws SQLException, ServiceException {
@@ -58,9 +63,9 @@ public class SimpleTaskService implements TaskService {
     }
     
     @Override
-    public void add(String name, String content) throws SQLException, ServiceException {
+    public void add(String name, String content, int userId) throws SQLException, ServiceException {
         try {
-            taskDao.add(name, content);
+            taskDao.add(name, content, userId);
         }  catch (NumberFormatException ex) {
             throw new ServiceException("Schedule id must be an integer");
         } catch (IllegalArgumentException ex) {
