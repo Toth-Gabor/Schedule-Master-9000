@@ -43,7 +43,8 @@ public class TaskServlet extends AbstractServlet {
             TaskService taskService = new SimpleTaskService(taskDao);
             String taskName = (String) req.getAttribute("task-name");
             String taskContent = (String) req.getAttribute("task-content");
-            taskService.add(taskName, taskContent);
+            User user = (User) req.getSession().getAttribute("user");
+            taskService.add(taskName, taskContent, user.getId());
 
         } catch (SQLException e) {
             handleSqlError(resp, e);

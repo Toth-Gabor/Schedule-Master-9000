@@ -2,6 +2,7 @@ package com.codecool.web.dao.database;
 
 import com.codecool.web.dao.ScheduleDao;
 import com.codecool.web.model.Schedule;
+import com.codecool.web.model.Task;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -91,7 +92,12 @@ public class DatabaseScheduleDao extends AbstractDao implements ScheduleDao {
             statement.execute();
         }
     }
-
+    
+    @Override
+    public void addTask(Task task, int scheduleId) throws SQLException {
+    
+    }
+    
     @Override
     public void update(Schedule schedule, boolean isPublished) throws SQLException {
         String sql = "UPDATE schedule SET schedule_published = ? WHERE schedule_id = ?";
