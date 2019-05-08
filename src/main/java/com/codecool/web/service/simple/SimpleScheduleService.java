@@ -34,9 +34,9 @@ public class SimpleScheduleService implements ScheduleService {
 
     @Override
     public void delete(Object object) throws SQLException, ServiceException {
-        if (object instanceof Schedule){
+        if (object instanceof Schedule) {
             scheduleDao.delete((Schedule) object);
-        }else{
+        } else {
             throw new ServiceException("Not type a of schedule");
         }
     }
@@ -47,7 +47,12 @@ public class SimpleScheduleService implements ScheduleService {
     }
 
     @Override
-    public void update(Object object, boolean isPublished) throws SQLException {
+    public void update(Object object, boolean isPublished) throws SQLException, ServiceException {
+        if (object instanceof Schedule) {
+            scheduleDao.update((Schedule) object, isPublished);
+        } else {
+            throw new ServiceException("Not type a of schedule");
+        }
 
     }
 
