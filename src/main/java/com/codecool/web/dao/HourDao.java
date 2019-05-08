@@ -12,6 +12,6 @@ public interface HourDao {
     List<Hour> findbyTaskId(int taskId) throws SQLException;
     List<Hour> findbyDayId(int taskId) throws SQLException;
     void delete(Hour hour) throws SQLException;
-    void add(int hourValue, int taskId, int dayId) throws SQLException;
+    void add(int hourValue, int dayId) throws SQLException;
     void update(Hour hour, int hourValue) throws SQLException;
 }
