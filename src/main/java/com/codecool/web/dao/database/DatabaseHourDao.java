@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DatabaseHourDao extends AbstractDao implements HourDao {
-    DatabaseHourDao(Connection connection) {
+    public DatabaseHourDao(Connection connection) {
         super(connection);
     }
     

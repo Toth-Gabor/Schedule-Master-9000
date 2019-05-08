@@ -9,8 +9,8 @@ import java.util.List;
 public interface ScheduleService {
     List<Schedule> getAll() throws SQLException;
     List<Schedule> getbyIsPublished(boolean isPublished) throws SQLException;
-    List<Schedule> getbyUserId(String userId) throws SQLException, ServiceException;
+    List<Schedule> getbyUserId(int userId) throws SQLException, ServiceException;
     void delete(Object object) throws SQLException, ServiceException;
-    void add(boolean isPublished, String userId) throws SQLException, ServiceException;
+    void add(boolean isPublished, int userId) throws SQLException, ServiceException;
     void update(Object object, boolean isPublished) throws SQLException;
 }
