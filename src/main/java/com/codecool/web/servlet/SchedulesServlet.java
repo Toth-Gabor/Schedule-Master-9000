@@ -40,7 +40,7 @@ public class SchedulesServlet extends AbstractServlet {
     }
     
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         try (Connection connection = getConnection(req.getServletContext())){
             ScheduleDao scheduleDao = new DatabaseScheduleDao(connection);
             ScheduleService scheduleService = new SimpleScheduleService(scheduleDao);
@@ -57,7 +57,20 @@ public class SchedulesServlet extends AbstractServlet {
     
     @Override
     protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        super.doPut(req, resp);
+        try (Connection connection = getConnection(req.getServletContext())) {
+            ScheduleDao scheduleDao = new DatabaseScheduleDao(connection);
+            ScheduleService scheduleService = new SimpleScheduleService(scheduleDao);
+            int scheduleId = (Integer) req.getAttribute("schedule-id");
+            boolean isPublished = (Boolean)req.getAttribute("schedule-published");
+            
+            Schedule schedule = scheduleService.getbyId(scheduleId);
+            scheduleService.update(schedule, isPublished);
+    
+        } catch (SQLException e) {
+            handleSqlError(resp, e);
+        } catch (ServiceException e) {
+            e.printStackTrace();
+        }
     }
     
     @Override
