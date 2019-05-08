@@ -13,7 +13,8 @@ public interface ScheduleDao {
     List<Schedule> findbyUserId(int userId) throws SQLException;
     Schedule findById(int scheduleId) throws SQLException;
     void delete(Schedule schedule) throws SQLException;
-    void add(boolean isPublished, int userId) throws SQLException;
+    void add(boolean isPublished, int userId, int dayValue) throws SQLException;
     void addTask(Task task, int scheduleId) throws SQLException;
+    void generateBody(int dayValue) throws SQLException;
     void update(Schedule schedule, boolean isPublished) throws SQLException;
 }

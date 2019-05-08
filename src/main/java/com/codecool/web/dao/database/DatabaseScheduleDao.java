@@ -84,7 +84,7 @@ public class DatabaseScheduleDao extends AbstractDao implements ScheduleDao {
     }
 
     @Override
-    public void add(boolean isPublished, int userId) throws SQLException {
+    public void add(boolean isPublished, int userId, int dayValue) throws SQLException {
         String sql = "INSERT INTO schedule(schedule_published, user_id) VALUES(?,?);";
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setBoolean(1, isPublished);
@@ -93,9 +93,17 @@ public class DatabaseScheduleDao extends AbstractDao implements ScheduleDao {
         }
     }
     
+    
     @Override
     public void addTask(Task task, int scheduleId) throws SQLException {
+    }
     
+    @Override
+    public void generateBody(int dayValue) throws SQLException {
+        for (int i = 0; i < dayValue; i++) {
+            String;
+            
+        }
     }
     
     @Override
