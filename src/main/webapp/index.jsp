@@ -76,12 +76,10 @@
                 <input type="submit" name="Submit" value="submit">
               </form>
               <form id="remove-schedule-content" class="hidden content" action="index.html" method="post">
-                <form>
                   <h2>Removing a schedule:</h2>
                   <h3>Select the ID of the schedule, which you would like to delete:</h3>
                   <input type="number" name="schedule-id" min="minValue" max="maxValue">
                   <input type="submit" name="Submit" value="submit">
-                </form>
               </form>
               <form id="add-task-content" class="hidden content" action="index.html" method="post">
 
