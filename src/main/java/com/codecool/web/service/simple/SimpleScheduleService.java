@@ -28,14 +28,8 @@ public class SimpleScheduleService implements ScheduleService {
     }
 
     @Override
-    public List<Schedule> getbyUserId(String userId) throws SQLException, ServiceException {
-        try {
-            return scheduleDao.findbyUserId(Integer.parseInt(userId));
-        }catch (NumberFormatException ex) {
-            throw new ServiceException("User ID must be an integer");
-        } catch (IllegalArgumentException ex) {
-            throw new ServiceException(ex.getMessage());
-        }
+    public List<Schedule> getbyUserId(int userId) throws SQLException {
+        return scheduleDao.findbyUserId(userId);
     }
 
     @Override
@@ -48,16 +42,8 @@ public class SimpleScheduleService implements ScheduleService {
     }
 
     @Override
-    public void add(boolean isPublished, String userId) throws SQLException, ServiceException {
-        try {
-            scheduleDao.add(isPublished, Integer.parseInt(userId));
-        }catch (NumberFormatException ex) {
-            throw new ServiceException("User ID must be an integer");
-        } catch (IllegalArgumentException ex) {
-            throw new ServiceException(ex.getMessage());
-        }
-
-
+    public void add(boolean isPublished, int userId) throws SQLException {
+        scheduleDao.add(isPublished, userId);
     }
 
     @Override
