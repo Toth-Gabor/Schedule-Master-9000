@@ -34,7 +34,10 @@ CREATE TABLE days (
 CREATE TABLE task (
 	task_id SERIAL NOT NULL PRIMARY KEY,
 	task_name TEXT NOT NULL,
-	task_content TEXT NOT NULL
+	task_content TEXT NOT NULL,
+	user_id INT NOT NULL,
+	FOREIGN KEY (user_id) REFERENCES user(user_id) ON DELETE CASCADE
+
 );
 
 CREATE TABLE hour (
