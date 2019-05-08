@@ -47,8 +47,8 @@ public class SimpleScheduleService implements ScheduleService {
     }
 
     @Override
-    public void add(boolean isPublished, int userId) throws SQLException {
-        scheduleDao.add(isPublished, userId);
+    public void add(boolean isPublished, int userId, int dayValue, List<String> dayNames) throws SQLException {
+        scheduleDao.add(isPublished, userId, dayValue, dayNames);
     }
 
     @Override
@@ -58,5 +58,10 @@ public class SimpleScheduleService implements ScheduleService {
         } else {
             throw new ServiceException("Not type a of schedule");
         }
+    }
+
+    @Override
+    public void addDays(String dayName, int scheduleId) throws SQLException {
+        scheduleDao.addDays(dayName, scheduleId);
     }
 }
