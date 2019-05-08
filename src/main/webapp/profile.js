@@ -16,11 +16,6 @@ function onCouponsClicked() {
 
 function onProfileLoad(user) {
     clearMessages();
-    showContents(['header-content', 'form-buttons-content', 'schedule-table-content', 'profile-content', 'logout-content']);
+    showContents(['add-schedule-content', 'header-content', 'form-buttons-content', 'schedule-table-content', 'profile-content', 'logout-content']);
 
-    const userEmailSpandEl = document.getElementById('user-email');
-    const userPasswordSpanEl = document.getElementById('user-password');
-
-    userEmailSpandEl.textContent = user.email;
-    userPasswordSpanEl.textContent = user.password;
 }

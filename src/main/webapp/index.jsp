@@ -40,14 +40,52 @@
         </div>
         <div id="container">
           <div id="form-buttons-content" class="hidden content">
-            <button type="button" name="add_schedule">Add Schedule</button>
-            <button type="button" name="edit_schedule">Edit Schedule</button>
-            <button type="button" name="remove_schedule">Remove Schedule</button>
-            <button type="button" name="add_task">Add Task</button>
-            <button type="button" name="edit_task">Edit Task</button>
-            <button type="button" name="remove_task">Remove Task</button>
-
+            <button type="button" name="add-schedule">Add Schedule</button>
+            <button type="button" name="edit-schedule">Edit Schedule</button>
+            <button type="button" name="remove-schedule">Remove Schedule</button>
+            <button type="button" name="add-task">Add Task</button>
+            <button type="button" name="edit-task">Edit Task</button>
+            <button type="button" name="remove-task">Remove Task</button>
           </div>
+            <div id="servlet-form-content">
+              <form id="add-schedule-content" class="hidden content" action="index.html" method="post">
+                <h3>Select how long your schedule will be:</h3>
+                <select>
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                  <option value="6">6</option>
+                  <option value="7">7</option>
+                </select>
+                day(s)!
+                <h3>Select the visibility of your schedule:</h3>
+                <input type="radio" name="schedule-published" value="true">Public
+                <input type="radio" name="schedule-published" value="false">Private
+                <input type="submit" name="Submit" value="submit">
+              </form>
+              <form id="edit-schedule-content" class="hidden content" action="index.html" method="post">
+                <h2>Editing your schedule:</h2>
+                <h3>Select the visibility of your schedule:</h3>
+                <input type="radio" name="schedule-published" value="true">Public
+                <input type="radio" name="schedule-published" value="false">Private
+                <input type="submit" name="Submit" value="submit">
+              </form>
+              <form id="remove-schedule-content" class="hidden content" action="index.html" method="post">
+                
+              </form>
+              <form id="add-task-content" class="hidden content" action="index.html" method="post">
+
+              </form>
+              <form id="edit-task-content" class="hidden content" action="index.html" method="post">
+
+              </form>
+              <form id="remove-task-content" class="hidden content" action="index.html" method="post">
+
+              </form>
+
+            </div>
           <div id="schedule-table-content" class="hidden content">
 
           </div>
