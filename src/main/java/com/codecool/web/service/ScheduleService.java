@@ -12,6 +12,7 @@ public interface ScheduleService {
     List<Schedule> getbyUserId(int userId) throws SQLException, ServiceException;
     Schedule getbyId(int scheduleId) throws SQLException, ServiceException;
     void delete(Object object) throws SQLException, ServiceException;
-    void add(boolean isPublished, int userId) throws SQLException, ServiceException;
+    void add(boolean isPublished, int userId, int dayValue, List<String> dayNames) throws SQLException;
     void update(Object object, boolean isPublished) throws SQLException, ServiceException;
+    void addDays(String dayName, int scheduleId) throws SQLException;
 }
