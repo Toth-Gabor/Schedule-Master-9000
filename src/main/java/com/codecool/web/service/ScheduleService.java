@@ -12,5 +12,5 @@ public interface ScheduleService {
     List<Schedule> getbyUserId(int userId) throws SQLException, ServiceException;
     void delete(Object object) throws SQLException, ServiceException;
     void add(boolean isPublished, int userId) throws SQLException, ServiceException;
-    void update(Object object, boolean isPublished) throws SQLException;
+    void update(Object object, boolean isPublished) throws SQLException, ServiceException;
 }
