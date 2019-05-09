@@ -5,6 +5,7 @@ const NOT_FOUND = 404;
 const INTERNAL_SERVER_ERROR = 500;
 
 let loginContentDivEl;
+let schedulesContentDivEl
 let profileContentDivEl;
 let backToProfileContentDivEl;
 let logoutContentDivEl;

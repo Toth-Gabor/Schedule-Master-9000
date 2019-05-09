@@ -7,7 +7,8 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <c:url value="/style.css" var="styleUrl"/>
         <c:url value="/index.js" var="indexScriptUrl"/>
-        <c:url value="/main.js" var="mainScriptUrl"/>
+        <c:url value="/schedule.js" var="scheduleScriptUrl"/>
+        <c:url value="/schedules.js" var="schedulesScriptUrl"/>
         <c:url value="/login.js" var="loginScriptUrl"/>
         <c:url value="/profile.js" var="profileScriptUrl"/>
         <c:url value="/back-to-profile.js" var="backToProfileScriptUrl"/>
@@ -16,7 +17,8 @@
         <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="crossorigin="anonymous"></script>
         <script src="${indexScriptUrl}"></script>
         <script src="${loginScriptUrl}"></script>
-        <script src="${mainScriptUrl}"></script>
+        <script src="${scheduleScriptUrl}"></script>
+        <script src="${schedulesScriptUrl}"></script>
         <script src="${profileScriptUrl}"></script>
         <script src="${backToProfileScriptUrl}"></script>
         <script src="${logoutScriptUrl}"></script>
@@ -66,6 +68,7 @@
                 <input type="radio" name="schedule-published" value="false">Private
                 <input type="submit" name="Submit" value="submit">
               </form>
+
               <form id="edit-schedule-content" class="hidden content" action="index.html" method="post">
                 <h2>Editing your schedule:</h2>
                 <h3>Select the ID of the schedule, which you would like to edit:</h3>
@@ -75,30 +78,54 @@
                 <input type="radio" name="schedule-published" value="false">Private
                 <input type="submit" name="Submit" value="submit">
               </form>
+
               <form id="remove-schedule-content" class="hidden content" action="index.html" method="post">
                   <h2>Removing a schedule:</h2>
                   <h3>Select the ID of the schedule, which you would like to delete:</h3>
                   <input type="number" name="schedule-id" min="minValue" max="maxValue">
                   <input type="submit" name="Submit" value="submit">
               </form>
+
               <form id="add-task-content" class="hidden content" action="index.html" method="post">
                 <input type="text" name="task-name" value="">
                 <input type="text" name="task-content" value="">
                 <input type="submit" name="Submit" value="submit">
               </form>
+
               <form id="edit-task-content" class="hidden content" action="index.html" method="post">
 
               </form>
+
               <form id="remove-task-content" class="hidden content" action="index.html" method="post">
 
               </form>
 
             </div>
-          <div id="schedule-table-content" class="hidden content">
+          <div id="schedule-content" class="hidden content">
 
           </div>
+          <h2>Links</h2>
+                <ul>
+                    <li><a href="javascript:void(0);" onclick="onSchedulesClicked();">Schedules</a></li>
+                </ul>
+            </div>
+            <div id="schedules-content" class="hidden content">
+                <h1>Schedules</h1>
+                <table id="schedules">
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
         </div>
+        <!--<div id="schedule-content" class="hidden content">
+            <h1>Poem</h1>
+                <p><strong><span id="schedule-id"></span></strong></p>
+                <p><span id="schedule-published"></span></p>
+        </div>
+      -->
+        <div id="schedule-content" class="hidden content">
 
+        </div>
         <div id="back-to-profile-content" class="hidden content">
             <button onclick="onBackToProfileClicked();">Back to profile</button>
         </div>
