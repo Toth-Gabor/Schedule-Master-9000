@@ -15,7 +15,7 @@ public class DatabaseHourDao extends AbstractDao implements HourDao {
     
     @Override
     public List<Hour> findAll() throws SQLException {
-        String sql = "SELECT hour_id, hour_value, task_id, day_id FROM hour";
+        String sql = "SELECT hour_id, hour_value, day_id FROM hour";
         try (Statement statement = connection.createStatement();
              ResultSet resultSet = statement.executeQuery(sql)) {
             List<Hour> hours = new ArrayList<>();
@@ -28,7 +28,7 @@ public class DatabaseHourDao extends AbstractDao implements HourDao {
 
     @Override
     public List<Hour> findbyHourValue(int hourValue) throws SQLException {
-        String sql = "SELECT hour_id, hour_value, task_id, day_id FROM hour WHERE hour_value = ?";
+        String sql = "SELECT hour_id, hour_value, day_id FROM hour WHERE hour_value = ?";
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setInt(1, hourValue);
             List<Hour> hours = new ArrayList<>();
@@ -44,7 +44,7 @@ public class DatabaseHourDao extends AbstractDao implements HourDao {
 
     @Override
     public List<Hour> findbyDayId(int dayId) throws SQLException {
-        String sql = "SELECT hour_id, hour_value, task_id, day_id FROM hour WHERE day_id = ?";
+        String sql = "SELECT hour_id, hour_value, day_id FROM hour WHERE day_id = ?";
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setInt(1, dayId);
             List<Hour> hours = new ArrayList<>();
@@ -55,6 +55,21 @@ public class DatabaseHourDao extends AbstractDao implements HourDao {
                 return hours;
             }
         }
+    }
+
+    @Override
+    public int findDayIdbyHourValue(int hourValue, int dayId) throws SQLException {
+        String sql = "SELECT hour_id FROM hour WHERE day_id = ? AND hour_value = ?";
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setInt(1, dayId);
+            statement.setInt(2, hourValue);
+            try (ResultSet resultSet = statement.executeQuery()) {
+                while (resultSet.next()) {
+                    return resultSet.getInt("hour_id");
+                }
+            }
+        }
+        return 0;
     }
 
     @Override
@@ -90,9 +105,8 @@ public class DatabaseHourDao extends AbstractDao implements HourDao {
     private Hour fetchHour(ResultSet resultSet) throws SQLException {
         int id = resultSet.getInt("hour_id");
         int hourValue = resultSet.getInt("hour_value");
-        int taskId = resultSet.getInt("task_id");
         int dayId = resultSet.getInt("day_id");
-        return new Hour(id, hourValue, taskId, dayId);
+        return new Hour(id, hourValue, dayId);
     }
 
 }
