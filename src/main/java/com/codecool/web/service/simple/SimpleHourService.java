@@ -65,9 +65,9 @@ public class SimpleHourService implements HourService {
     }
 
     @Override
-    public void add(String hourValue, String taskId, String dayId) throws SQLException, ServiceException {
+    public void add(String hourValue, String dayId) throws SQLException, ServiceException {
         try {
-            hourDao.add(Integer.parseInt(hourValue), Integer.parseInt(taskId), Integer.parseInt(dayId));
+            hourDao.add(Integer.parseInt(hourValue), Integer.parseInt(dayId));
         }catch (NumberFormatException ex) {
             throw new ServiceException("Hour value must be an integer");
         } catch (IllegalArgumentException ex) {

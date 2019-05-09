@@ -1,6 +1,7 @@
 package com.codecool.web.service;
 
 import com.codecool.web.model.Day;
+import com.codecool.web.model.Schedule;
 import com.codecool.web.service.exception.ServiceException;
 
 import java.sql.SQLException;
@@ -18,7 +19,7 @@ public interface DayService {
     
     void delete(Object o) throws SQLException, ServiceException;
     
-    void add(String name, String scheduleId) throws SQLException, ServiceException;
+    void add(String name, Schedule schedule) throws SQLException, ServiceException;
     
     void update(Object o, String name) throws SQLException, ServiceException;
 }

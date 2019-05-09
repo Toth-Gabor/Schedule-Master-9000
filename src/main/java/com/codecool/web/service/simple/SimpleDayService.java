@@ -2,6 +2,7 @@ package com.codecool.web.service.simple;
 
 import com.codecool.web.dao.DayDao;
 import com.codecool.web.model.Day;
+import com.codecool.web.model.Schedule;
 import com.codecool.web.service.DayService;
 import com.codecool.web.service.exception.ServiceException;
 
@@ -59,9 +60,9 @@ public class SimpleDayService implements DayService {
     }
     
     @Override
-    public void add(String name, String scheduleId) throws SQLException, ServiceException {
+    public void add(String name, Schedule schedule) throws SQLException, ServiceException {
         try {
-            dayDao.add(name, Integer.parseInt(scheduleId));
+            dayDao.add(name, schedule);
         }  catch (NumberFormatException ex) {
             throw new ServiceException("Schedule id must be an integer");
         } catch (IllegalArgumentException ex) {
