@@ -40,9 +40,9 @@ public class SimpleDayService implements DayService {
     }
     
     @Override
-    public List<Day> getByScheduleId(String scheduleId) throws SQLException, ServiceException {
+    public List<Day> getByScheduleId(int scheduleId) throws SQLException, ServiceException {
         try {
-            return dayDao.findByScheduleId(Integer.parseInt(scheduleId));
+            return dayDao.findByScheduleId(scheduleId);
         }  catch (NumberFormatException ex) {
             throw new ServiceException("Schedule id must be an integer");
         } catch (IllegalArgumentException ex) {

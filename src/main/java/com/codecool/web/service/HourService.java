@@ -10,7 +10,7 @@ public interface HourService {
 
     List<Hour> getAll() throws SQLException;
     List<Hour> getbyHourValue(String hourValue) throws SQLException, ServiceException;
-    List<Hour> getbyDayId(String dayId) throws SQLException, ServiceException;
+    List<Hour> getbyDayId(int dayId) throws SQLException, ServiceException;
     void delete(Object object) throws SQLException, ServiceException;
     void add(String hourValue, String dayId) throws SQLException, ServiceException;
     void update(Object object, String hourValue) throws SQLException, ServiceException;

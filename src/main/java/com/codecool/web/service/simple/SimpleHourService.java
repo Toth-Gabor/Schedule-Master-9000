@@ -33,9 +33,9 @@ public class SimpleHourService implements HourService {
     }
 
     @Override
-    public List<Hour> getbyDayId(String dayId) throws SQLException, ServiceException {
+    public List<Hour> getbyDayId(int dayId) throws SQLException, ServiceException {
         try {
-            return hourDao.findbyDayId(Integer.parseInt(dayId));
+            return hourDao.findbyDayId(dayId);
         }catch (NumberFormatException ex) {
             throw new ServiceException("Day ID must be an integer");
         } catch (IllegalArgumentException ex) {

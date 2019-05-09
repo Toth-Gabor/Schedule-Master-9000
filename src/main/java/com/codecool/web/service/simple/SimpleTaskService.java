@@ -32,9 +32,9 @@ public class SimpleTaskService implements TaskService {
     }
 
     @Override
-    public List<Task> findbyScheduleId(String scheduleId) throws SQLException, ServiceException {
+    public List<Task> getbyScheduleId(int scheduleId) throws SQLException, ServiceException {
         try {
-            return taskDao.findbyScheduleId(Integer.parseInt(scheduleId));
+            return taskDao.findbyScheduleId(scheduleId);
         }catch (NumberFormatException ex) {
             throw new ServiceException("User ID must be an integer");
         } catch (IllegalArgumentException ex) {
