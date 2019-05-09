@@ -121,7 +121,7 @@ public class DatabaseScheduleDao extends AbstractDao implements ScheduleDao {
                         addDays(dayNames[i], scheduleId);
                         List<Day> days = dayDao.findByScheduleId(scheduleId);
                         days.sort(Comparator.comparing(Day::getId));
-                        for (int j = 1; j < 25; j++) {
+                        for (int j = 0; j < 24; j++) {
                             hourDao.add(j, days.get(i).getId());
                         }
                     }
