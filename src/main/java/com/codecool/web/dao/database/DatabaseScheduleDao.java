@@ -5,6 +5,7 @@ import com.codecool.web.dao.HourDao;
 import com.codecool.web.dao.ScheduleDao;
 import com.codecool.web.dao.TaskDao;
 import com.codecool.web.model.Day;
+import com.codecool.web.model.Hour;
 import com.codecool.web.model.Schedule;
 import com.codecool.web.model.Task;
 
@@ -126,8 +127,15 @@ public class DatabaseScheduleDao extends AbstractDao implements ScheduleDao {
     }
 
     @Override
-    public void addTask(Task task, int scheduleId, int dayId, int hourValue) throws SQLException {
-
+    public void addTask(Task task, int dayId, int hourValue) throws SQLException {
+        HourDao hourDao = new DatabaseHourDao(connection);
+        int dayIdbyHourValue = hourDao.findDayIdbyHourValue(hourValue, dayId);
+        String sql = "INSERT INTO hour_task(task_id, hour_id) VALUES(?,?)";
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setInt(1, task.getId());
+            statement.setInt(2, dayIdbyHourValue);
+            statement.execute();
+        }
     }
 
 
