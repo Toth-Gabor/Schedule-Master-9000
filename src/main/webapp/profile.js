@@ -11,5 +11,5 @@ function onSchedulesClicked() {
 
 function onProfileLoad(user) {
     clearMessages();
-    showContents(['schedules-content', 'profile-content', 'logout-content']);
+    showContents(['schedules-content', 'profile-content', 'logout-content', 'add-schedule-content']);
 }
