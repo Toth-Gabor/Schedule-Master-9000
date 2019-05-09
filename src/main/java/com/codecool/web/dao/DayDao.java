@@ -12,7 +12,7 @@ public interface DayDao {
     List<Day> findAll() throws SQLException;
     Day findById(int id) throws SQLException;
     List<Day> findByName(String name) throws SQLException;
-    Day findByScheduleId(int scheduleId) throws SQLException;
+    List<Day> findByScheduleId(int scheduleId) throws SQLException;
     void delete(Day day) throws SQLException;
     void add(String name, Schedule schedule) throws SQLException;
     void update(Day day, String name) throws SQLException;
