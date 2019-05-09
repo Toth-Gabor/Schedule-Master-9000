@@ -20,7 +20,7 @@ public interface ScheduleDao {
 
     void add(boolean isPublished, int userId, int dayValue, String[] dayNames) throws SQLException;
 
-    void addTask(Task task, int scheduleId, int dayId, int hourId) throws SQLException;
+    void addTask(Task task, int dayId, int hourId) throws SQLException;
 
     int findScheduleId(int userId) throws SQLException;
 
