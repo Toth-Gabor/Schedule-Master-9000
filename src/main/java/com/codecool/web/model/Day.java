@@ -18,4 +18,5 @@ public class Day extends AbstractModel{
     public int getScheduleId() {
         return scheduleId;
     }
+
 }
