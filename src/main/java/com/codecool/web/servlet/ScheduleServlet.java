@@ -52,7 +52,7 @@ public class ScheduleServlet extends AbstractServlet{
             boolean isPublished = (Boolean)req.getAttribute("schedule-published");
             int dayValue = Integer.parseInt((String) req.getAttribute("day-value"));
             SimpleScheduleService simpleScheduleService = new SimpleScheduleService(scheduleDao);
-            String[] dayNames;
+            String[] dayNames = null;
             for (int i = 0; i < simpleScheduleService.dayNames.length - (7 - dayValue); i++) {
                 dayNames[i] = simpleScheduleService.dayNames[i];
             }
@@ -61,8 +61,6 @@ public class ScheduleServlet extends AbstractServlet{
             
         } catch (SQLException e) {
             handleSqlError(resp, e);
-        } catch (ServiceException e) {
-            e.printStackTrace();
         }
     }
     
