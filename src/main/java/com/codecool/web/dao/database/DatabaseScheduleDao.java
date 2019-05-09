@@ -106,23 +106,31 @@ public class DatabaseScheduleDao extends AbstractDao implements ScheduleDao {
 
     @Override
     public void add(boolean isPublished, int userId, int dayValue, String[] dayNames) throws SQLException {
-        int scheduleId = findScheduleId(userId);
         HourDao hourDao = new DatabaseHourDao(connection);
         DayDao dayDao = new DatabaseDayDao(connection);
         String sql = "INSERT INTO schedule(schedule_published, user_id) VALUES(?,?);";
-        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+        try (PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             statement.setBoolean(1, isPublished);
             statement.setInt(2, userId);
             statement.execute();
-        }
-        for (int i = 0; i < dayValue; i++) {
-            addDays(dayNames[i], scheduleId);
-            List<Day> days = dayDao.findByScheduleId(scheduleId);
-            days.sort(Comparator.comparing(Day::getId));
-            for (int j = 1; j < 25; j++) {
-                hourDao.add(j, days.get(i).getId());
+            int scheduleId;
+            try (ResultSet resultSet = statement.getGeneratedKeys()) {
+                if (resultSet.next()) {
+                    scheduleId = resultSet.getInt(1);
+                    for (int i = 0; i < dayValue; i++) {
+                        addDays(dayNames[i], scheduleId);
+                        List<Day> days = dayDao.findByScheduleId(scheduleId);
+                        days.sort(Comparator.comparing(Day::getId));
+                        for (int j = 1; j < 25; j++) {
+                            hourDao.add(j, days.get(i).getId());
+                        }
+                    }
+                } else {
+                    throw new SQLException("Expected 1 result");
+                }
             }
         }
+
 
     }
 
