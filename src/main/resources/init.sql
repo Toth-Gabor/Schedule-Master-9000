@@ -42,7 +42,7 @@ CREATE TABLE task (
 
 CREATE TABLE hour (
 	hour_id SERIAL NOT NULL PRIMARY KEY,
-	hour_value INT NOT NULL,
+	hour_value INT DEFAULT 0,
 	day_id INT NOT NULL,
 	FOREIGN KEY (day_id) REFERENCES days(day_id) ON DELETE CASCADE,
 	CHECK (hour_value BETWEEN 0 AND 24)
