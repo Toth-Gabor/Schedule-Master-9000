@@ -101,7 +101,7 @@ public class DatabaseScheduleDao extends AbstractDao implements ScheduleDao {
     }
 
     @Override
-    public void add(boolean isPublished, int userId, int dayValue, List<String> dayNames) throws SQLException {
+    public void add(boolean isPublished, int userId, int dayValue, String[] dayNames) throws SQLException {
         int scheduleId = findScheduleId(userId);
         String sql = "INSERT INTO schedule(schedule_published, user_id) VALUES(?,?);";
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
@@ -110,7 +110,7 @@ public class DatabaseScheduleDao extends AbstractDao implements ScheduleDao {
             statement.execute();
         }
         for (int i = 0; i <dayValue ; i++) {
-            addDays(dayNames.get(i), scheduleId);
+            addDays(dayNames[i], scheduleId);
         }
 
     }

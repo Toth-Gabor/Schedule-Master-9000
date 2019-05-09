@@ -11,7 +11,9 @@ import java.util.List;
 
 public class SimpleScheduleService implements ScheduleService {
     private final ScheduleDao scheduleDao;
-
+    public final String[] dayNames = {"first", "second", "third", "forth", "fifth", "sixth", "seventh"};
+    
+    
     public SimpleScheduleService(ScheduleDao scheduleDao) {
         this.scheduleDao = scheduleDao;
     }
@@ -47,7 +49,7 @@ public class SimpleScheduleService implements ScheduleService {
     }
 
     @Override
-    public void add(boolean isPublished, int userId, int dayValue, List<String> dayNames) throws SQLException {
+    public void add(boolean isPublished, int userId, int dayValue, String[] dayNames) throws SQLException {
         scheduleDao.add(isPublished, userId, dayValue, dayNames);
     }
 
