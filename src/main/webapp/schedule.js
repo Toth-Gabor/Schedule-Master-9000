@@ -9,7 +9,7 @@ function onScheduleLoad(scheduleDto) {
 function onScheduleResponse() {
     if (this.status === OK) {
         clearMessages();
-        showPublisheds(['schedule-content', 'schedules-content', 'back-to-profile-content', 'logout-content']);
+        showContents(['schedule-content', 'schedules-content', 'back-to-profile-content', 'logout-content']);
         onScheduleLoad(JSON.parse(this.responseText));
     } else {
         onOtherResponse(schedulesContentDivEl, this);
