@@ -53,7 +53,7 @@
               <form id="add-schedule-content" class="hidden content" action="index.html" method="post">
                 <h2>Adding a new schedule:</h2>
                 <h3>Select how long your schedule will be:</h3>
-                <select>
+                <select id="day-number-content" name="day-value">
                   <option value="1">1</option>
                   <option value="2">2</option>
                   <option value="3">3</option>

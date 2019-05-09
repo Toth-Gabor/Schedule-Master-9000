@@ -50,12 +50,17 @@ public class ScheduleServlet extends AbstractServlet{
             ScheduleService scheduleService = new SimpleScheduleService(scheduleDao);
             User user = (User) req.getSession().getAttribute("user");
             boolean isPublished = (Boolean)req.getAttribute("schedule-published");
-            scheduleService.add(isPublished, user.getId());
+            int dayValue = Integer.parseInt((String) req.getAttribute("day-value"));
+            SimpleScheduleService simpleScheduleService = new SimpleScheduleService(scheduleDao);
+            String[] dayNames = null;
+            for (int i = 0; i < simpleScheduleService.dayNames.length - (7 - dayValue); i++) {
+                dayNames[i] = simpleScheduleService.dayNames[i];
+            }
+            
+            scheduleService.add(isPublished, user.getId(), dayValue, dayNames);
             
         } catch (SQLException e) {
             handleSqlError(resp, e);
-        } catch (ServiceException e) {
-            e.printStackTrace();
         }
     }
     
