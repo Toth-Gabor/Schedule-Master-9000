@@ -41,20 +41,6 @@ public class DatabaseHourDao extends AbstractDao implements HourDao {
         }
     }
 
-    @Override
-    public List<Hour> findbyTaskId(int taskId) throws SQLException {
-        String sql = "SELECT hour_id, hour_value, task_id, day_id FROM hour WHERE task_id = ?";
-        try (PreparedStatement statement = connection.prepareStatement(sql)) {
-            statement.setInt(1, taskId);
-            List<Hour> hours = new ArrayList<>();
-            try (ResultSet resultSet = statement.executeQuery()) {
-                while (resultSet.next()) {
-                    hours.add(fetchHour(resultSet));
-                }
-                return hours;
-            }
-        }
-    }
 
     @Override
     public List<Hour> findbyDayId(int dayId) throws SQLException {
@@ -82,7 +68,7 @@ public class DatabaseHourDao extends AbstractDao implements HourDao {
 
     @Override
     public void add(int hourValue, int dayId) throws SQLException {
-        String sql = "INSERT INTO hour(hour_value, task_id, day_id) VALUES(?,?);";
+        String sql = "INSERT INTO hour(hour_value, day_id) VALUES(?,?);";
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setInt(1, hourValue);
             statement.setInt(2, dayId);
