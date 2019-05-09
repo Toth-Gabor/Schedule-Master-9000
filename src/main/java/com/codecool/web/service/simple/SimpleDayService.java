@@ -40,7 +40,7 @@ public class SimpleDayService implements DayService {
     }
     
     @Override
-    public Day getByScheduleId(String scheduleId) throws SQLException, ServiceException {
+    public List<Day> getByScheduleId(String scheduleId) throws SQLException, ServiceException {
         try {
             return dayDao.findByScheduleId(Integer.parseInt(scheduleId));
         }  catch (NumberFormatException ex) {

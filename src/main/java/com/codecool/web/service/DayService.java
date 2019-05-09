@@ -15,7 +15,7 @@ public interface DayService {
     
     List<Day> getByName(String name) throws SQLException;
     
-    Day getByScheduleId(String scheduleId) throws SQLException, ServiceException;
+    List<Day> getByScheduleId(String scheduleId) throws SQLException, ServiceException;
     
     void delete(Object o) throws SQLException, ServiceException;
     
