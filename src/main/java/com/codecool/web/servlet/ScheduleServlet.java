@@ -41,7 +41,8 @@ public class ScheduleServlet extends AbstractServlet{
         try (Connection connection = getConnection(req.getServletContext())){
             ScheduleDao scheduleDao = new DatabaseScheduleDao(connection);
             ScheduleService scheduleService = new SimpleScheduleService(scheduleDao);
-            int scheduleId = (Integer) req.getAttribute("schedule-id");
+            String schId = req.getParameter("schedule-id");
+            int scheduleId = Integer.parseInt(schId);
             Schedule schedule = scheduleService.getbyId(scheduleId);
             
             DayDao dayDao = new DatabaseDayDao(connection);
@@ -73,7 +74,6 @@ public class ScheduleServlet extends AbstractServlet{
         } catch (ServiceException e) {
             e.printStackTrace();
         }
-        super.doGet(req, resp);
     }
     
     @Override

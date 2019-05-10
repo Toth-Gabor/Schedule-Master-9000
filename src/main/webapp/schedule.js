@@ -2,8 +2,9 @@ function onScheduleLoad(scheduleDto) {
     const scheduleIdSpanEl = document.getElementById('schedule-id');
     const schedulePublishedSpanEl = document.getElementById('schedule-published');
 
-    scheduleIdSpanEl.textPublished = scheduleDto.schedule.id;
-    schedulePublishedSpanEl.textPublished = scheduleDto.schedule.published;
+    scheduleIdSpanEl.textContent = scheduleDto.schedule.id;
+    schedulePublishedSpanEl.textContent = scheduleDto.schedule.published;
+    showTestContent()
 }
 
 function onScheduleResponse() {
@@ -36,6 +37,9 @@ function populateTable(table, time, rows, cells, content) {
         table.appendChild(row);
     }
     return table;
+}
+function showTestContent(){
+
 }
 
 $(document).ready(function () {

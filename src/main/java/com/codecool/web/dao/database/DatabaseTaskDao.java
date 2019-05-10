@@ -58,8 +58,8 @@ public class DatabaseTaskDao extends AbstractDao implements TaskDao {
 
     @Override
     public List<Task> findbyScheduleId(int scheduleId) throws SQLException {
-        String sql = "SELECT task.task_id, task_name, task_content, user_id FROM task\n" +
-            " INNER JOIN hour_task ON task.task_id = hour_task.task_id\n+" +
+        String sql = "SELECT task.task_id, task_name, task_content, task.user_id FROM task\n" +
+            " INNER JOIN hour_task ON task.task_id = hour_task.task_id\n" +
             " INNER JOIN hour ON hour.hour_id = hour_task.hour_id\n " +
             " INNER JOIN days ON days.day_id = hour.day_id\n" +
             " INNER JOIN schedule ON schedule.schedule_id = days.schedule_id\n" +
