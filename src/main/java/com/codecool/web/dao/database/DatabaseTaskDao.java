@@ -1,7 +1,6 @@
 package com.codecool.web.dao.database;
 
 import com.codecool.web.dao.TaskDao;
-import com.codecool.web.model.Schedule;
 import com.codecool.web.model.Task;
 
 import java.sql.*;

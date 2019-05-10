@@ -2,11 +2,9 @@ package com.codecool.web.servlet;
 
 import com.codecool.web.dao.TaskDao;
 import com.codecool.web.dao.database.DatabaseTaskDao;
-import com.codecool.web.model.Schedule;
 import com.codecool.web.model.Task;
 import com.codecool.web.model.User;
 import com.codecool.web.service.TaskService;
-import com.codecool.web.service.exception.ServiceException;
 import com.codecool.web.service.simple.SimpleTaskService;
 
 import javax.servlet.annotation.WebServlet;

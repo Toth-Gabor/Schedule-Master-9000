@@ -3,15 +3,12 @@ package com.codecool.web.dao.database;
 import com.codecool.web.dao.DayDao;
 import com.codecool.web.dao.HourDao;
 import com.codecool.web.dao.ScheduleDao;
-import com.codecool.web.dao.TaskDao;
 import com.codecool.web.model.Day;
-import com.codecool.web.model.Hour;
 import com.codecool.web.model.Schedule;
 import com.codecool.web.model.Task;
 
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
@@ -113,6 +110,7 @@ public class DatabaseScheduleDao extends AbstractDao implements ScheduleDao {
             statement.setBoolean(1, isPublished);
             statement.setInt(2, userId);
             statement.execute();
+
             int scheduleId;
             try (ResultSet resultSet = statement.getGeneratedKeys()) {
                 if (resultSet.next()) {

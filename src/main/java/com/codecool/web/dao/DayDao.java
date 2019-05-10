@@ -2,7 +2,6 @@ package com.codecool.web.dao;
 
 import com.codecool.web.model.Day;
 import com.codecool.web.model.Schedule;
-import org.springframework.jdbc.support.xml.SqlXmlFeatureNotImplementedException;
 
 import java.sql.SQLException;
 import java.util.List;
