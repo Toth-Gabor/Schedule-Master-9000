@@ -1,4 +1,4 @@
-function onSchedulesClicked() {
+function onListSchedulesClicked() {
     const params = new URLSearchParams();
     const user = getAuthorization();
     params.append('id', user.id);
@@ -11,5 +11,5 @@ function onSchedulesClicked() {
 
 function onProfileLoad(user) {
     clearMessages();
-    showContents(['schedules-content', 'profile-content', 'logout-content', 'add-schedule-content']);
+    showContents(['schedule-content', 'profile-content', 'logout-content', 'add-schedule-content']);
 }
