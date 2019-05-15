@@ -11,7 +11,7 @@ function onScheduleClicked() {
     xhr.addEventListener('load', onScheduleResponse);
     xhr.addEventListener('error', onNetworkError);
     xhr.open('GET', 'protected/schedule?' + params.toString());
-    xhr.send();
+    xhr.send(params);
 }
 
 function appendSchedule(Schedule) {
@@ -44,7 +44,7 @@ function onSchedulesLoad(Schedules) {
 
 function onSchedulesResponse() {
     if (this.status === OK) {
-        showContents(['back-to-profile-content', 'logout-content', 'schedules-content', 'schedule-content']);
+        showContents(['back-to-profile-content', 'schedules-content', 'schedule-content']);
         onSchedulesLoad(JSON.parse(this.responseText));
     } else {
         onOtherResponse(schedulesContentDivEl, this);
