@@ -4,13 +4,12 @@ function onScheduleLoad(scheduleDto) {
 
     scheduleIdSpanEl.textContent = scheduleDto.schedule.id;
     schedulePublishedSpanEl.textContent = scheduleDto.schedule.published;
-    showTestContent()
 }
 
 function onScheduleResponse() {
     if (this.status === OK) {
         clearMessages();
-        showContents(['schedule-content', 'schedules-content', 'back-to-profile-content', 'logout-content']);
+        showContents(['schedule-content', 'schedules-content', 'back-to-profile-content']);
         onScheduleLoad(JSON.parse(this.responseText));
     } else {
         onOtherResponse(schedulesContentDivEl, this);
@@ -37,9 +36,6 @@ function populateTable(table, time, rows, cells, content) {
         table.appendChild(row);
     }
     return table;
-}
-function showTestContent(){
-
 }
 
 $(document).ready(function () {
