@@ -1,4 +1,4 @@
-function onListSchedulesClicked() {
+function onListSchedulesClicked() { 
     const params = new URLSearchParams();
     const user = getAuthorization();
     params.append('id', user.id);
