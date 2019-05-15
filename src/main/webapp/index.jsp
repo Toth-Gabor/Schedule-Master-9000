@@ -104,14 +104,16 @@
         </form>
 
     </div>
-    <div id="schedule-content" class="hidden content">
+</div>
 
-    </div>
+<div id="schedule-content" class="hidden content">
+
     <h2>Links</h2>
     <ul>
-        <li><a href="javascript:void(0);" onclick="onSchedulesClicked();">Schedules</a></li>
+        <li><a href="javascript:void(0);" onclick="onListSchedulesClicked();">Schedules</a></li>
     </ul>
 </div>
+
 <div id="schedules-content" class="hidden content">
     <h1>Schedules</h1>
     <table id="schedules">
@@ -119,16 +121,9 @@
         </tbody>
     </table>
 </div>
-</div>
-<!--<div id="schedule-content" class="hidden content">
-    <h1>Poem</h1>
-        <p><strong><span id="schedule-id"></span></strong></p>
-        <p><span id="schedule-published"></span></p>
-</div>
--->
-<div id="schedule-content" class="hidden content">
 
 </div>
+
 <div id="back-to-profile-content" class="hidden content">
     <button onclick="onBackToProfileClicked();">Back to profile</button>
 </div>
