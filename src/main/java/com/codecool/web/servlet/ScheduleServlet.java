@@ -56,7 +56,7 @@ public class ScheduleServlet extends AbstractServlet{
             HourDao hourDao = new DatabaseHourDao(connection);
             HourService hourService = new SimpleHourService(hourDao);
             List<Integer> dayIdList = new ArrayList<>();
-            String[][] allTaskNames = new String[dayIdList.size()][24];
+            String[][] allTaskNames = new String[dayList.size()][24];
 
 
             for (int i = 0; i < dayList.size() ; i++) {
