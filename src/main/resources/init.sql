@@ -83,3 +83,6 @@ INSERT INTO task (task_name, task_content, user_id) VALUES
 
 INSERT INTO hour (hour_value, day_id)
 VALUES (8,1),(9,1),(11,2);
+
+INSERT INTO hour_task(hour_id, task_id) VALUES
+(1, 1), (2, 2);
