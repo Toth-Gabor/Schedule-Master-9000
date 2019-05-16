@@ -2,14 +2,16 @@ function onScheduleLoad(scheduleDto) {
     let scheduleIdSpanEl = document.getElementById('schedule-id');
     let schedulePublishedSpanEl = document.getElementById('schedule-published-show');
 
+    console.log(scheduleDto.dayList);
+
     var table = document.getElementById("schedule-table");
     if(table == null){
-        document.getElementById('schedules-content').appendChild(populateTable(null, 7, 24, 7, "content"));
+        document.getElementById('schedules-content').appendChild(populateTable(null, scheduleDto.dayList.length, 24, scheduleDto.dayList.length, "content"));
     }else{
         table.remove();
-        document.getElementById('schedules-content').appendChild(populateTable(null, 7, 24, 7, "content"));
+        document.getElementById('schedules-content').appendChild(populateTable(null, scheduleDto.dayList.length, 24, scheduleDto.dayList.length, "content"));
     }
-    
+
     scheduleIdSpanEl.innerHTML = scheduleDto.schedule.id;
     if(scheduleDto.schedule.published){
         schedulePublishedSpanEl.innerHTML = "published";
@@ -22,8 +24,6 @@ function onScheduleResponse() {
     if (this.status === OK) {
         clearMessages();
         showContents(['schedule-content', 'schedules-content', 'back-to-profile-content']);
-
-
         onScheduleLoad(JSON.parse(this.responseText));
     } else {
         onOtherResponse(schedulesContentDivEl, this);
@@ -63,4 +63,11 @@ function removeAllChildren(el) {
     document.getElementById('schedules-content')
         .appendChild(populateTable(null, 7, 24, 7, "content"));
 });*/
+
+/*{schedule: {…}, dayList: Array(2), taskList: Array(0), hourList: Array(3)}
+dayList: (2) [{…}, {…}]
+hourList: (3) [{…}, {…}, {…}]
+schedule: {id: 1, userId: 1, published: true}
+taskList: []
+__proto__: Object*/
 
