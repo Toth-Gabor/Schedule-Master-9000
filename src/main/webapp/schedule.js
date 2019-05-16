@@ -1,15 +1,25 @@
 function onScheduleLoad(scheduleDto) {
-    const scheduleIdSpanEl = document.getElementById('schedule-id');
-    const schedulePublishedSpanEl = document.getElementById('schedule-published');
+    let scheduleIdSpanEl = document.getElementById('schedule-id');
+    let schedulePublishedSpanEl = document.getElementById('schedule-published-show');
 
-    scheduleIdSpanEl.textContent = scheduleDto.schedule.id;
-    schedulePublishedSpanEl.textContent = scheduleDto.schedule.published;
+    document.getElementById('schedules-content').appendChild(populateTable(null, 7, 24, 7, "content"));
+
+    console.log(scheduleDto.schedule);
+
+    scheduleIdSpanEl.innerHTML = scheduleDto.schedule.id;
+    if(scheduleDto.schedule.published){
+        schedulePublishedSpanEl.innerHTML = "published";
+    } else {
+        schedulePublishedSpanEl.innerHTML = "not published";
+    }
 }
 
 function onScheduleResponse() {
     if (this.status === OK) {
         clearMessages();
         showContents(['schedule-content', 'schedules-content', 'back-to-profile-content']);
+
+
         onScheduleLoad(JSON.parse(this.responseText));
     } else {
         onOtherResponse(schedulesContentDivEl, this);
@@ -38,7 +48,8 @@ function populateTable(table, time, rows, cells, content) {
     return table;
 }
 
-$(document).ready(function () {
-    document.getElementById('schedule-content')
+/*$(document).ready(function () {
+    document.getElementById('schedules-content')
         .appendChild(populateTable(null, 7, 24, 7, "content"));
-});
+});*/
+
