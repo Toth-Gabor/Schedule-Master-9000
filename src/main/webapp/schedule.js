@@ -2,14 +2,14 @@ function onScheduleLoad(scheduleDto) {
     let scheduleIdSpanEl = document.getElementById('schedule-id');
     let schedulePublishedSpanEl = document.getElementById('schedule-published-show');
 
-    console.log(scheduleDto.dayList);
+    console.log(scheduleDto.allTaskNames);
 
     var table = document.getElementById("schedule-table");
     if(table == null){
-        document.getElementById('schedules-content').appendChild(populateTable(null, scheduleDto.dayList.length, 24, scheduleDto.dayList.length, scheduleDto.taskList));
+        document.getElementById('schedules-content').appendChild(populateTable(null, scheduleDto.dayList.length, 24, scheduleDto.dayList.length, scheduleDto.allTaskNames));
     }else{
         table.remove();
-        document.getElementById('schedules-content').appendChild(populateTable(null, scheduleDto.dayList.length, 24, scheduleDto.dayList.length, scheduleDto.taskList));
+        document.getElementById('schedules-content').appendChild(populateTable(null, scheduleDto.dayList.length, 24, scheduleDto.dayList.length, scheduleDto.allTaskNames));
     }
 
     scheduleIdSpanEl.innerHTML = scheduleDto.schedule.id;
@@ -47,7 +47,7 @@ function populateTable(table, time, rows, cells, content) {
         for (let j = 0; j < cells; ++j) {
             row.appendChild(document.createElement('td'));
 
-            row.cells[j].appendChild(document.createTextNode(content[j] + (j + 1)));
+            row.cells[j].appendChild(document.createTextNode(content[j][i]));
         }
         table.appendChild(row);
     }
