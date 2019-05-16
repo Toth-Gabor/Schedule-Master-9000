@@ -17,4 +17,5 @@ public interface TaskService {
     void delete(Object o) throws SQLException, ServiceException;
     void add(String name, String content, int userId) throws SQLException, ServiceException;
     void update(Object o, String name, String content) throws SQLException, ServiceException;
+    String[] gethourContentList(int dayId) throws SQLException, ServiceException;
 }
