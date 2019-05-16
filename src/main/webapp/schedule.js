@@ -2,10 +2,14 @@ function onScheduleLoad(scheduleDto) {
     let scheduleIdSpanEl = document.getElementById('schedule-id');
     let schedulePublishedSpanEl = document.getElementById('schedule-published-show');
 
-    document.getElementById('schedules-content').appendChild(populateTable(null, 7, 24, 7, "content"));
-
-    console.log(scheduleDto.schedule);
-
+    var table = document.getElementById("schedule-table");
+    if(table == null){
+        document.getElementById('schedules-content').appendChild(populateTable(null, 7, 24, 7, "content"));
+    }else{
+        table.remove();
+        document.getElementById('schedules-content').appendChild(populateTable(null, 7, 24, 7, "content"));
+    }
+    
     scheduleIdSpanEl.innerHTML = scheduleDto.schedule.id;
     if(scheduleDto.schedule.published){
         schedulePublishedSpanEl.innerHTML = "published";
@@ -28,6 +32,7 @@ function onScheduleResponse() {
 
 function populateTable(table, time, rows, cells, content) {
     if (!table) table = document.createElement('table');
+    table.setAttribute('id', "schedule-table");
     let head = document.createElement('thead');
     table.appendChild(head);
 
@@ -46,6 +51,12 @@ function populateTable(table, time, rows, cells, content) {
         table.appendChild(row);
     }
     return table;
+}
+
+function removeAllChildren(el) {
+    while (el.firstChild) {
+        el.removeChild(el.firstChild);
+    }
 }
 
 /*$(document).ready(function () {
