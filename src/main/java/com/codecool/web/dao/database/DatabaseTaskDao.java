@@ -1,6 +1,8 @@
 package com.codecool.web.dao.database;
 
+import com.codecool.web.dao.HourDao;
 import com.codecool.web.dao.TaskDao;
+import com.codecool.web.model.Hour;
 import com.codecool.web.model.Task;
 
 import java.sql.*;
@@ -109,33 +111,57 @@ public class DatabaseTaskDao extends AbstractDao implements TaskDao {
     @Override
     public void delete(Task task) throws SQLException {
         String sql = "DELETE FROM task WHERE task_id = ?;";
-        try (PreparedStatement statement = connection.prepareStatement(sql)){
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setInt(1, task.getId());
             statement.execute();
         }
     }
-    
+
     @Override
     public void add(String name, String content, int userId) throws SQLException {
         String sql = "INSERT INTO task (task_name, task_content, user_id) VALUES (?, ?, ?)";
-        try (PreparedStatement statement = connection.prepareStatement(sql)){
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setString(1, name);
             statement.setString(2, content);
             statement.setInt(3, userId);
             statement.execute();
         }
     }
-    
+
     @Override
     public void update(Task task, String name, String content) throws SQLException {
         String sql = "UPDATE task SET task_name = ?, task_content = ? WHERE task_id = ?;";
-        try (PreparedStatement statement = connection.prepareStatement(sql)){
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setString(1, name);
             statement.setString(2, content);
             statement.setInt(3, task.getId());
+            statement.execute();
         }
     }
-    
+
+    @Override
+    public String[] findhourContentList(int dayId) throws SQLException {
+        HourDao hourDao = new DatabaseHourDao(connection);
+        List<Hour> hours = hourDao.findbyDayId(dayId);
+        String[] hourtaskArray = new String[24];
+        for (int i = 0; i < hours.size(); i++) {
+            String sql = "SELECT task_name FROM task INNER JOIN hour_task ON task.task_id = hour_task.task_id WHERE hour_task.hour_id = ?";
+            try (PreparedStatement statement = connection.prepareStatement(sql)) {
+                statement.setInt(1, hours.get(i).getId());
+                try (ResultSet resultSet = statement.executeQuery()) {
+                    if (resultSet.next()) {
+                        hourtaskArray[i] = resultSet.getString("task_name");
+                    } else {
+                        hourtaskArray[i] = null;
+                    }
+                }
+            }
+
+        }
+        return hourtaskArray;
+
+    }
+
     private Task fetchTask(ResultSet resultSet) throws SQLException {
         int id = resultSet.getInt("task_id");
         String name = resultSet.getString("task_name");

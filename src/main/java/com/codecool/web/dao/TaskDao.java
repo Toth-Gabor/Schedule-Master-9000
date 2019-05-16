@@ -16,4 +16,6 @@ public interface TaskDao {
     void delete(Task task) throws SQLException;
     void add(String name, String content, int userId) throws SQLException;
     void update(Task task, String name, String content) throws SQLException;
+
+    String[] findhourContentList(int dayId) throws SQLException;
 }
