@@ -56,9 +56,16 @@ public class ScheduleServlet extends AbstractServlet{
             HourDao hourDao = new DatabaseHourDao(connection);
             HourService hourService = new SimpleHourService(hourDao);
             List<Integer> dayIdList = new ArrayList<>();
-            for (Day day : dayList) {
-                dayIdList.add(day.getId());
+            String[][] allTaskNames = new String[dayIdList.size()][24];
+
+
+            for (int i = 0; i < dayList.size() ; i++) {
+                dayIdList.add(dayList.get(i).getId());
+                String[] tasknames = taskDao.findhourContentList(dayList.get(i).getId());
+                allTaskNames[i] = tasknames;
+
             }
+
             List<Hour> hourList = new ArrayList<>();
             for (int i = 0; i < dayIdList.size(); i++) {
                 List<Hour> hourListForDayId = hourService.getbyDayId(dayIdList.get(i));
@@ -66,8 +73,9 @@ public class ScheduleServlet extends AbstractServlet{
                     hourList.add(hour);
                 }
             }
+
             
-            sendMessage(resp, HttpServletResponse.SC_OK, new ScheduleDto(schedule, dayList, taskList, hourList));
+            sendMessage(resp, HttpServletResponse.SC_OK, new ScheduleDto(schedule, dayList, taskList, hourList, allTaskNames));
         
         } catch (SQLException e) {
             handleSqlError(resp, e);
