@@ -118,11 +118,14 @@
     <h1>Schedules</h1>
     <table id="schedules">
         <tbody>
+        <p>schedule id: <span id="schedule-id"></span></p>
+        <p>schedule published: <span id="schedule-published-show"></span></p>
+
         </tbody>
     </table>
 </div>
 
-</div>
+
 
 <div id="back-to-profile-content" class="hidden content">
     <button onclick="onBackToProfileClicked();">Back to profile</button>
