@@ -8,7 +8,7 @@ function onScheduleClicked() {
     params.append('schedule-id', ScheduleId);
 
     const xhr = new XMLHttpRequest();
-    xhr.addEventListener('load', onScheduleResponse);
+    xhr.addEventListener('load', onSchedulesResponse);
     xhr.addEventListener('error', onNetworkError);
     xhr.open('GET', 'protected/schedule?' + params.toString());
     xhr.send(params);
