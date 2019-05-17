@@ -44,7 +44,7 @@ function onSchedulesLoad(Schedules) {
 
 function onSchedulesResponse() {
     if (this.status === OK) {
-        showContents(['back-to-profile-content', 'schedules-content', 'schedule-content']);
+        showContents(['back-to-profile-content', 'schedules-content', 'link-content']);
         onSchedulesLoad(JSON.parse(this.responseText));
     } else {
         onOtherResponse(schedulesContentDivEl, this);

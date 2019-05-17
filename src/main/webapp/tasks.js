@@ -3,7 +3,7 @@ let TasksTableBodyEl;
 
 function onTasksResponse() {
     if (this.status === OK) {
-        showContents(['back-to-profile-content', 'tasks-content', 'schedule-content']);
+        showContents(['back-to-profile-content', 'tasks-content', 'link-content']);
         onTasksLoad(JSON.parse(this.responseText));
     } else {
         onOtherResponse(schedulesContentDivEl, this);

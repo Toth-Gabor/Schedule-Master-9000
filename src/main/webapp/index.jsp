@@ -106,7 +106,7 @@
     </div>
 </div>
 
-<div id="schedule-content" class="hidden content">
+<div id="link-content" class="hidden content">
 
     <h2>Links</h2>
     <ul>
