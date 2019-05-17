@@ -200,6 +200,28 @@ public class DatabaseTaskDao extends AbstractDao implements TaskDao {
 
     }
 
+    @Override
+    public String[] findhourIdList(int dayId) throws SQLException {
+        HourDao hourDao = new DatabaseHourDao(connection);
+        List<Hour> hours = hourDao.findbyDayId(dayId);
+        String[] hourIdArray = new String[24];
+        for (int i = 0; i < hours.size(); i++) {
+            String sql = "SELECT task_name FROM task INNER JOIN hour_task ON task.task_id = hour_task.task_id WHERE hour_task.hour_id = ?";
+            try (PreparedStatement statement = connection.prepareStatement(sql)) {
+                statement.setInt(1, hours.get(i).getId());
+                try (ResultSet resultSet = statement.executeQuery()) {
+                    if (resultSet.next()) {
+                        hourIdArray[i] = resultSet.getString("task_name");
+                    } else {
+                        hourIdArray[i] = resultSet.getString("hour_id");
+                    }
+                }
+            }
+
+        }
+        return hourIdArray;
+    }
+
     private Task fetchTask(ResultSet resultSet) throws SQLException {
         int id = resultSet.getInt("task_id");
         String name = resultSet.getString("task_name");

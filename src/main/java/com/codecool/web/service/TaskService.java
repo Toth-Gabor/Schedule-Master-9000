@@ -18,4 +18,8 @@ public interface TaskService {
     void add(String name, String content, int userId) throws SQLException, ServiceException;
     void update(Object o, String name, String content) throws SQLException, ServiceException;
     String[] gethourContentList(int dayId) throws SQLException, ServiceException;
+    String[] gethourIdList(int dayId) throws SQLException, ServiceException;
+
+    boolean isfoundbyDayId(int dayId, int taskId) throws SQLException;
+    boolean isfoundbyHourId(int hourId, int taskId) throws SQLException;
 }

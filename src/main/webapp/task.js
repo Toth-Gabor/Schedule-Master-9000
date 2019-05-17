@@ -19,6 +19,8 @@ function onTaskLoad(taskList) {
 function onAddTaskClicked() {
     const ScheduleId = this.dataset.ScheduleId;
 
+
+
     //kell valahogy a schedule id a kattintásból
     //kell egy új dao a hour_task insertre
 

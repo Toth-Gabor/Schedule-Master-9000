@@ -92,4 +92,19 @@ public class SimpleTaskService implements TaskService {
             throw new ServiceException(ex.getMessage());
         }
     }
+
+    @Override
+    public String[] gethourIdList(int dayId) throws SQLException, ServiceException {
+        return taskDao.findhourIdList(dayId);
+    }
+
+    @Override
+    public boolean isfoundbyDayId(int dayId, int taskId) throws SQLException {
+        return taskDao.hasbyDayId(dayId, taskId);
+    }
+
+    @Override
+    public boolean isfoundbyHourId(int hourId, int taskId) throws SQLException {
+        return taskDao.hasbyHourId(hourId, taskId);
+    }
 }
