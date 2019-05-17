@@ -122,33 +122,39 @@
 <div id="schedules-content" class="hidden content">
     <h1>Schedules</h1>
 
-    <table id="schedules-fields" border="1px">
-        <tbody>
-        <p>schedule id: <span id="schedule-id"></span></p>
-        <p>schedule published: <span id="schedule-published-show"></span></p>
-        </tbody>
-    </table>
-
-    <table id="schedules" border="1px">
+    <table id="schedules">
         <tbody>
 
         </tbody>
     </table>
+
+    <div id="schedules-fields" class="hidden content">
+        <ul>
+            <li>schedule id: <span id="schedule-id"></span></li>
+            <li>schedule published: <span id="schedule-published-show"></span></li>
+        </ul>
+    </div>
+
 </div>
 
 <div id="tasks-content" class="hidden content">
     <h1>Tasks</h1>
-    <table id="tasks" border="1px">
+
+    <table id="tasks">
         <tbody>
-        <p>task name: <span id="task-name"></span></p>
-        <p>task content: <span id="task-content"></span></p>
 
         </tbody>
     </table>
 
+    <div id="task-fields" class="hidden content">
+        <ul>
+            <li>task name: <bold><span id="task-name"></span></bold></li>
+            <li>task content: <bold><span id="task-content"></span></bold></li>
+        </ul>
+    </div>
+
 
 </div>
-
 
 
 <div id="back-to-profile-content" class="hidden content">
