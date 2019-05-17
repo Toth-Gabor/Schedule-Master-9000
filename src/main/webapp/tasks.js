@@ -27,7 +27,7 @@ function appendTasks(Tasks) {
 }
 function appendTask(task) {
     const aEl = document.createElement('a');
-    aEl.textContent = task.id;
+    aEl.textContent = task.name;
     aEl.href = 'javascript:void(0);';
     aEl.dataset.TaskId = task.id;
     aEl.addEventListener('click', onTaskClicked);
