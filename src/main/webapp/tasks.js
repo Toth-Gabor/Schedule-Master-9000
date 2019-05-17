@@ -6,7 +6,7 @@ function onTasksResponse() {
         showContents(['back-to-profile-content', 'tasks-content', 'link-content']);
         onTasksLoad(JSON.parse(this.responseText));
     } else {
-        onOtherResponse(schedulesContentDivEl, this);
+        onOtherResponse(tasksContentDivEl, this);
     }
 }
 

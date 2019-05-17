@@ -9,6 +9,8 @@
     <c:url value="/index.js" var="indexScriptUrl"/>
     <c:url value="/schedule.js" var="scheduleScriptUrl"/>
     <c:url value="/schedules.js" var="schedulesScriptUrl"/>
+    <c:url value="/task.js" var="taskScriptUrl"/>
+    <c:url value="/tasks.js" var="tasksScriptUrl"/>
     <c:url value="/login.js" var="loginScriptUrl"/>
     <c:url value="/profile.js" var="profileScriptUrl"/>
     <c:url value="/back-to-profile.js" var="backToProfileScriptUrl"/>
@@ -20,6 +22,8 @@
     <script src="${loginScriptUrl}"></script>
     <script src="${scheduleScriptUrl}"></script>
     <script src="${schedulesScriptUrl}"></script>
+    <script src="${taskScriptUrl}"></script>
+    <script src="${tasksScriptUrl}"></script>
     <script src="${profileScriptUrl}"></script>
     <script src="${backToProfileScriptUrl}"></script>
     <script src="${logoutScriptUrl}"></script>
