@@ -2,6 +2,7 @@ package com.codecool.web.servlet;
 
 import com.codecool.web.dao.TaskDao;
 import com.codecool.web.dao.database.DatabaseTaskDao;
+import com.codecool.web.dto.TaskDto;
 import com.codecool.web.model.Task;
 import com.codecool.web.model.User;
 import com.codecool.web.service.TaskService;
@@ -27,7 +28,7 @@ public class TasksServlet extends AbstractServlet {
             User user = (User) req.getSession().getAttribute("user");
             List<Task> tasks = taskService.getbyUserId(user.getId());
 
-            sendMessage(resp, HttpServletResponse.SC_OK, tasks);
+            sendMessage(resp, HttpServletResponse.SC_OK, new TaskDto(tasks));
 
         } catch (SQLException e) {
             handleSqlError(resp, e);
