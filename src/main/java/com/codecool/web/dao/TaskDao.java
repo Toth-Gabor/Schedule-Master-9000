@@ -18,4 +18,6 @@ public interface TaskDao {
     void update(Task task, String name, String content) throws SQLException;
 
     String[] findhourContentList(int dayId) throws SQLException;
+    boolean hasbyDayId(int dayId, int taskId) throws SQLException;
+    boolean hasbyHourId(int hourId, int taskId) throws SQLException;
 }
