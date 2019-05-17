@@ -111,15 +111,27 @@
     <h2>Links</h2>
     <ul>
         <li><a href="javascript:void(0);" onclick="onListSchedulesClicked();">Schedules</a></li>
+        <li><a href="javascript:void(0);" onclick="onListTasksClicked();">Tasks</a></li>
     </ul>
 </div>
 
 <div id="schedules-content" class="hidden content">
     <h1>Schedules</h1>
-    <table id="schedules">
+    <table id="schedules" border="1px">
         <tbody>
         <p>schedule id: <span id="schedule-id"></span></p>
         <p>schedule published: <span id="schedule-published-show"></span></p>
+
+        </tbody>
+    </table>
+</div>
+
+<div id="tasks-content" class="hidden content">
+    <h1>Tasks</h1>
+    <table id="tasks" border="1px">
+        <tbody>
+        <p>task name: <span id="task-name"></span></p>
+        <p>task content: <span id="task-content"></span></p>
 
         </tbody>
     </table>
