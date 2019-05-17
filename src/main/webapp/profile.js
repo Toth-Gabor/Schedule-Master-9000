@@ -13,3 +13,15 @@ function onProfileLoad(user) {
     clearMessages();
     showContents(['schedule-content', 'profile-content', 'logout-content', 'add-schedule-content']);
 }
+
+function onListTasksClicked() {
+    const params = new URLSearchParams();
+    const user = getAuthorization();
+    params.append('id', user.id);
+    const xhr = new XMLHttpRequest();
+    xhr.addEventListener('load', onTasksResponse);
+    xhr.addEventListener('error', onNetworkError);
+    xhr.open('GET', 'protected/tasks?' + params.toString());
+    xhr.send();
+
+}
