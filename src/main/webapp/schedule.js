@@ -23,7 +23,7 @@ function onScheduleLoad(scheduleDto) {
 function onScheduleResponse() {
     if (this.status === OK) {
         clearMessages();
-        showContents(['link-content', 'schedules-content', 'back-to-profile-content']);
+        showContents(['link-content', 'schedules-content','schedules-fields', 'back-to-profile-content']);
         onScheduleLoad(JSON.parse(this.responseText));
     } else {
         onOtherResponse(schedulesContentDivEl, this);
@@ -32,7 +32,9 @@ function onScheduleResponse() {
 
 function populateTable(table, time, rows, cells, content) {
     if (!table) table = document.createElement('table');
+
     table.setAttribute('id', "schedule-table");
+    table.setAttribute('border', "1px");
     let head = document.createElement('thead');
     table.appendChild(head);
 
