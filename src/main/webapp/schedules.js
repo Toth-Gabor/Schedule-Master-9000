@@ -3,6 +3,7 @@ let SchedulesTableBodyEl;
 
 function onScheduleClicked() {
     const ScheduleId = this.dataset.ScheduleId;
+    localStorage.setItem("schedule-id", ScheduleId);
 
     const params = new URLSearchParams();
     params.append('schedule-id', ScheduleId);
