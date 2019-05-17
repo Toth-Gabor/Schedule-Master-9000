@@ -17,7 +17,16 @@ function onTaskLoad(taskList) {
 
 }
 function onAddTaskClicked() {
-    const ScheduleId = this.dataset.ScheduleId;
+    const ScheduleId = localStorage.getItem("schedule-id");
+
+    const params = new URLSearchParams();
+    params.append('schedule-id', ScheduleId);
+
+    const xhr = new XMLHttpRequest();
+    xhr.addEventListener('load', onAddTaskResponse);
+    xhr.addEventListener('error', onNetworkError);
+    xhr.open('GET', 'protected/taskofschedule?' + params.toString());
+    xhr.send(params);
 
 
 
@@ -30,5 +39,19 @@ function onAddTaskClicked() {
     //2. kiválasztod melyik napra --> schedule id alapján napok listája
     //3. kiválasztod hény órára -- > naplista alapján óra lista
     //add és deletet egymás után meghívni vagy trigger
+
+}
+function onAddTaskResponse() {
+    if (this.status === OK) {
+        clearMessages();
+        showContents(['link-content', 'tasks-content', 'task-fields','back-to-profile-content']);
+        onTaskLoad(JSON.parse(this.responseText));
+    } else {
+        onOtherResponse(tasksContentDivEl, this);
+    }
+
+}
+
+function onTaskLoad(hourList) {
 
 }
