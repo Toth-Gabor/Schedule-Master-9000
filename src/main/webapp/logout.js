@@ -9,6 +9,7 @@ function onLogoutResponse() {
 }
 
 function onLogoutButtonClicked(event) {
+    localStorage.clear();
     const xhr = new XMLHttpRequest();
     xhr.addEventListener('load', onLogoutResponse);
     xhr.addEventListener('error', onNetworkError);
