@@ -133,6 +133,7 @@
             <li>schedule id: <span id="schedule-id"></span></li>
             <li>schedule published: <span id="schedule-published-show"></span></li>
         </ul>
+        <button onclick="onAddTaskClicked()">Add task</button>
     </div>
 
     <div id="populate-schedule" class="hidden content">
