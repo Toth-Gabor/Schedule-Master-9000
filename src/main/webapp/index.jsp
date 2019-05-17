@@ -121,10 +121,16 @@
 
 <div id="schedules-content" class="hidden content">
     <h1>Schedules</h1>
-    <table id="schedules" border="1px">
+
+    <table id="schedules-fields" border="1px">
         <tbody>
         <p>schedule id: <span id="schedule-id"></span></p>
         <p>schedule published: <span id="schedule-published-show"></span></p>
+        </tbody>
+    </table>
+
+    <table id="schedules" border="1px">
+        <tbody>
 
         </tbody>
     </table>
@@ -139,6 +145,8 @@
 
         </tbody>
     </table>
+
+
 </div>
 
 
