@@ -6,10 +6,10 @@ function onScheduleLoad(scheduleDto) {
 
     var table = document.getElementById("schedule-table");
     if(table == null){
-        document.getElementById('schedules-content').appendChild(populateTable(null, scheduleDto.dayList.length, 24, scheduleDto.dayList.length, scheduleDto.allTaskNames));
+        document.getElementById('populate-schedule').appendChild(populateTable(null, scheduleDto.dayList.length, 24, scheduleDto.dayList.length, scheduleDto.allTaskNames));
     }else{
         table.remove();
-        document.getElementById('schedules-content').appendChild(populateTable(null, scheduleDto.dayList.length, 24, scheduleDto.dayList.length, scheduleDto.allTaskNames));
+        document.getElementById('populate-schedule').appendChild(populateTable(null, scheduleDto.dayList.length, 24, scheduleDto.dayList.length, scheduleDto.allTaskNames));
     }
 
     scheduleIdSpanEl.innerHTML = scheduleDto.schedule.id;
@@ -23,7 +23,7 @@ function onScheduleLoad(scheduleDto) {
 function onScheduleResponse() {
     if (this.status === OK) {
         clearMessages();
-        showContents(['link-content', 'schedules-content','schedules-fields', 'back-to-profile-content']);
+        showContents(['link-content', 'schedules-content','schedules-fields', 'back-to-profile-content', 'populate-schedule']);
         onScheduleLoad(JSON.parse(this.responseText));
     } else {
         onOtherResponse(schedulesContentDivEl, this);

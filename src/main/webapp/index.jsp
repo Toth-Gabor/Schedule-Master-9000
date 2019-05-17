@@ -135,6 +135,10 @@
         </ul>
     </div>
 
+    <div id="populate-schedule" class="hidden content">
+
+    </div>
+
 </div>
 
 <div id="tasks-content" class="hidden content">
