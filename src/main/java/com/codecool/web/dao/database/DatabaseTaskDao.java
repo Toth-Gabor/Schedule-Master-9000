@@ -162,6 +162,44 @@ public class DatabaseTaskDao extends AbstractDao implements TaskDao {
 
     }
 
+    @Override
+    public boolean hasbyDayId(int dayId, int taskId) throws SQLException {
+        String sql = "SELECT task.task_id, task_name, task_content, task.user_id FROM task\n" +
+            " INNER JOIN hour_task ON task.task_id = hour_task.task_id\n" +
+            " INNER JOIN hour ON hour.hour_id = hour_task.hour_id\n " +
+            " INNER JOIN days ON days.day_id = hour.day_id\n" +
+            " WHERE days.day_id = ? AND task.task_id = ?;";
+
+
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setInt(1, dayId);
+            statement.setInt(1, taskId);
+            try (ResultSet resultSet = statement.executeQuery()) {
+                return resultSet.next();
+
+            }
+        }
+    }
+
+    @Override
+    public boolean hasbyHourId(int hourId, int taskId) throws SQLException {
+        String sql = "SELECT task.task_id, task_name, task_content, task.user_id FROM task\n" +
+            " INNER JOIN hour_task ON task.task_id = hour_task.task_id\n" +
+            " INNER JOIN hour ON hour.hour_id = hour_task.hour_id\n " +
+            " WHERE hour.hour_id = ? AND task.task_id = ?;";
+
+
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setInt(1, hourId);
+            statement.setInt(1, taskId);
+            try (ResultSet resultSet = statement.executeQuery()) {
+                return resultSet.next();
+
+            }
+        }
+
+    }
+
     private Task fetchTask(ResultSet resultSet) throws SQLException {
         int id = resultSet.getInt("task_id");
         String name = resultSet.getString("task_name");
