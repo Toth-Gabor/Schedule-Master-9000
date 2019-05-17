@@ -30,15 +30,10 @@ function onAddTaskClicked() {
 
 
 
-    //kell valahogy a schedule id a kattintásból
     //kell egy új dao a hour_task insertre
-
-
-
-    //1. kiválasztod melyik taskot
-    //2. kiválasztod melyik napra --> schedule id alapján napok listája
-    //3. kiválasztod hény órára -- > naplista alapján óra lista
-    //add és deletet egymás után meghívni vagy trigger
+    //csak hourid-t kell inputba megdani
+    //folytatás: populate tábla, gomb
+    //debug
 
 }
 function onAddTaskResponse() {
