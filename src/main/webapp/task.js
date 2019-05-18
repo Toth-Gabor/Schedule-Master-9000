@@ -8,12 +8,12 @@ function onTaskResponse() {
     }
 }
 
-function onTaskLoad(taskList) {
+function onTaskLoad(task) {
     let taskNameSpanEl = document.getElementById('task-name');
     let taskContentSpanEl = document.getElementById('task-content');
 
-    taskNameSpanEl.innerHTML = taskList.name;
-    taskContentSpanEl.innerHTML = taskList.content;
+    taskNameSpanEl.innerHTML = task.name;
+    taskContentSpanEl.innerHTML = task.content;
 
 }
 function onAddTaskClicked() {
@@ -33,6 +33,7 @@ function onAddTaskClicked() {
     //kell egy új dao a hour_task insertre
     //csak hourid-t kell inputba megdani
     //folytatás: populate tábla, gomb
+    //taskoknál a megjelenést javítani
     //debug
 
 }
@@ -47,6 +48,5 @@ function onAddTaskResponse() {
 
 }
 
-function onTaskLoad(hourList) {
-
-}
+//function onTaskLoad(hourList) {
+//}

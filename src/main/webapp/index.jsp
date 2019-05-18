@@ -153,8 +153,12 @@
 
     <div id="task-fields" class="hidden content">
         <ul>
-            <li>task name: <bold><span id="task-name"></span></bold></li>
-            <li>task content: <bold><span id="task-content"></span></bold></li>
+            <li>task name:
+                <bold><span id="task-name"></span></bold>
+            </li>
+            <li>task content:
+                <bold><span id="task-content"></span></bold>
+            </li>
         </ul>
     </div>
 
