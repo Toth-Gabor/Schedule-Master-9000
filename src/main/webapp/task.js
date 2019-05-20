@@ -59,6 +59,18 @@ function onAddTaskLoad(TaskSceduleDto) {
         table.remove();
         tasksHoursDivEl.appendChild(showTHTable(null,length,24,length,TaskSceduleDto.taskNameAndHourIdList));
     }
+    const allTasksList = document.getElementById("show-alltasks");
+    const allTasksListUl = document.createElement("ul");
+    allTasksList.appendChild(allTasksListUl);
+    for (let i = 0; i <TaskSceduleDto.allTasks.length ; i++) {
+        const taskLiEl = document.createElement("li");
+        let a = document.createElement('a');
+        let taskId = TaskSceduleDto.allTasks[i].id;
+        a.setAttribute("href", taskId);
+        a.textContent = TaskSceduleDto.allTasks[i].name;
+        taskLiEl.appendChild(a);
+        allTasksListUl.appendChild(taskLiEl);
+    }
 }
 
 function showTHTable(table, days, rows, cells, content) {

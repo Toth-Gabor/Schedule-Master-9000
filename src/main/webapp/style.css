@@ -9,3 +9,11 @@
 .hidden {
     display: none;
 }
+#taskhour-table {
+    position: relative;
+    float: left;
+}
+#show-alltasks {
+    position: relative;
+    float: left;
+}

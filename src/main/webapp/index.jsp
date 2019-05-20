@@ -146,6 +146,9 @@
 <div id="show-tname-hid-table" class="hidden content">
 
 </div>
+<div id="show-alltasks">
+
+</div>
 <div id="tasks-content" class="hidden content">
     <h1>Tasks</h1>
 
