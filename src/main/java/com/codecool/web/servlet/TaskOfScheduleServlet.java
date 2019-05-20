@@ -45,11 +45,11 @@ public class TaskOfScheduleServlet extends AbstractServlet {
             TaskDao taskDao = new DatabaseTaskDao(connection);
             TaskService taskService = new SimpleTaskService(taskDao);
 
-            String[][] allDayHourList = new String[dayList.size()][24];
+            Object[][] allDayHourList = new String[dayList.size()][24];
 
 
             for (int i = 0; i < dayList.size() ; i++) {
-                String[] tasknames = taskService.gethourIdList(dayList.get(i).getId());
+                Object[] tasknames = taskService.gethourIdList(dayList.get(i).getId());
                 allDayHourList[i] = tasknames;
 
             }
