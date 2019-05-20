@@ -41,7 +41,6 @@ function onAddTaskResponse() {
     if (this.status === OK) {
         clearMessages();
         showContents(['link-content', 'show-tname-hid-table', 'task-fields','back-to-profile-content']);
-        console.log(JSON.parse(this.responseText));
         onAddTaskLoad(JSON.parse(this.responseText));
     } else {
         onOtherResponse(tasksContentDivEl, this);
@@ -66,7 +65,8 @@ function onAddTaskLoad(TaskSceduleDto) {
         const taskLiEl = document.createElement("li");
         let a = document.createElement('a');
         let taskId = TaskSceduleDto.allTasks[i].id;
-        a.setAttribute("href", taskId);
+        a.href = 'javascript:void(0);';
+        a.addEventListener("click", onTaskNameClicked);
         a.textContent = TaskSceduleDto.allTasks[i].name;
         taskLiEl.appendChild(a);
         allTasksListUl.appendChild(taskLiEl);
@@ -97,4 +97,9 @@ function showTHTable(table, days, rows, cells, content) {
         table.appendChild(row);
     }
     return table;
+}
+
+function onTaskNameClicked(taskId) {
+    console.log(taskId);
+    showContents(['add-hourid', 'link-content', 'show-tname-hid-table', 'task-fields', 'back-to-profile-content']);
 }

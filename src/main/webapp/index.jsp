@@ -133,7 +133,7 @@
     <div id="schedules-fields" class="hidden content">
         <ul>
             <li>schedule id: <span id="schedule-id"></span></li>
-            <li>schedule published: <span id="schedule-published-show"></span></li>
+            <li>schedule is <span id="schedule-published-show"></span></li>
         </ul>
         <button onclick="onAddTaskClicked()">Add task</button>
     </div>
@@ -143,12 +143,19 @@
     </div>
 
 </div>
+
 <div id="show-tname-hid-table" class="hidden content">
-
 </div>
+
 <div id="show-alltasks">
-
 </div>
+
+<div id="add-hourid" class="hidden content">
+    <p id="taskname"></p>
+    <input id="hourid" type="number">
+    <button onclick="onHourIdSubmit()">Add</button>
+</div>
+
 <div id="tasks-content" class="hidden content">
     <h1>Tasks</h1>
 
