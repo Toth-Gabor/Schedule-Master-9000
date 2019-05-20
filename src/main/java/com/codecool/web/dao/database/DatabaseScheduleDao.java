@@ -85,7 +85,6 @@ public class DatabaseScheduleDao extends AbstractDao implements ScheduleDao {
             try (ResultSet resultSet = statement.executeQuery()) {
                 while (resultSet.next()) {
                     schedule = fetchSchedule(resultSet);
-
                 }
             }
         }
