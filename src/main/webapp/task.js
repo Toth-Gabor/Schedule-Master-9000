@@ -40,7 +40,7 @@ function onAddTaskClicked() {
 function onAddTaskResponse() {
     if (this.status === OK) {
         clearMessages();
-        showContents(['link-content', 'tasks-content', 'task-fields','back-to-profile-content']);
+        showContents(['link-content', 'show-tname-hid-table', 'task-fields','back-to-profile-content']);
         onAddTaskLoad(JSON.parse(this.responseText));
     } else {
         onOtherResponse(tasksContentDivEl, this);
@@ -48,6 +48,40 @@ function onAddTaskResponse() {
 
 }
 
-function onAddTaskLoad(parse) {
-    console.log(parse);
+function onAddTaskLoad(taskNameAndHourIdList) {
+    const length = taskNameAndHourIdList.length;
+    const tasksHoursDivEl = document.getElementById("show-tname-hid-table");
+    let table = document.getElementById("taskhour-table");
+    if (table == null){
+        tasksHoursDivEl.appendChild(showTHTable(null,length,24,length,taskNameAndHourIdList));
+    } else {
+        table.remove();
+        tasksHoursDivEl.appendChild(showTHTable(null,length,24,length,taskNameAndHourIdList));
+    }
+}
+
+function showTHTable(table, days, rows, cells, content) {
+    if (!table) table = document.createElement('table');
+
+    table.setAttribute('id', "taskhour-table");
+    table.setAttribute('border', "1px");
+    let head = document.createElement('thead');
+    table.appendChild(head);
+
+    for (let x = 1; x <= days; x++) {
+        let title = document.createElement('th');
+        title.appendChild(document.createTextNode(x + '. Day'));
+        head.appendChild(title);
+    }
+    let body = document.createElement('tbody');
+    for (let i = 0; i < rows; ++i) {
+        let row = document.createElement('tr');
+        for (let j = 0; j < cells; ++j) {
+            row.appendChild(document.createElement('td'));
+
+            row.cells[j].appendChild(document.createTextNode(content[j][i]));
+        }
+        table.appendChild(row);
+    }
+    return table;
 }
