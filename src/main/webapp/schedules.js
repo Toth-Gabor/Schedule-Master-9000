@@ -51,7 +51,13 @@ function onSchedulesResponse() {
         onOtherResponse(schedulesContentDivEl, this);
     }
 }
-function onSheduleAdded() {
+function onAddScheduleResponse() {
     alert("Schedule added!");
-    showContents(['link-content', 'profile-content', 'logout-content', 'add-schedule-content']);
+    if (this.status === OK) {
+        showContents(['link-content', 'profile-content', 'logout-content', 'add-schedule-content']);
+    } else {
+        onOtherResponse(schedulesContentDivEl, this);
+    }
 }
+
+
