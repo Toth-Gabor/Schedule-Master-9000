@@ -1,9 +1,6 @@
 function onScheduleLoad(scheduleDto) {
     let scheduleIdSpanEl = document.getElementById('schedule-id');
     let schedulePublishedSpanEl = document.getElementById('schedule-published-show');
-
-    console.log(scheduleDto.allTaskNames);
-
     var table = document.getElementById("schedule-table");
     if(table == null){
         document.getElementById('populate-schedule').appendChild(populateTable(null, scheduleDto.dayList.length, 24, scheduleDto.dayList.length, scheduleDto.allTaskNames));
@@ -11,7 +8,6 @@ function onScheduleLoad(scheduleDto) {
         table.remove();
         document.getElementById('populate-schedule').appendChild(populateTable(null, scheduleDto.dayList.length, 24, scheduleDto.dayList.length, scheduleDto.allTaskNames));
     }
-
     scheduleIdSpanEl.innerHTML = scheduleDto.schedule.id;
     if(scheduleDto.schedule.published){
         schedulePublishedSpanEl.innerHTML = "published";

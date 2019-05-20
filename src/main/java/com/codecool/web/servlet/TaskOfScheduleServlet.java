@@ -49,7 +49,7 @@ public class TaskOfScheduleServlet extends AbstractServlet {
 
 
             for (int i = 0; i < dayList.size() ; i++) {
-                String[] tasknames = taskDao.findhourContentList(dayList.get(i).getId());
+                String[] tasknames = taskService.gethourIdList(dayList.get(i).getId());
                 allDayHourList[i] = tasknames;
 
             }

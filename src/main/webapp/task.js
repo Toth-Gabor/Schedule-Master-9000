@@ -33,20 +33,21 @@ function onAddTaskClicked() {
     //kell egy új dao a hour_task insertre
     //csak hourid-t kell inputba megdani
     //folytatás: populate tábla, gomb
-    //taskoknál a megjelenést javítani
     //debug
 
 }
+
 function onAddTaskResponse() {
     if (this.status === OK) {
         clearMessages();
         showContents(['link-content', 'tasks-content', 'task-fields','back-to-profile-content']);
-        onTaskLoad(JSON.parse(this.responseText));
+        onAddTaskLoad(JSON.parse(this.responseText));
     } else {
         onOtherResponse(tasksContentDivEl, this);
     }
 
 }
 
-//function onTaskLoad(hourList) {
-//}
+function onAddTaskLoad(parse) {
+    console.log(parse);
+}
