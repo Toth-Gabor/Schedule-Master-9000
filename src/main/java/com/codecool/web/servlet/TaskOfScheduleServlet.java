@@ -10,6 +10,7 @@ import com.codecool.web.dto.TaskScheduleDto;
 import com.codecool.web.model.Day;
 import com.codecool.web.model.Schedule;
 import com.codecool.web.model.Task;
+import com.codecool.web.model.User;
 import com.codecool.web.service.DayService;
 import com.codecool.web.service.ScheduleService;
 import com.codecool.web.service.TaskService;
@@ -34,6 +35,8 @@ public class TaskOfScheduleServlet extends AbstractServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try (Connection connection = getConnection(req.getServletContext())) {
+            User user = (User) req.getSession().getAttribute("user");
+
             ScheduleDao scheduleDao = new DatabaseScheduleDao(connection);
             ScheduleService scheduleService = new SimpleScheduleService(scheduleDao);
             String schId = req.getParameter("schedule-id");
@@ -47,12 +50,12 @@ public class TaskOfScheduleServlet extends AbstractServlet {
             TaskDao taskDao = new DatabaseTaskDao(connection);
             TaskService taskService = new SimpleTaskService(taskDao);
 
-            List<Task> allTasks = taskService.getAll();
+            List<Task> allTasks = taskService.getbyUserId(user.getId());
 
             Object[][] taskNameAndHourIdList = new Object[dayList.size()][24];
 
 
-            for (int i = 0; i < dayList.size() ; i++) {
+            for (int i = 0; i < dayList.size(); i++) {
                 Object[] tasknames = taskService.gethourIdList(dayList.get(i).getId());
                 taskNameAndHourIdList[i] = tasknames;
 
