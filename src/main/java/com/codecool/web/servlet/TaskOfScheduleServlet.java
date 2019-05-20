@@ -6,8 +6,10 @@ import com.codecool.web.dao.TaskDao;
 import com.codecool.web.dao.database.DatabaseDayDao;
 import com.codecool.web.dao.database.DatabaseScheduleDao;
 import com.codecool.web.dao.database.DatabaseTaskDao;
+import com.codecool.web.dto.TaskScheduleDto;
 import com.codecool.web.model.Day;
 import com.codecool.web.model.Schedule;
+import com.codecool.web.model.Task;
 import com.codecool.web.service.DayService;
 import com.codecool.web.service.ScheduleService;
 import com.codecool.web.service.TaskService;
@@ -45,6 +47,8 @@ public class TaskOfScheduleServlet extends AbstractServlet {
             TaskDao taskDao = new DatabaseTaskDao(connection);
             TaskService taskService = new SimpleTaskService(taskDao);
 
+            List<Task> allTasks = taskService.getAll();
+
             Object[][] taskNameAndHourIdList = new Object[dayList.size()][24];
 
 
@@ -54,7 +58,7 @@ public class TaskOfScheduleServlet extends AbstractServlet {
 
             }
 
-            sendMessage(resp, HttpServletResponse.SC_OK, taskNameAndHourIdList);
+            sendMessage(resp, HttpServletResponse.SC_OK, new TaskScheduleDto(taskNameAndHourIdList, allTasks));
 
         } catch (SQLException e) {
             handleSqlError(resp, e);
