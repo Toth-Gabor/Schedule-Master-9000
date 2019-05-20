@@ -201,10 +201,10 @@ public class DatabaseTaskDao extends AbstractDao implements TaskDao {
     }
 
     @Override
-    public String[] findhourIdList(int dayId) throws SQLException {
+    public Object[] findhourIdList(int dayId) throws SQLException {
         HourDao hourDao = new DatabaseHourDao(connection);
         List<Hour> hours = hourDao.findbyDayId(dayId);
-        String[] hourIdArray = new String[24];
+        Object[] hourIdArray = new Object[24];
         for (int i = 0; i < hours.size(); i++) {
             String sql = "SELECT task_name FROM task INNER JOIN hour_task ON task.task_id = hour_task.task_id WHERE hour_task.hour_id = ?";
             try (PreparedStatement statement = connection.prepareStatement(sql)) {
@@ -213,7 +213,7 @@ public class DatabaseTaskDao extends AbstractDao implements TaskDao {
                     if (resultSet.next()) {
                         hourIdArray[i] = resultSet.getString("task_name");
                     } else {
-                        hourIdArray[i] = resultSet.getString("hour_id");
+                        hourIdArray[i] = resultSet.getInt("hour_id");
                     }
                 }
             }

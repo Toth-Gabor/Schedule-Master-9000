@@ -94,7 +94,7 @@ public class SimpleTaskService implements TaskService {
     }
 
     @Override
-    public String[] gethourIdList(int dayId) throws SQLException, ServiceException {
+    public Object[] gethourIdList(int dayId) throws SQLException, ServiceException {
         return taskDao.findhourIdList(dayId);
     }
 
