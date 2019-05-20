@@ -41,6 +41,7 @@ function onAddTaskResponse() {
     if (this.status === OK) {
         clearMessages();
         showContents(['link-content', 'show-tname-hid-table', 'task-fields','back-to-profile-content']);
+        console.log(JSON.parse(this.responseText));
         onAddTaskLoad(JSON.parse(this.responseText));
     } else {
         onOtherResponse(tasksContentDivEl, this);
@@ -48,15 +49,15 @@ function onAddTaskResponse() {
 
 }
 
-function onAddTaskLoad(taskNameAndHourIdList) {
-    const length = taskNameAndHourIdList.length;
+function onAddTaskLoad(TaskSceduleDto) {
+    const length = TaskSceduleDto.taskNameAndHourIdList.length;
     const tasksHoursDivEl = document.getElementById("show-tname-hid-table");
     let table = document.getElementById("taskhour-table");
     if (table == null){
-        tasksHoursDivEl.appendChild(showTHTable(null,length,24,length,taskNameAndHourIdList));
+        tasksHoursDivEl.appendChild(showTHTable(null,length,24,length,TaskSceduleDto.taskNameAndHourIdList));
     } else {
         table.remove();
-        tasksHoursDivEl.appendChild(showTHTable(null,length,24,length,taskNameAndHourIdList));
+        tasksHoursDivEl.appendChild(showTHTable(null,length,24,length,TaskSceduleDto.taskNameAndHourIdList));
     }
 }
 
