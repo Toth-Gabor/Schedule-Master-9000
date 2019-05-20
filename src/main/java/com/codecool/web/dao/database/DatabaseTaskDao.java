@@ -213,7 +213,7 @@ public class DatabaseTaskDao extends AbstractDao implements TaskDao {
                     if (resultSet.next()) {
                         hourIdArray[i] = resultSet.getString("task_name");
                     } else {
-                        hourIdArray[i] = resultSet.getInt("hour_id");
+                        hourIdArray[i] = hours.get(i).getId();
                     }
                 }
             }
