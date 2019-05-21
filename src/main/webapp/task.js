@@ -66,6 +66,7 @@ function onAddTaskLoad(TaskSceduleDto) {
         let a = document.createElement('a');
         let taskId = TaskSceduleDto.allTasks[i].id;
         a.href = 'javascript:void(0);';
+        a.dataset.taskId = taskId;
         a.addEventListener("click", onTaskNameClicked);
         a.textContent = TaskSceduleDto.allTasks[i].name;
         taskLiEl.appendChild(a);
@@ -99,7 +100,8 @@ function showTHTable(table, days, rows, cells, content) {
     return table;
 }
 
-function onTaskNameClicked(taskId) {
+function onTaskNameClicked() {
+    let taskId = this.dataset.taskId;
     console.log(taskId);
     showContents(['add-hourid', 'link-content', 'show-tname-hid-table', 'task-fields', 'back-to-profile-content', 'show-alltasks']);
 }
