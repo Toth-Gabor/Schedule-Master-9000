@@ -147,7 +147,7 @@
 <div id="show-tname-hid-table" class="hidden content">
 </div>
 
-<div id="show-alltasks">
+<div id="show-alltasks" class="hidden content">
 </div>
 
 <div id="add-hourid" class="hidden content">

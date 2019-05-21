@@ -40,7 +40,7 @@ function onAddTaskClicked() {
 function onAddTaskResponse() {
     if (this.status === OK) {
         clearMessages();
-        showContents(['link-content', 'show-tname-hid-table', 'task-fields','back-to-profile-content']);
+        showContents(['link-content', 'show-tname-hid-table','show-alltasks', 'task-fields','back-to-profile-content']);
         onAddTaskLoad(JSON.parse(this.responseText));
     } else {
         onOtherResponse(tasksContentDivEl, this);
@@ -101,5 +101,5 @@ function showTHTable(table, days, rows, cells, content) {
 
 function onTaskNameClicked(taskId) {
     console.log(taskId);
-    showContents(['add-hourid', 'link-content', 'show-tname-hid-table', 'task-fields', 'back-to-profile-content']);
+    showContents(['add-hourid', 'link-content', 'show-tname-hid-table', 'task-fields', 'back-to-profile-content', 'show-alltasks']);
 }
