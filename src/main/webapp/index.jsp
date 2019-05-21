@@ -152,8 +152,10 @@
 
 <div id="add-hourid" class="hidden content">
     <p id="taskname"></p>
-    <input id="hourid" type="number">
-    <button onclick="onHourIdSubmit()">Add</button>
+    <form id="add-hourid-form" onsubmit="return false;">
+        <input name="hourid" type="number" required>
+        <button id="add-hourid-button" onclick="onHourIdSubmit()">Add</button>
+    </form>
 </div>
 
 <div id="tasks-content" class="hidden content">

@@ -73,7 +73,11 @@ public class TaskOfScheduleServlet extends AbstractServlet {
 
     @Override
     protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        super.doPut(req, resp);
+        try (Connection connection = getConnection(req.getServletContext())){
+        
+        } catch (SQLException e) {
+            handleSqlError(resp, e);
+        }
     }
 
     @Override

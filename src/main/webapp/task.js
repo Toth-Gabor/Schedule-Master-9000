@@ -1,3 +1,4 @@
+let gtaskId;
 function onTaskResponse() {
     if (this.status === OK) {
         clearMessages();
@@ -106,10 +107,23 @@ function showTHTable(table, days, rows, cells, content) {
 }
 
 function onTaskNameClicked() {
-    let taskId = this.dataset.taskId;
-    console.log(taskId);
+    gtaskId = this.dataset.taskId;
+    console.log(gtaskId);
     showContents(['add-hourid', 'link-content', 'show-tname-hid-table', 'task-fields', 'back-to-profile-content', 'show-alltasks']);
 }
-function onHourIdSubmit(taskId) {
+function onHourIdSubmit() {
+    const inputFieldEl = document.forms['add-hourid-form'];
+    const hourIdInputEl = inputFieldEl.querySelector('input[name="hourid"]');
+    const hourId = hourIdInputEl.value;
+    const params = new URLSearchParams();
+    params.append('taskId', gtaskId);
+    params.append("hourId", hourId);
 
+
+    const xhr = new XMLHttpRequest();
+    xhr.addEventListener('error', onNetworkError);
+    xhr.open('POST', 'protected/taskofschedule?' + params.toString());
+    xhr.send(params);
+    alert("Task added!");
+    showContents(['link-content', 'back-to-profile-content']);
 }
