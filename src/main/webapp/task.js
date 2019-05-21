@@ -59,6 +59,11 @@ function onAddTaskLoad(TaskSceduleDto) {
         tasksHoursDivEl.appendChild(showTHTable(null,length,24,length,TaskSceduleDto.taskNameAndHourIdList));
     }
     const allTasksList = document.getElementById("show-alltasks");
+
+    while(allTasksList.hasChildNodes()) { // remove all previous child Nodes!
+        allTasksList.removeChild(allTasksList.firstChild);
+    }
+
     const allTasksListUl = document.createElement("ul");
     allTasksList.appendChild(allTasksListUl);
     for (let i = 0; i <TaskSceduleDto.allTasks.length ; i++) {
@@ -104,4 +109,7 @@ function onTaskNameClicked() {
     let taskId = this.dataset.taskId;
     console.log(taskId);
     showContents(['add-hourid', 'link-content', 'show-tname-hid-table', 'task-fields', 'back-to-profile-content', 'show-alltasks']);
+}
+function onHourIdSubmit(taskId) {
+
 }
