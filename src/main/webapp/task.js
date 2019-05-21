@@ -123,7 +123,7 @@ function onHourIdSubmit() {
     const xhr = new XMLHttpRequest();
     xhr.addEventListener('error', onNetworkError);
     xhr.open('POST', 'protected/taskofschedule?' + params.toString());
-    xhr.send(params);
+    xhr.send();
     alert("Task added!");
     showContents(['link-content', 'back-to-profile-content']);
 }

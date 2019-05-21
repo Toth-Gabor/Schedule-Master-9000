@@ -76,13 +76,15 @@ public class TaskOfScheduleServlet extends AbstractServlet {
     }
 
     @Override
-    protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try (Connection connection = getConnection(req.getServletContext())){
-            int hourId = Integer.parseInt(req.getParameter("taskId"));
+            int hourId = Integer.parseInt(req.getParameter("hourId"));
             int taskId = Integer.parseInt(req.getParameter("taskId"));
             TaskOfScheduleDao taskOfScheduleDao = new DatabaseTaskOfScheduleDao(connection);
             TaskOfScheduleService taskOfScheduleService = new SimpleTaskOfScheduleService(taskOfScheduleDao);
             taskOfScheduleService.addHourIdAndTask(hourId, taskId);
+            
+            sendMessage(resp, HttpServletResponse.SC_OK, null);
         } catch (SQLException e) {
             handleSqlError(resp, e);
         }
