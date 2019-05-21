@@ -3,9 +3,11 @@ package com.codecool.web.servlet;
 import com.codecool.web.dao.DayDao;
 import com.codecool.web.dao.ScheduleDao;
 import com.codecool.web.dao.TaskDao;
+import com.codecool.web.dao.TaskOfScheduleDao;
 import com.codecool.web.dao.database.DatabaseDayDao;
 import com.codecool.web.dao.database.DatabaseScheduleDao;
 import com.codecool.web.dao.database.DatabaseTaskDao;
+import com.codecool.web.dao.database.DatabaseTaskOfScheduleDao;
 import com.codecool.web.dto.TaskScheduleDto;
 import com.codecool.web.model.Day;
 import com.codecool.web.model.Schedule;
@@ -13,10 +15,12 @@ import com.codecool.web.model.Task;
 import com.codecool.web.model.User;
 import com.codecool.web.service.DayService;
 import com.codecool.web.service.ScheduleService;
+import com.codecool.web.service.TaskOfScheduleService;
 import com.codecool.web.service.TaskService;
 import com.codecool.web.service.exception.ServiceException;
 import com.codecool.web.service.simple.SimpleDayService;
 import com.codecool.web.service.simple.SimpleScheduleService;
+import com.codecool.web.service.simple.SimpleTaskOfScheduleService;
 import com.codecool.web.service.simple.SimpleTaskService;
 
 import javax.servlet.ServletException;
@@ -74,7 +78,11 @@ public class TaskOfScheduleServlet extends AbstractServlet {
     @Override
     protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try (Connection connection = getConnection(req.getServletContext())){
-        
+            int hourId = Integer.parseInt(req.getParameter("taskId"));
+            int taskId = Integer.parseInt(req.getParameter("taskId"));
+            TaskOfScheduleDao taskOfScheduleDao = new DatabaseTaskOfScheduleDao(connection);
+            TaskOfScheduleService taskOfScheduleService = new SimpleTaskOfScheduleService(taskOfScheduleDao);
+            taskOfScheduleService.addHourIdAndTask(hourId, taskId);
         } catch (SQLException e) {
             handleSqlError(resp, e);
         }
