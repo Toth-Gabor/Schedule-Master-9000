@@ -65,11 +65,6 @@
         </form>
 
 
-
-        <form id="edit-task-content" class="hidden content" action="index.html" method="post">
-
-        </form>
-
         <form id="remove-task-content" class="hidden content" action="index.html" method="post">
 
         </form>
@@ -166,6 +161,8 @@
     </form>
 </div>
 
+
+
 <div id="tasks-content" class="hidden content">
     <h1>Tasks</h1>
 
@@ -188,8 +185,19 @@
             </li>
         </ul>
         <button id="delete-task" onclick="onDeleteTaskClicked()">Delete task</button>
+        <button type="button" name="update-task" onclick="onUpdateTaskForm()">Update Task</button>
     </div>
 
+</div>
+
+<div id="update-task" class="hidden content">
+    <form id="edit-task-content" onsubmit="return false;">
+        <h2>Editing your Task:</h2>
+        <h3>Enter the title and the content of your task:</h3>
+        <input type="text" name="task-name" placeholder="Title" required>
+        <input type="text" name="task-content" placeholder="Content" required>
+        <button onclick="onTaskUpdateButtonClicked()">Update</button>
+    </form>
 </div>
 
 <div id="creat-task-content" class="hidden content">
