@@ -22,4 +22,13 @@ public class DatabaseTaskOfScheduleDao extends AbstractDao implements TaskOfSche
             statement.execute();
         }
     }
+    
+    @Override
+    public void delete(int taskId) throws SQLException {
+        String sql = "DELETE FROM task WHERE task_id = ?;";
+        try (PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+            statement.setInt(1, taskId);
+            statement.execute();
+        }
+    }
 }
