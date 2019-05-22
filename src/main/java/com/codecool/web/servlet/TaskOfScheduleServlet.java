@@ -103,4 +103,40 @@ public class TaskOfScheduleServlet extends AbstractServlet {
             handleSqlError(resp, e);
         }
     }
+
+    @Override
+    protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        try (Connection connection = getConnection(req.getServletContext())) {
+            User user = (User) req.getSession().getAttribute("user");
+
+            ScheduleDao scheduleDao = new DatabaseScheduleDao(connection);
+            ScheduleService scheduleService = new SimpleScheduleService(scheduleDao);
+            String schId = req.getParameter("schedule-id");
+            int scheduleId = Integer.parseInt(schId);
+            Schedule schedule = scheduleService.getbyId(scheduleId);
+
+            DayDao dayDao = new DatabaseDayDao(connection);
+            DayService dayService = new SimpleDayService(dayDao);
+            List<Day> dayList = dayService.getByScheduleId(scheduleId);
+
+            TaskDao taskDao = new DatabaseTaskDao(connection);
+            TaskService taskService = new SimpleTaskService(taskDao);
+
+            Object[][] hourIdListforDelete = new Object[dayList.size()][24];
+
+
+            for (int i = 0; i < dayList.size(); i++) {
+                Object[] tasknames = taskService.gethourIdListforDeletTask(dayList.get(i).getId());
+                hourIdListforDelete[i] = tasknames;
+
+            }
+
+            sendMessage(resp, HttpServletResponse.SC_OK, hourIdListforDelete);
+
+        } catch (SQLException e) {
+            handleSqlError(resp, e);
+        } catch (ServiceException e) {
+            e.printStackTrace();
+        }
+    }
 }
