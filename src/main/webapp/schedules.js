@@ -16,15 +16,14 @@ function onScheduleClicked() {
 }
 
 function appendSchedule(Schedule) {
+    const schLiEl = document.createElement('li');
     const aEl = document.createElement('a');
+    schLiEl.appendChild(aEl);
     aEl.textContent = Schedule.id;
     aEl.href = 'javascript:void(0);';
     aEl.dataset.ScheduleId = Schedule.id;
     aEl.addEventListener('click', onScheduleClicked);
-
-    const trEl = document.createElement('tr');
-    trEl.appendChild(aEl);
-    SchedulesTableBodyEl.appendChild(trEl);
+    SchedulesTableBodyEl.appendChild(schLiEl);
 }
 
 function appendSchedules(Schedules) {
@@ -38,7 +37,7 @@ function appendSchedules(Schedules) {
 
 function onSchedulesLoad(Schedules) {
     SchedulesTableEl = document.getElementById('schedules');
-    SchedulesTableBodyEl = SchedulesTableEl.querySelector('tbody');
+    SchedulesTableBodyEl = SchedulesTableEl.querySelector('ul');
 
     appendSchedules(Schedules);
 }

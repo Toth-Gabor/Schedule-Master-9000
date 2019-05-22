@@ -86,11 +86,11 @@
 
     <button type="button" name="add-schedule" onclick="onShowAddScheduleForm()">Add Schedule</button>
 
-    <table id="schedules">
-        <tbody>
+    <div id="schedules">
+        <ul>
 
-        </tbody>
-    </table>
+        </ul>
+    </div>
 
     <div id="schedules-fields" class="hidden content">
         <ul>
@@ -169,11 +169,11 @@
     <button type="button" name="add-task" onclick="onShowAddTaskForm()">Create Task</button>
 
 
-    <table id="tasks">
-        <tbody>
+    <div id="tasks">
+        <ul>
 
-        </tbody>
-    </table>
+        </ul>
+    </div>
 
     <div id="task-fields" class="hidden content">
         <ul>
