@@ -124,6 +124,8 @@
 <div id="schedules-content" class="hidden content">
     <h1>Schedules</h1>
 
+    <button type="button" name="add-schedule" onclick="onShowAddScheduleForm()">Add Schedule</button>
+
     <table id="schedules">
         <tbody>
 
