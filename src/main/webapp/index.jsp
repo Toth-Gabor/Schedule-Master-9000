@@ -55,28 +55,7 @@
         <button type="button" name="remove-task">Remove Task</button>
     </div>
     <div id="servlet-form-content">
-        <div id="add-schedule-content" class="hidden content">
-            <h2>Adding a new schedule:</h2>
-            <h3>Select how long your schedule will be:</h3>
-            <form id="add-schedule-form" onsubmit="return false;">
-                <select id="day-number-content" name="day-value">
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
-                    <option value="6">6</option>
-                    <option value="7">7</option>
-                </select>
-                day(s)!
-                <h3>Select the visibility of your schedule:</h3>
-                <select id="schedule-published" name="schedule-published">
-                    <option value="false">Private</option>
-                    <option value="true">Published</option>
-                </select>
-                <button onclick="onAddScheduleClicked()">Add schedule</button>
-            </form>
-        </div>
+
 
         <form id="edit-schedule-content" class="hidden content" action="index.html" method="post">
             <h2>Editing your schedule:</h2>
@@ -145,6 +124,30 @@
 
 </div>
 
+<div id="add-schedule-content" class="hidden content">
+    <h2>Adding a new schedule:</h2>
+    <h3>Select how long your schedule will be:</h3>
+    <form id="add-schedule-form" onsubmit="return false;">
+        <select id="day-number-content" name="day-value">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+        </select>
+        day(s)!
+        <h3>Select the visibility of your schedule:</h3>
+        <select id="schedule-published" name="schedule-published">
+            <option value="false">Private</option>
+            <option value="true">Published</option>
+        </select>
+        <button onclick="onAddScheduleClicked()">Add schedule</button>
+        <br>
+    </form>
+</div>
+
 <div id="show-tname-hid-table" class="hidden content"></div>
 
 <div id="show-hourid-fordelete" class="hidden content">
@@ -189,6 +192,7 @@
 </div>
 
 <div id="back-to-profile-content" class="hidden content">
+    <br>
     <button onclick="onBackToProfileClicked();">Back to profile</button>
 </div>
 
