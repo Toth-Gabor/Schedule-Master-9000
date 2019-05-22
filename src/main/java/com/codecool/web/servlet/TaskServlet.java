@@ -78,8 +78,7 @@ public class TaskServlet extends AbstractServlet {
         try (Connection connection = getConnection(req.getServletContext())){
             TaskDao taskDao = new DatabaseTaskDao(connection);
             TaskService taskService = new SimpleTaskService(taskDao);
-            String tId = req.getParameter("taskId");
-            int taskId = Integer.parseInt(tId);
+            int taskId = Integer.parseInt(req.getParameter("taskId"));
             Task task = taskService.getbyId(taskId);
             taskService.delete(task);
 
