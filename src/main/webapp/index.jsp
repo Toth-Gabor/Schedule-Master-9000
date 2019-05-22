@@ -57,15 +57,7 @@
     <div id="servlet-form-content">
 
 
-        <form id="edit-schedule-content" class="hidden content" action="index.html" method="post">
-            <h2>Editing your schedule:</h2>
-            <h3>Select the ID of the schedule, which you would like to edit:</h3>
-            <input type="number" name="schedule-id" min="minValue" max="maxValue">
-            <h3>Select the visibility of your schedule:</h3>
-            <input type="radio" name="schedule-published" value="true">Public
-            <input type="radio" name="schedule-published" value="false">Private
-            <input type="submit" name="Submit" value="submit">
-        </form>
+
 
         <form id="remove-schedule-content" class="hidden content" action="index.html" method="post">
             <h2>Removing a schedule:</h2>
@@ -118,6 +110,7 @@
         </ul>
         <button onclick="onAddTaskClicked()">Add task</button>
         <button onclick="onDeleteTaskClicked()">Delete task</button>
+        <button onclick="onShowUpdateClicked()">Update schedule</button>
     </div>
 
     <div id="populate-schedule" class="hidden content"></div>
@@ -145,6 +138,16 @@
         </select>
         <button onclick="onAddScheduleClicked()">Add schedule</button>
         <br>
+    </form>
+</div>
+
+<div id="update-schedule" class="hidden content">
+    <form id="edit-schedule-content" onsubmit="return false;">
+        <h2>Editing your schedule:</h2>
+        <h3>Select the visibility of your schedule:</h3>
+        <input type="radio" name="schedule-published" value="true">Public
+        <input type="radio" name="schedule-published" value="false">Private
+        <button onclick="onUpdateButtonClicked()">Update</button>
     </form>
 </div>
 

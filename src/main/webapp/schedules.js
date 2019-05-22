@@ -63,5 +63,34 @@ function onShowAddScheduleForm() {
     showContents(['link-content', 'back-to-profile-content', 'add-schedule-content']);
 
 }
+function onShowUpdateClicked() {
+    showContents(['link-content', 'back-to-profile-content', 'update-schedule']);
+}
+
+function onUpdateButtonClicked() {
+    const scheduleId = localStorage.getItem("schedule-id");
+    console.log(scheduleId);
+    const params = new URLSearchParams();
+    const inputField = document.forms['edit-schedule-content'];
+    const schedulePublishedInputEL = inputField.querySelector('input[name="schedule-published"]:checked');
+    const published = schedulePublishedInputEL.value;
+    params.append('schedule-id', scheduleId);
+    params.append("published", published);
+    const xhr = new XMLHttpRequest();
+    xhr.addEventListener('load', onUpdateScheduleResponse);
+    xhr.addEventListener('error', onNetworkError);
+    xhr.open('PUT', 'protected/schedule?' + params.toString());
+    xhr.send();
+}
+
+function onUpdateScheduleResponse() {
+    alert("Schedule updated!");
+    if (this.status === OK) {
+        showContents(['link-content', 'profile-content', 'logout-content']);
+    } else {
+        onOtherResponse(schedulesContentDivEl, this);
+    }
+}
+
 
 
