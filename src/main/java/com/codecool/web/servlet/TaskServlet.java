@@ -42,8 +42,8 @@ public class TaskServlet extends AbstractServlet {
         try (Connection connection = getConnection(req.getServletContext())){
             TaskDao taskDao = new DatabaseTaskDao(connection);
             TaskService taskService = new SimpleTaskService(taskDao);
-            String taskName = (String) req.getAttribute("task-name");
-            String taskContent = (String) req.getAttribute("task-content");
+            String taskName = req.getParameter("taskTitle");
+            String taskContent = req.getParameter("taskContent");
             User user = (User) req.getSession().getAttribute("user");
             taskService.add(taskName, taskContent, user.getId());
 
