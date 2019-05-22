@@ -21,4 +21,5 @@ public interface TaskDao {
     boolean hasbyDayId(int dayId, int taskId) throws SQLException;
     boolean hasbyHourId(int hourId, int taskId) throws SQLException;
     Object[] findhourIdList(int dayId) throws SQLException;
+    Object[] findhourIdListforDeletTask(int dayId) throws SQLException;
  }

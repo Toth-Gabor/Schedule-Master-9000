@@ -99,6 +99,11 @@ public class SimpleTaskService implements TaskService {
     }
 
     @Override
+    public Object[] gethourIdListforDeletTask(int dayId) throws SQLException, ServiceException {
+        return taskDao.findhourIdListforDeletTask(dayId);
+    }
+
+    @Override
     public boolean isfoundbyDayId(int dayId, int taskId) throws SQLException {
         return taskDao.hasbyDayId(dayId, taskId);
     }
