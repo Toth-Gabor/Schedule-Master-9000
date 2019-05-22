@@ -3,15 +3,12 @@ package com.codecool.web.dao.database;
 import com.codecool.web.dao.DayDao;
 import com.codecool.web.dao.HourDao;
 import com.codecool.web.dao.ScheduleDao;
-import com.codecool.web.dao.TaskDao;
 import com.codecool.web.model.Day;
-import com.codecool.web.model.Hour;
 import com.codecool.web.model.Schedule;
 import com.codecool.web.model.Task;
 
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
@@ -88,7 +85,6 @@ public class DatabaseScheduleDao extends AbstractDao implements ScheduleDao {
             try (ResultSet resultSet = statement.executeQuery()) {
                 while (resultSet.next()) {
                     schedule = fetchSchedule(resultSet);
-
                 }
             }
         }
@@ -106,23 +102,32 @@ public class DatabaseScheduleDao extends AbstractDao implements ScheduleDao {
 
     @Override
     public void add(boolean isPublished, int userId, int dayValue, String[] dayNames) throws SQLException {
-        int scheduleId = findScheduleId(userId);
         HourDao hourDao = new DatabaseHourDao(connection);
         DayDao dayDao = new DatabaseDayDao(connection);
         String sql = "INSERT INTO schedule(schedule_published, user_id) VALUES(?,?);";
-        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+        try (PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             statement.setBoolean(1, isPublished);
             statement.setInt(2, userId);
             statement.execute();
-        }
-        for (int i = 0; i < dayValue; i++) {
-            addDays(dayNames[i], scheduleId);
-            List<Day> days = dayDao.findByScheduleId(scheduleId);
-            days.sort(Comparator.comparing(Day::getId));
-            for (int j = 1; j < 25; j++) {
-                hourDao.add(j, days.get(i).getId());
+
+            int scheduleId;
+            try (ResultSet resultSet = statement.getGeneratedKeys()) {
+                if (resultSet.next()) {
+                    scheduleId = resultSet.getInt(1);
+                    for (int i = 0; i < dayValue; i++) {
+                        addDays(dayNames[i], scheduleId);
+                        List<Day> days = dayDao.findByScheduleId(scheduleId);
+                        days.sort(Comparator.comparing(Day::getId));
+                        for (int j = 0; j < 24; j++) {
+                            hourDao.add(j, days.get(i).getId());
+                        }
+                    }
+                } else {
+                    throw new SQLException("Expected 1 result");
+                }
             }
         }
+
 
     }
 

@@ -81,4 +81,35 @@ public class SimpleTaskService implements TaskService {
             throw new ServiceException("Not type of Task");
         }
     }
+
+    @Override
+    public String[] gethourContentList(int dayId) throws SQLException, ServiceException {
+        try{
+            return taskDao.findhourContentList(dayId);
+        }  catch (NumberFormatException ex) {
+            throw new ServiceException("Day id must be an integer");
+        } catch (IllegalArgumentException ex) {
+            throw new ServiceException(ex.getMessage());
+        }
+    }
+
+    @Override
+    public Object[] gethourIdList(int dayId) throws SQLException, ServiceException {
+        return taskDao.findhourIdList(dayId);
+    }
+
+    @Override
+    public Object[] gethourIdListforDeletTask(int dayId) throws SQLException, ServiceException {
+        return taskDao.findhourIdListforDeletTask(dayId);
+    }
+
+    @Override
+    public boolean isfoundbyDayId(int dayId, int taskId) throws SQLException {
+        return taskDao.hasbyDayId(dayId, taskId);
+    }
+
+    @Override
+    public boolean isfoundbyHourId(int hourId, int taskId) throws SQLException {
+        return taskDao.hasbyHourId(hourId, taskId);
+    }
 }

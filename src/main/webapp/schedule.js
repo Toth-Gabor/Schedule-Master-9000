@@ -1,15 +1,25 @@
 function onScheduleLoad(scheduleDto) {
-    const scheduleIdSpanEl = document.getElementById('schedule-id');
-    const schedulePublishedSpanEl = document.getElementById('schedule-published');
-
-    scheduleIdSpanEl.textPublished = scheduleDto.schedule.id;
-    schedulePublishedSpanEl.textPublished = scheduleDto.schedule.published;
+    let scheduleIdSpanEl = document.getElementById('schedule-id');
+    let schedulePublishedSpanEl = document.getElementById('schedule-published-show');
+    var table = document.getElementById("schedule-table");
+    if(table == null){
+        document.getElementById('populate-schedule').appendChild(populateTable(null, scheduleDto.dayList.length, 24, scheduleDto.dayList.length, scheduleDto.allTaskNames));
+    }else{
+        table.remove();
+        document.getElementById('populate-schedule').appendChild(populateTable(null, scheduleDto.dayList.length, 24, scheduleDto.dayList.length, scheduleDto.allTaskNames));
+    }
+    scheduleIdSpanEl.innerHTML = scheduleDto.schedule.id;
+    if(scheduleDto.schedule.published){
+        schedulePublishedSpanEl.innerHTML = "published";
+    } else {
+        schedulePublishedSpanEl.innerHTML = "not published";
+    }
 }
 
 function onScheduleResponse() {
     if (this.status === OK) {
         clearMessages();
-        showContents(['schedule-content', 'schedules-content', 'back-to-profile-content', 'logout-content']);
+        showContents(['link-content', 'schedules-content','schedules-fields', 'back-to-profile-content', 'populate-schedule']);
         onScheduleLoad(JSON.parse(this.responseText));
     } else {
         onOtherResponse(schedulesContentDivEl, this);
@@ -18,27 +28,45 @@ function onScheduleResponse() {
 
 function populateTable(table, time, rows, cells, content) {
     if (!table) table = document.createElement('table');
-    var head = document.createElement('thead');
+
+    table.setAttribute('id', "schedule-table");
+    table.setAttribute('border', "1px");
+    let head = document.createElement('thead');
     table.appendChild(head);
 
-    for (var x = 1; x <= time; x++) {
-        var title = document.createElement('th');
+    for (let x = 1; x <= time; x++) {
+        let title = document.createElement('th');
         title.appendChild(document.createTextNode(x + '. Day'));
         head.appendChild(title);
     }
-    var body = document.createElement('tbody');
-    for (var i = 0; i < rows; ++i) {
-        var row = document.createElement('tr');
-        for (var j = 0; j < cells; ++j) {
+    let body = document.createElement('tbody');
+    for (let i = 0; i < rows; ++i) {
+        let row = document.createElement('tr');
+        for (let j = 0; j < cells; ++j) {
             row.appendChild(document.createElement('td'));
-            row.cells[j].appendChild(document.createTextNode(content + (j + 1)));
+
+            row.cells[j].appendChild(document.createTextNode(content[j][i]));
         }
         table.appendChild(row);
     }
     return table;
 }
 
-$(document).ready(function () {
-    document.getElementById('schedule-content')
+function removeAllChildren(el) {
+    while (el.firstChild) {
+        el.removeChild(el.firstChild);
+    }
+}
+
+/*$(document).ready(function () {
+    document.getElementById('schedules-content')
         .appendChild(populateTable(null, 7, 24, 7, "content"));
-});
+});*/
+
+/*{schedule: {…}, dayList: Array(2), taskList: Array(0), hourList: Array(3)}
+dayList: (2) [{…}, {…}]
+hourList: (3) [{…}, {…}, {…}]
+schedule: {id: 1, userId: 1, published: true}
+taskList: []
+__proto__: Object*/
+

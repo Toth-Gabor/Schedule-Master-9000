@@ -3,7 +3,8 @@ let SchedulesTableBodyEl;
 
 function onScheduleClicked() {
     const ScheduleId = this.dataset.ScheduleId;
-    console.log(ScheduleId);
+    localStorage.setItem("schedule-id", ScheduleId);
+
     const params = new URLSearchParams();
     params.append('schedule-id', ScheduleId);
 
@@ -11,7 +12,7 @@ function onScheduleClicked() {
     xhr.addEventListener('load', onScheduleResponse);
     xhr.addEventListener('error', onNetworkError);
     xhr.open('GET', 'protected/schedule?' + params.toString());
-    xhr.send();
+    xhr.send(params);
 }
 
 function appendSchedule(Schedule) {
@@ -44,9 +45,19 @@ function onSchedulesLoad(Schedules) {
 
 function onSchedulesResponse() {
     if (this.status === OK) {
-        showContents(['back-to-profile-content', 'logout-content', 'schedules-content', 'schedule-content']);
+        showContents(['back-to-profile-content', 'schedules-content', 'link-content']);
         onSchedulesLoad(JSON.parse(this.responseText));
     } else {
         onOtherResponse(schedulesContentDivEl, this);
     }
 }
+function onAddScheduleResponse() {
+    alert("Schedule added!");
+    if (this.status === OK) {
+        showContents(['link-content', 'profile-content', 'logout-content', 'add-schedule-content']);
+    } else {
+        onOtherResponse(schedulesContentDivEl, this);
+    }
+}
+
+

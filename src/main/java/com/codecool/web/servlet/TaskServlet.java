@@ -26,7 +26,8 @@ public class TaskServlet extends AbstractServlet {
         try (Connection connection = getConnection(req.getServletContext())){
             TaskDao taskDao = new DatabaseTaskDao(connection);
             TaskService taskService = new SimpleTaskService(taskDao);
-            int taskId = (Integer) req.getAttribute("task-id");
+            String tId = req.getParameter("task-id");
+            int taskId = Integer.parseInt(tId);
             Task task = taskService.getbyId(taskId);
 
             sendMessage(resp, HttpServletResponse.SC_OK, task);
@@ -77,9 +78,11 @@ public class TaskServlet extends AbstractServlet {
         try (Connection connection = getConnection(req.getServletContext())){
             TaskDao taskDao = new DatabaseTaskDao(connection);
             TaskService taskService = new SimpleTaskService(taskDao);
-            int taskId = (Integer) req.getAttribute("task-id");
+            int taskId = Integer.parseInt(req.getParameter("taskId"));
             Task task = taskService.getbyId(taskId);
             taskService.delete(task);
+
+            sendMessage(resp, HttpServletResponse.SC_OK, null);
 
         } catch (SQLException e) {
             handleSqlError(resp, e);

@@ -41,7 +41,8 @@ public class ScheduleServlet extends AbstractServlet{
         try (Connection connection = getConnection(req.getServletContext())){
             ScheduleDao scheduleDao = new DatabaseScheduleDao(connection);
             ScheduleService scheduleService = new SimpleScheduleService(scheduleDao);
-            int scheduleId = (Integer) req.getAttribute("schedule-id");
+            String schId = req.getParameter("schedule-id");
+            int scheduleId = Integer.parseInt(schId);
             Schedule schedule = scheduleService.getbyId(scheduleId);
             
             DayDao dayDao = new DatabaseDayDao(connection);
@@ -55,9 +56,16 @@ public class ScheduleServlet extends AbstractServlet{
             HourDao hourDao = new DatabaseHourDao(connection);
             HourService hourService = new SimpleHourService(hourDao);
             List<Integer> dayIdList = new ArrayList<>();
-            for (Day day : dayList) {
-                dayIdList.add(day.getId());
+            String[][] allTaskNames = new String[dayList.size()][24];
+
+
+            for (int i = 0; i < dayList.size() ; i++) {
+                dayIdList.add(dayList.get(i).getId());
+                String[] tasknames = taskDao.findhourContentList(dayList.get(i).getId());
+                allTaskNames[i] = tasknames;
+
             }
+
             List<Hour> hourList = new ArrayList<>();
             for (int i = 0; i < dayIdList.size(); i++) {
                 List<Hour> hourListForDayId = hourService.getbyDayId(dayIdList.get(i));
@@ -65,15 +73,15 @@ public class ScheduleServlet extends AbstractServlet{
                     hourList.add(hour);
                 }
             }
+
             
-            sendMessage(resp, HttpServletResponse.SC_OK, new ScheduleDto(schedule, dayList, taskList, hourList));
+            sendMessage(resp, HttpServletResponse.SC_OK, new ScheduleDto(schedule, dayList, taskList, hourList, allTaskNames));
         
         } catch (SQLException e) {
             handleSqlError(resp, e);
         } catch (ServiceException e) {
             e.printStackTrace();
         }
-        super.doGet(req, resp);
     }
     
     @Override
@@ -82,16 +90,16 @@ public class ScheduleServlet extends AbstractServlet{
             ScheduleDao scheduleDao = new DatabaseScheduleDao(connection);
             ScheduleService scheduleService = new SimpleScheduleService(scheduleDao);
             User user = (User) req.getSession().getAttribute("user");
-            boolean isPublished = (Boolean)req.getAttribute("schedule-published");
-            int dayValue = Integer.parseInt((String) req.getAttribute("day-value"));
+            boolean isPublished = Boolean.parseBoolean(req.getParameter("schedule-published"));
+            String dValue = req.getParameter("day-value");
+            int dayValue = Integer.parseInt(dValue);
             SimpleScheduleService simpleScheduleService = new SimpleScheduleService(scheduleDao);
-            String[] dayNames = null;
+            String[] dayNames = simpleScheduleService.dayNames;
             for (int i = 0; i < simpleScheduleService.dayNames.length - (7 - dayValue); i++) {
                 dayNames[i] = simpleScheduleService.dayNames[i];
             }
-            
             scheduleService.add(isPublished, user.getId(), dayValue, dayNames);
-            
+            sendMessage(resp, HttpServletResponse.SC_OK, null);
         } catch (SQLException e) {
             handleSqlError(resp, e);
         }

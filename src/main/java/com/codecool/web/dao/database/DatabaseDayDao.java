@@ -2,7 +2,6 @@ package com.codecool.web.dao.database;
 
 import com.codecool.web.dao.DayDao;
 import com.codecool.web.model.Day;
-import com.codecool.web.model.Hour;
 import com.codecool.web.model.Schedule;
 
 import java.sql.*;

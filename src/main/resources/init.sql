@@ -7,169 +7,273 @@ DROP TABLE IF EXISTS hour_task CASCADE;
 DROP FUNCTION IF EXISTS count_days();
 DROP FUNCTION IF EXISTS count_hours;
 
-CREATE TABLE users (
-	user_id SERIAL NOT NULL PRIMARY KEY,
-	username TEXT NOT NULL,
-	email TEXT NOT NULL,
-	user_password TEXT NOT NULL,
-	administrator BOOLEAN DEFAULT FALSE,
-	CONSTRAINT email_not_empty CHECK (email <> ''),
-	CONSTRAINT pw_not_empty CHECK (user_password <> '')
+CREATE TABLE users
+(
+    user_id       SERIAL NOT NULL PRIMARY KEY,
+    username      TEXT   NOT NULL,
+    email         TEXT   NOT NULL,
+    user_password TEXT   NOT NULL,
+    administrator BOOLEAN DEFAULT FALSE,
+    CONSTRAINT email_not_empty CHECK (email <> ''),
+    CONSTRAINT pw_not_empty CHECK (user_password <> '')
 );
 
-CREATE TABLE schedule (
-	schedule_id SERIAL NOT NULL PRIMARY KEY,
-	schedule_published BOOLEAN DEFAULT FALSE,
-	user_id INT NOT NULL,
-	FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE
+CREATE TABLE schedule
+(
+    schedule_id        SERIAL NOT NULL PRIMARY KEY,
+    schedule_published BOOLEAN DEFAULT FALSE,
+    user_id            INT    NOT NULL,
+    FOREIGN KEY (user_id) REFERENCES users (user_id) ON DELETE CASCADE
 );
 
-CREATE TABLE days (
-	day_id SERIAL NOT NULL PRIMARY KEY,
-	day_name TEXT NOT NULL,
-	schedule_id INT NOT NULL,
-	FOREIGN KEY (schedule_id) REFERENCES schedule(schedule_id) ON DELETE CASCADE
+CREATE TABLE days
+(
+    day_id      SERIAL NOT NULL PRIMARY KEY,
+    day_name    TEXT   NOT NULL,
+    schedule_id INT    NOT NULL,
+    FOREIGN KEY (schedule_id) REFERENCES schedule (schedule_id) ON DELETE CASCADE
 );
 
-CREATE TABLE task (
-	task_id SERIAL NOT NULL PRIMARY KEY,
-	task_name TEXT NOT NULL,
-	task_content TEXT NOT NULL,
-	user_id INT NOT NULL,
-	FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE
+CREATE TABLE task
+(
+    task_id      SERIAL NOT NULL PRIMARY KEY,
+    task_name    TEXT   NOT NULL,
+    task_content TEXT   NOT NULL,
+    user_id      INT    NOT NULL,
+    FOREIGN KEY (user_id) REFERENCES users (user_id) ON DELETE CASCADE
 
 );
 
-CREATE TABLE hour (
-	hour_id SERIAL NOT NULL PRIMARY KEY,
-	hour_value INT DEFAULT 0,
-	day_id INT NOT NULL,
-	FOREIGN KEY (day_id) REFERENCES days(day_id) ON DELETE CASCADE,
-	CHECK (hour_value BETWEEN 0 AND 24)
+CREATE TABLE hour
+(
+    hour_id    SERIAL NOT NULL PRIMARY KEY,
+    hour_value INT DEFAULT 0,
+    day_id     INT    NOT NULL,
+    FOREIGN KEY (day_id) REFERENCES days (day_id) ON DELETE CASCADE,
+    CHECK (hour_value BETWEEN 0 AND 24)
 );
 
-CREATE TABLE hour_task (
+CREATE TABLE hour_task
+(
     hour_id INT,
     task_id INT,
-    FOREIGN KEY (hour_id) REFERENCES hour(hour_id),
-    FOREIGN KEY (task_id) REFERENCES task(task_id)
+    FOREIGN KEY (hour_id) REFERENCES hour (hour_id),
+    FOREIGN KEY (task_id) REFERENCES task (task_id) ON DELETE CASCADE
 );
 
+INSERT INTO public.users (user_id, username, email, user_password, administrator)
+VALUES (1, 'Péter', 'user1@user1', 'user1', TRUE);
+INSERT INTO public.users (user_id, username, email, user_password, administrator)
+VALUES (2, 'Gábor', 'user2@user2', 'user2', FALSE);
+INSERT INTO public.users (user_id, username, email, user_password, administrator)
+VALUES (3, 'Andris', 'user2@user3', 'user3', TRUE);
+
+INSERT INTO public.schedule (schedule_published, user_id)
+VALUES (TRUE, 1);
+INSERT INTO public.schedule (schedule_published, user_id)
+VALUES (TRUE, 1);
+INSERT INTO public.schedule (schedule_published, user_id)
+VALUES (FALSE, 2);
+INSERT INTO public.schedule (schedule_published, user_id)
+VALUES (FALSE, 2);
+INSERT INTO public.schedule (schedule_published, user_id)
+VALUES (TRUE, 2);
+INSERT INTO public.schedule (schedule_published, user_id)
+VALUES (FALSE, 3);
+INSERT INTO public.schedule (schedule_published, user_id)
+VALUES (TRUE, 3);
+INSERT INTO public.schedule (schedule_published, user_id)
+VALUES (FALSE, 1);
+
+INSERT INTO public.days (day_name, schedule_id)
+VALUES ('Monday', 1);
+INSERT INTO public.days (day_name, schedule_id)
+VALUES ('Tuesday', 1);
+INSERT INTO public.days (day_name, schedule_id)
+VALUES ('Wednesday', 3);
+INSERT INTO public.days (day_name, schedule_id)
+VALUES ('Thursday', 4);
+INSERT INTO public.days (day_name, schedule_id)
+VALUES ('Wednesday', 5);
+INSERT INTO public.days (day_name, schedule_id)
+VALUES ('Wednesday', 6);
+INSERT INTO public.days (day_name, schedule_id)
+VALUES ('Friday', 7);
+INSERT INTO public.days (day_name, schedule_id)
+VALUES ('first', 8);
+INSERT INTO public.days (day_name, schedule_id)
+VALUES ('second', 8);
+INSERT INTO public.days (day_name, schedule_id)
+VALUES ('third', 8);
+
+INSERT INTO public.task (task_name, task_content, user_id)
+VALUES ('First', 'Feed the birds', 1);
+INSERT INTO public.task (task_name, task_content, user_id)
+VALUES ('Second', 'Go to gym', 1);
+INSERT INTO public.task (task_name, task_content, user_id)
+VALUES ('Third', 'Cook something', 2);
+INSERT INTO public.task (task_name, task_content, user_id)
+VALUES ('Fourth', 'Write some code', 2);
+INSERT INTO public.task (task_name, task_content, user_id)
+VALUES ('Fifth', 'Do homework', 3);
+INSERT INTO public.task (task_name, task_content, user_id)
+VALUES ('Sixth', 'Do relax', 3);
 
 
-INSERT INTO users (username, email, user_password, administrator) VALUES
-('Péter', 'user1@user1', 'user1', TRUE), -- 1
-('Gábor', 'user2@user2', 'user2', FALSE), -- 2
-('Andris', 'user2@user3', 'user3', TRUE); -- 3
+INSERT INTO public.hour (hour_value, day_id)
+VALUES (8, 1);
+INSERT INTO public.hour (hour_value, day_id)
+VALUES (9, 1);
+INSERT INTO public.hour (hour_value, day_id)
+VALUES (11, 2);
+INSERT INTO public.hour (hour_value, day_id)
+VALUES (0, 8);
+INSERT INTO public.hour (hour_value, day_id)
+VALUES (1, 8);
+INSERT INTO public.hour (hour_value, day_id)
+VALUES (2, 8);
+INSERT INTO public.hour (hour_value, day_id)
+VALUES (3, 8);
+INSERT INTO public.hour (hour_value, day_id)
+VALUES (4, 8);
+INSERT INTO public.hour (hour_value, day_id)
+VALUES (5, 8);
+INSERT INTO public.hour (hour_value, day_id)
+VALUES (6, 8);
+INSERT INTO public.hour (hour_value, day_id)
+VALUES (7, 8);
+INSERT INTO public.hour (hour_value, day_id)
+VALUES (8, 8);
+INSERT INTO public.hour (hour_value, day_id)
+VALUES (9, 8);
+INSERT INTO public.hour (hour_value, day_id)
+VALUES (10, 8);
+INSERT INTO public.hour (hour_value, day_id)
+VALUES (11, 8);
+INSERT INTO public.hour (hour_value, day_id)
+VALUES (12, 8);
+INSERT INTO public.hour (hour_value, day_id)
+VALUES (13, 8);
+INSERT INTO public.hour (hour_value, day_id)
+VALUES (14, 8);
+INSERT INTO public.hour (hour_value, day_id)
+VALUES (15, 8);
+INSERT INTO public.hour (hour_value, day_id)
+VALUES (16, 8);
+INSERT INTO public.hour (hour_value, day_id)
+VALUES (17, 8);
+INSERT INTO public.hour (hour_value, day_id)
+VALUES (18, 8);
+INSERT INTO public.hour (hour_value, day_id)
+VALUES (19, 8);
+INSERT INTO public.hour (hour_value, day_id)
+VALUES (20, 8);
+INSERT INTO public.hour (hour_value, day_id)
+VALUES (21, 8);
+INSERT INTO public.hour (hour_value, day_id)
+VALUES (22, 8);
+INSERT INTO public.hour (hour_value, day_id)
+VALUES (23, 8);
+INSERT INTO public.hour (hour_value, day_id)
+VALUES (0, 9);
+INSERT INTO public.hour (hour_value, day_id)
+VALUES (1, 9);
+INSERT INTO public.hour (hour_value, day_id)
+VALUES (2, 9);
+INSERT INTO public.hour (hour_value, day_id)
+VALUES (3, 9);
+INSERT INTO public.hour (hour_value, day_id)
+VALUES (4, 9);
+INSERT INTO public.hour (hour_value, day_id)
+VALUES (5, 9);
+INSERT INTO public.hour (hour_value, day_id)
+VALUES (6, 9);
+INSERT INTO public.hour (hour_value, day_id)
+VALUES (7, 9);
+INSERT INTO public.hour (hour_value, day_id)
+VALUES (8, 9);
+INSERT INTO public.hour (hour_value, day_id)
+VALUES (9, 9);
+INSERT INTO public.hour (hour_value, day_id)
+VALUES (10, 9);
+INSERT INTO public.hour (hour_value, day_id)
+VALUES (11, 9);
+INSERT INTO public.hour (hour_value, day_id)
+VALUES (12, 9);
+INSERT INTO public.hour (hour_value, day_id)
+VALUES (13, 9);
+INSERT INTO public.hour (hour_value, day_id)
+VALUES (14, 9);
+INSERT INTO public.hour (hour_value, day_id)
+VALUES (15, 9);
+INSERT INTO public.hour (hour_value, day_id)
+VALUES (16, 9);
+INSERT INTO public.hour (hour_value, day_id)
+VALUES (17, 9);
+INSERT INTO public.hour (hour_value, day_id)
+VALUES (18, 9);
+INSERT INTO public.hour (hour_value, day_id)
+VALUES (19, 9);
+INSERT INTO public.hour (hour_value, day_id)
+VALUES (20, 9);
+INSERT INTO public.hour (hour_value, day_id)
+VALUES (21, 9);
+INSERT INTO public.hour (hour_value, day_id)
+VALUES (22, 9);
+INSERT INTO public.hour (hour_value, day_id)
+VALUES (23, 9);
+INSERT INTO public.hour (hour_value, day_id)
+VALUES (0, 10);
+INSERT INTO public.hour (hour_value, day_id)
+VALUES (1, 10);
+INSERT INTO public.hour (hour_value, day_id)
+VALUES (2, 10);
+INSERT INTO public.hour (hour_value, day_id)
+VALUES (3, 10);
+INSERT INTO public.hour (hour_value, day_id)
+VALUES (4, 10);
+INSERT INTO public.hour (hour_value, day_id)
+VALUES (5, 10);
+INSERT INTO public.hour (hour_value, day_id)
+VALUES (6, 10);
+INSERT INTO public.hour (hour_value, day_id)
+VALUES (7, 10);
+INSERT INTO public.hour (hour_value, day_id)
+VALUES (8, 10);
+INSERT INTO public.hour (hour_value, day_id)
+VALUES (9, 10);
+INSERT INTO public.hour (hour_value, day_id)
+VALUES (10, 10);
+INSERT INTO public.hour (hour_value, day_id)
+VALUES (11, 10);
+INSERT INTO public.hour (hour_value, day_id)
+VALUES (12, 10);
+INSERT INTO public.hour (hour_value, day_id)
+VALUES (13, 10);
+INSERT INTO public.hour (hour_value, day_id)
+VALUES (14, 10);
+INSERT INTO public.hour (hour_value, day_id)
+VALUES (15, 10);
+INSERT INTO public.hour (hour_value, day_id)
+VALUES (16, 10);
+INSERT INTO public.hour (hour_value, day_id)
+VALUES (17, 10);
+INSERT INTO public.hour (hour_value, day_id)
+VALUES (18, 10);
+INSERT INTO public.hour (hour_value, day_id)
+VALUES (19, 10);
+INSERT INTO public.hour (hour_value, day_id)
+VALUES (20, 10);
+INSERT INTO public.hour (hour_value, day_id)
+VALUES (21, 10);
+INSERT INTO public.hour (hour_value, day_id)
+VALUES (22, 10);
+INSERT INTO public.hour (hour_value, day_id)
+VALUES (23, 10);
 
-INSERT INTO schedule (schedule_published, user_id) VALUES
-(TRUE, 1),  -- 1
-(TRUE, 1),  -- 2
-(FALSE, 2), -- 3
-(FALSE, 2), -- 4
-(TRUE, 2),  -- 5
-(FALSE, 3), -- 6
-(true, 3);  -- 7
-
-INSERT INTO days (day_name, schedule_id) VALUES
-('Monday', 1),('Tuesday', 1),
-('Wednesday', 3),('Thursday', 4),
-('Wednesday', 5),('Wednesday', 6),('Friday', 7);
-
-INSERT INTO task (task_name, task_content, user_id) VALUES
-('First', 'Feed the birds',1),('Second', 'Go to gym',1),
-('Third', 'Cook something',2),('Fourth', 'Write some code',2),
-('Fifth', 'Do homework',3),('Sixth', 'Do relax',3);
-
-INSERT INTO hour (hour_value, day_id)
-VALUES (8,1),(9,1),(11,2);
-
-CREATE OR REPLACE FUNCTION count_days() RETURNS TRIGGER AS '
-DECLARE
-	day_counter INTEGER := 0;
-	need_to_check BOOLEAN := false;
-
-BEGIN
-	IF TG_OP = ''INSERT'' THEN
-        need_to_check := true;
-    END IF;
-    IF TG_OP = ''UPDATE'' THEN
-        IF (NEW.schedule_id != OLD.schedule_id) THEN
-            need_to_check := true;
-        END IF;
-    END IF;
-    IF need_to_check THEN
-        SELECT INTO day_counter COUNT(*)
-        FROM days
-        WHERE OLD.schedule_id = NEW.schedule_id;
-        IF count_days >= 7 THEN
-            RAISE EXCEPTION ''Cannot create more than 7 days for a schedule!'';
-        END IF;
-    END IF;
-    RETURN NEW;
-END;
-' LANGUAGE plpgsql;
-
-CREATE TRIGGER count_days
-    BEFORE INSERT OR UPDATE ON days
-    FOR EACH ROW EXECUTE PROCEDURE count_days();
-
-
-CREATE OR REPLACE FUNCTION count_hours() RETURNS TRIGGER AS '
-DECLARE
-	hour_counter INTEGER := 0;
-	need_to_check BOOLEAN := false;
-
-BEGIN
-	IF TG_OP = ''INSERT'' THEN
-        need_to_check := true;
-    END IF;
-    IF TG_OP = ''UPDATE'' THEN
-        IF (NEW.day_id != OLD.day_id) THEN
-            need_to_check := true;
-        END IF;
-    END IF;
-    IF need_to_check THEN
-        SELECT INTO hour_counter COUNT(*)
-        FROM hour
-        WHERE OLD.day_id = NEW.day_id;
-        IF count_hour >= 24 THEN
-            RAISE EXCEPTION ''Cannot create more than 24 task for a day!'';
-        END IF;
-    END IF;
-    RETURN NEW;
-END;
-' LANGUAGE plpgsql;
-
-CREATE TRIGGER count_hours
-    BEFORE INSERT OR UPDATE ON hour
-    FOR EACH ROW EXECUTE PROCEDURE count_hours();
-
-CREATE OR REPLACE FUNCTION hour_check() RETURNS trigger AS '
-		DECLARE
-		    need_to_check BOOLEAN := false;
-			result_hour INTEGER := 0;
-		BEGIN
-		    IF TG_OP = ''INSERT'' THEN
-		        need_to_check := true;
-		    END IF;
-		    IF TG_OP = ''UPDATE'' THEN
-		        IF (NEW.day_id != OLD.day_id) THEN
-		            need_to_check := true;
-		        END IF;
-		    END IF;
-		    IF need_to_check THEN
-		        Select hour into result_hour  FROM hour
-		        	WHERE day_id = NEW.day_id;
-		        IF result_hour = NEW.hour THEN
-		            RAISE EXCEPTION ''There is already a task scheduled for this time!'';
-		        END IF;
-		    END IF;
-		    RETURN NEW;
-		END;
-		' LANGUAGE plpgsql;
-
-
-CREATE TRIGGER hour_check
-		BEFORE INSERT OR UPDATE ON hour
-	    FOR EACH ROW EXECUTE PROCEDURE hour_check();
+INSERT INTO public.hour_task (hour_id, task_id)
+VALUES (1, 1);
+INSERT INTO public.hour_task (hour_id, task_id)
+VALUES (2, 2);
+INSERT INTO public.hour_task (hour_id, task_id)
+VALUES (4, 2);

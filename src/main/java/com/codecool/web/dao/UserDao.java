@@ -1,6 +1,5 @@
 package com.codecool.web.dao;
 
-import com.codecool.web.model.Schedule;
 import com.codecool.web.model.User;
 
 import java.sql.SQLException;

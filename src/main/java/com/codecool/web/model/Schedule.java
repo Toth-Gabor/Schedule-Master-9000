@@ -17,4 +17,5 @@ public class Schedule extends AbstractModel {
     public int getUserId() {
         return userId;
     }
+    
 }

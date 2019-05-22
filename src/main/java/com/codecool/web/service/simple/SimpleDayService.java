@@ -8,7 +8,6 @@ import com.codecool.web.service.exception.ServiceException;
 
 import java.sql.SQLException;
 import java.util.List;
-import java.util.Objects;
 
 public class SimpleDayService implements DayService {
     
