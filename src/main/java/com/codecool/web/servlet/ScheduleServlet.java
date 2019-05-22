@@ -110,8 +110,8 @@ public class ScheduleServlet extends AbstractServlet{
         try (Connection connection = getConnection(req.getServletContext())) {
             ScheduleDao scheduleDao = new DatabaseScheduleDao(connection);
             ScheduleService scheduleService = new SimpleScheduleService(scheduleDao);
-            int scheduleId = (Integer) req.getAttribute("schedule-id");
-            boolean isPublished = (Boolean)req.getAttribute("schedule-published");
+            int scheduleId = Integer.parseInt( req.getParameter("schedule-id"));
+            boolean isPublished = Boolean.parseBoolean( req.getParameter("schedule-published"));
             
             Schedule schedule = scheduleService.getbyId(scheduleId);
             scheduleService.update(schedule, isPublished);
