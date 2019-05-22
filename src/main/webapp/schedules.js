@@ -3,9 +3,9 @@ let SchedulesTableBodyEl;
 
 function onScheduleClicked() {
     const ScheduleId = this.dataset.ScheduleId;
-
+    console.log(ScheduleId);
     const params = new URLSearchParams();
-    params.append('id', ScheduleId);
+    params.append('schedule-id', ScheduleId);
 
     const xhr = new XMLHttpRequest();
     xhr.addEventListener('load', onScheduleResponse);

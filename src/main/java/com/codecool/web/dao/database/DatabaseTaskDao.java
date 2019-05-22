@@ -59,7 +59,7 @@ public class DatabaseTaskDao extends AbstractDao implements TaskDao {
 
     @Override
     public List<Task> findbyScheduleId(int scheduleId) throws SQLException {
-        String sql = "SELECT task.task_id, task_name, task_content, user_id FROM task\n" +
+        String sql = "SELECT task.task_id, task_name, task_content, task.user_id FROM task\n" +
             " INNER JOIN hour_task ON task.task_id = hour_task.task_id\n+" +
             " INNER JOIN hour ON hour.hour_id = hour_task.hour_id\n " +
             " INNER JOIN days ON days.day_id = hour.day_id\n" +
@@ -115,7 +115,7 @@ public class DatabaseTaskDao extends AbstractDao implements TaskDao {
             statement.execute();
         }
     }
-    
+
     @Override
     public void add(String name, String content, int userId) throws SQLException {
         String sql = "INSERT INTO task (task_name, task_content, user_id) VALUES (?, ?, ?)";
@@ -126,7 +126,7 @@ public class DatabaseTaskDao extends AbstractDao implements TaskDao {
             statement.execute();
         }
     }
-    
+
     @Override
     public void update(Task task, String name, String content) throws SQLException {
         String sql = "UPDATE task SET task_name = ?, task_content = ? WHERE task_id = ?;";
@@ -136,7 +136,7 @@ public class DatabaseTaskDao extends AbstractDao implements TaskDao {
             statement.setInt(3, task.getId());
         }
     }
-    
+
     private Task fetchTask(ResultSet resultSet) throws SQLException {
         int id = resultSet.getInt("task_id");
         String name = resultSet.getString("task_name");

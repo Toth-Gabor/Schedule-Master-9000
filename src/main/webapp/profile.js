@@ -6,7 +6,7 @@ function onSchedulesClicked() {
     xhr.addEventListener('load', onSchedulesResponse);
     xhr.addEventListener('error', onNetworkError);
     xhr.open('GET', 'protected/schedules?' + params.toString());
-    xhr.send();
+    xhr.send(params);
 }
 
 function onProfileLoad(user) {
