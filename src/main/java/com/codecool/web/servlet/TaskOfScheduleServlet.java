@@ -96,7 +96,7 @@ public class TaskOfScheduleServlet extends AbstractServlet {
             int taskId = Integer.parseInt(req.getParameter("taskId"));
             TaskOfScheduleDao taskOfScheduleDao = new DatabaseTaskOfScheduleDao(connection);
             TaskOfScheduleService taskOfScheduleService = new SimpleTaskOfScheduleService(taskOfScheduleDao);
-            taskOfScheduleService.deleteTaskFromDBById(taskId);
+            taskOfScheduleService.deleteTaskFromScheduleById(taskId);
         
             sendMessage(resp, HttpServletResponse.SC_OK, null);
         } catch (SQLException e) {
