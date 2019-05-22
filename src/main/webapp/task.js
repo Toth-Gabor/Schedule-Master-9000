@@ -127,7 +127,7 @@ function onDeleteTaskClicked() {
     const xhr = new XMLHttpRequest();
     xhr.addEventListener('load', onTaskDeletedResponse);
     xhr.addEventListener('error', onNetworkError);
-    xhr.open('DELETE', 'protected/taskofschedule?' + params.toString());
+    xhr.open('DELETE', 'protected/task?' + params.toString());
     xhr.send();
 }
 
