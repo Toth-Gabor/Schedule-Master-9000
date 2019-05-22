@@ -64,11 +64,7 @@
             <input type="submit" name="Submit" value="submit">
         </form>
 
-        <form id="add-task-content" class="hidden content" action="index.html" method="post">
-            <input type="text" name="task-name" value="">
-            <input type="text" name="task-content" value="">
-            <input type="submit" name="Submit" value="submit">
-        </form>
+
 
         <form id="edit-task-content" class="hidden content" action="index.html" method="post">
 
@@ -173,6 +169,9 @@
 <div id="tasks-content" class="hidden content">
     <h1>Tasks</h1>
 
+    <button type="button" name="add-task" onclick="onShowAddTaskForm()">Create Task</button>
+
+
     <table id="tasks">
         <tbody>
 
@@ -191,6 +190,14 @@
         <button id="delete-task" onclick="onDeleteTaskClicked()">Delete task</button>
     </div>
 
+</div>
+
+<div id="creat-task-content" class="hidden content">
+    <form id="create-task-form" onsubmit="return false;">
+        <input type="text" name="task-name" placeholder="Title" required>
+        <input type="text" name="task-content" placeholder="Content" required>
+        <button id="onCreateTaskFormSubmit" onclick="onCreateTaskClicked()">Create Task</button>
+    </form>
 </div>
 
 <div id="back-to-profile-content" class="hidden content">
