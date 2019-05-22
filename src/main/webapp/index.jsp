@@ -136,6 +136,7 @@
             <li>schedule is <span id="schedule-published-show"></span></li>
         </ul>
         <button onclick="onAddTaskClicked()">Add task</button>
+        <button onclick="onDeleteTaskClicked()">Delete task</button>
     </div>
 
     <div id="populate-schedule" class="hidden content">
@@ -181,14 +182,10 @@
 
 </div>
 
-<div>
-
-</div>
-
-
 <div id="back-to-profile-content" class="hidden content">
     <button onclick="onBackToProfileClicked();">Back to profile</button>
 </div>
+
 <div id="logout-content" class="hidden content">
     <button id="logout-button">Logout</button>
 </div>
