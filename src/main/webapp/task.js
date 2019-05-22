@@ -135,3 +135,41 @@ function onTaskDeletedResponse() {
     alert("Task deleted");
     showContents(['back-to-profile-content', 'link-content']);
 }
+
+function onDeleteTaskClicked() {
+    const ScheduleId = localStorage.getItem("schedule-id");
+
+    const params = new URLSearchParams();
+    params.append('schedule-id', ScheduleId);
+
+    const xhr = new XMLHttpRequest();
+    xhr.addEventListener('load', onDeleteTaskResponse);
+    xhr.addEventListener('error', onNetworkError);
+    xhr.open('PUT', 'protected/taskofschedule?' + params.toString());
+    xhr.send(params);
+}
+
+function onDeleteTaskResponse() {
+    if (this.status === OK) {
+        clearMessages();
+        showContents(['show-hourid-fordelete', 'link-content', 'show-tname-hid-table','show-alltasks', 'task-fields','back-to-profile-content']);
+        onDeleteTaskLoad(JSON.parse(this.responseText));
+    } else {
+        onOtherResponse(tasksContentDivEl, this);
+    }
+
+
+}
+function onDeleteTaskLoad(hourIdListforDelete) {
+    console.log(hourIdListforDelete);
+    const length = hourIdListforDelete.length;
+    const tasksHoursDivEl = document.getElementById("show-hourid-fordelete");
+    let table = document.getElementById("taskhour-table");
+    if (table == null){
+        tasksHoursDivEl.appendChild(showTHTable(null,length,24,length,hourIdListforDelete));
+    } else {
+        table.remove();
+        tasksHoursDivEl.appendChild(showTHTable(null,length,24,length,hourIdListforDelete));
+    }
+    alert("Task deleted from this schedule!");
+}

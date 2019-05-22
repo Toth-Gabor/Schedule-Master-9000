@@ -139,17 +139,15 @@
         <button onclick="onDeleteTaskClicked()">Delete task</button>
     </div>
 
-    <div id="populate-schedule" class="hidden content">
-
-    </div>
+    <div id="populate-schedule" class="hidden content"></div>
 
 </div>
 
-<div id="show-tname-hid-table" class="hidden content">
-</div>
+<div id="show-tname-hid-table" class="hidden content"></div>
 
-<div id="show-alltasks" class="hidden content">
-</div>
+<div id="show-hourid-fordelete" class="hidden content"></div>
+
+<div id="show-alltasks" class="hidden content"></div>
 
 <div id="add-hourid" class="hidden content">
     <p id="taskname"></p>
