@@ -15,8 +15,9 @@ function onTaskLoad(task) {
 
     taskNameSpanEl.innerHTML = task.name;
     taskContentSpanEl.innerHTML = task.content;
-
+    localStorage.setItem("delete-taskId", task.id);
 }
+
 function onAddTaskClicked() {
     const ScheduleId = localStorage.getItem("schedule-id");
 
@@ -28,14 +29,6 @@ function onAddTaskClicked() {
     xhr.addEventListener('error', onNetworkError);
     xhr.open('GET', 'protected/taskofschedule?' + params.toString());
     xhr.send(params);
-
-
-
-    //kell egy új dao a hour_task insertre
-    //csak hourid-t kell inputba megdani
-    //folytatás: populate tábla, gomb
-    //debug
-
 }
 
 function onAddTaskResponse() {
@@ -108,7 +101,6 @@ function showTHTable(table, days, rows, cells, content) {
 
 function onTaskNameClicked() {
     gtaskId = this.dataset.taskId;
-    console.log(gtaskId);
     showContents(['add-hourid', 'link-content', 'show-tname-hid-table', 'task-fields', 'back-to-profile-content', 'show-alltasks']);
 }
 function onHourIdSubmit() {
@@ -126,4 +118,20 @@ function onHourIdSubmit() {
     xhr.send();
     alert("Task added!");
     showContents(['link-content', 'back-to-profile-content']);
+}
+
+function onDeleteTaskClicked() {
+    const params = new URLSearchParams();
+    params.append('taskId', localStorage.getItem("delete-taskId"));
+
+    const xhr = new XMLHttpRequest();
+    xhr.addEventListener('load', onTaskDeletedResponse);
+    xhr.addEventListener('error', onNetworkError);
+    xhr.open('DELETE', 'protected/taskofschedule?' + params.toString());
+    xhr.send();
+}
+
+function onTaskDeletedResponse() {
+    alert("Task deleted");
+    showContents(['back-to-profile-content', 'link-content']);
 }

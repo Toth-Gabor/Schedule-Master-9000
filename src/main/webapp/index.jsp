@@ -176,6 +176,7 @@
                 <bold><span id="task-content"></span></bold>
             </li>
         </ul>
+        <button id="delete-task" onclick="onDeleteTaskClicked()">Delete task</button>
     </div>
 
 </div>
