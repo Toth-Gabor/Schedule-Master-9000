@@ -17,3 +17,10 @@
     position: relative;
     float: left;
 }
+td ,th {
+    min-width: 100px;
+    height: 20px;
+}
+span {
+    font-weight: bold;
+}

@@ -16,15 +16,14 @@ function onScheduleClicked() {
 }
 
 function appendSchedule(Schedule) {
+    const schLiEl = document.createElement('li');
     const aEl = document.createElement('a');
+    schLiEl.appendChild(aEl);
     aEl.textContent = Schedule.id;
     aEl.href = 'javascript:void(0);';
     aEl.dataset.ScheduleId = Schedule.id;
     aEl.addEventListener('click', onScheduleClicked);
-
-    const trEl = document.createElement('tr');
-    trEl.appendChild(aEl);
-    SchedulesTableBodyEl.appendChild(trEl);
+    SchedulesTableBodyEl.appendChild(schLiEl);
 }
 
 function appendSchedules(Schedules) {
@@ -38,7 +37,7 @@ function appendSchedules(Schedules) {
 
 function onSchedulesLoad(Schedules) {
     SchedulesTableEl = document.getElementById('schedules');
-    SchedulesTableBodyEl = SchedulesTableEl.querySelector('tbody');
+    SchedulesTableBodyEl = SchedulesTableEl.querySelector('ul');
 
     appendSchedules(Schedules);
 }
@@ -51,10 +50,63 @@ function onSchedulesResponse() {
         onOtherResponse(schedulesContentDivEl, this);
     }
 }
+
 function onAddScheduleResponse() {
     alert("Schedule added!");
     if (this.status === OK) {
-        showContents(['link-content', 'profile-content', 'logout-content', 'add-schedule-content']);
+        showContents(['link-content', 'profile-content', 'logout-content']);
+    } else {
+        onOtherResponse(schedulesContentDivEl, this);
+    }
+}
+
+function onShowAddScheduleForm() {
+    showContents(['link-content', 'back-to-profile-content', 'add-schedule-content']);
+
+}
+
+function onShowUpdateClicked() {
+    showContents(['link-content', 'back-to-profile-content', 'update-schedule']);
+}
+
+function onUpdateButtonClicked() {
+    const scheduleId = localStorage.getItem("schedule-id");
+    const params = new URLSearchParams();
+    const inputField = document.forms['edit-schedule-content'];
+    const schedulePublishedInputEL = inputField.querySelector('input[name="schedule-published"]:checked');
+    const published = schedulePublishedInputEL.value;
+    params.append('schedule-id', scheduleId);
+    params.append("published", published);
+    const xhr = new XMLHttpRequest();
+    xhr.addEventListener('load', onUpdateScheduleResponse);
+    xhr.addEventListener('error', onNetworkError);
+    xhr.open('PUT', 'protected/schedule?' + params.toString());
+    xhr.send();
+}
+
+function onUpdateScheduleResponse() {
+    alert("Schedule updated!");
+    if (this.status === OK) {
+    } else {
+        onOtherResponse(schedulesContentDivEl, this);
+    }
+}
+
+function onDeleteScheduleClicked() {
+    const scheduleId = localStorage.getItem("schedule-id");
+    const params = new URLSearchParams();
+    params.append('schedule-id', scheduleId);
+    const xhr = new XMLHttpRequest();
+    xhr.addEventListener('load', onDeleteScheduleResponse);
+    xhr.addEventListener('error', onNetworkError);
+    xhr.open('DELETE', 'protected/schedule?' + params.toString());
+    xhr.send();
+}
+
+function onDeleteScheduleResponse() {
+    alert("Schedule deleted!");
+    if (this.status === OK) {
+        showContents(['link-content', 'profile-content', 'logout-content']);
     } else {
         onOtherResponse(schedulesContentDivEl, this);
     }

@@ -55,38 +55,7 @@
         <button type="button" name="remove-task">Remove Task</button>
     </div>
     <div id="servlet-form-content">
-        <div id="add-schedule-content" class="hidden content">
-            <h2>Adding a new schedule:</h2>
-            <h3>Select how long your schedule will be:</h3>
-            <form id="add-schedule-form" onsubmit="return false;">
-                <select id="day-number-content" name="day-value">
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
-                    <option value="6">6</option>
-                    <option value="7">7</option>
-                </select>
-                day(s)!
-                <h3>Select the visibility of your schedule:</h3>
-                <select id="schedule-published" name="schedule-published">
-                    <option value="false">Private</option>
-                    <option value="true">Published</option>
-                </select>
-                <button onclick="onAddScheduleClicked()">Add schedule</button>
-            </form>
-        </div>
 
-        <form id="edit-schedule-content" class="hidden content" action="index.html" method="post">
-            <h2>Editing your schedule:</h2>
-            <h3>Select the ID of the schedule, which you would like to edit:</h3>
-            <input type="number" name="schedule-id" min="minValue" max="maxValue">
-            <h3>Select the visibility of your schedule:</h3>
-            <input type="radio" name="schedule-published" value="true">Public
-            <input type="radio" name="schedule-published" value="false">Private
-            <input type="submit" name="Submit" value="submit">
-        </form>
 
         <form id="remove-schedule-content" class="hidden content" action="index.html" method="post">
             <h2>Removing a schedule:</h2>
@@ -95,15 +64,6 @@
             <input type="submit" name="Submit" value="submit">
         </form>
 
-        <form id="add-task-content" class="hidden content" action="index.html" method="post">
-            <input type="text" name="task-name" value="">
-            <input type="text" name="task-content" value="">
-            <input type="submit" name="Submit" value="submit">
-        </form>
-
-        <form id="edit-task-content" class="hidden content" action="index.html" method="post">
-
-        </form>
 
         <form id="remove-task-content" class="hidden content" action="index.html" method="post">
 
@@ -124,11 +84,13 @@
 <div id="schedules-content" class="hidden content">
     <h1>Schedules</h1>
 
-    <table id="schedules">
-        <tbody>
+    <button type="button" name="add-schedule" onclick="onShowAddScheduleForm()">Add Schedule</button>
 
-        </tbody>
-    </table>
+    <div id="schedules">
+        <ul>
+
+        </ul>
+    </div>
 
     <div id="schedules-fields" class="hidden content">
         <ul>
@@ -137,10 +99,46 @@
         </ul>
         <button onclick="onAddTaskClicked()">Add task</button>
         <button onclick="onDeleteTaskClicked()">Delete task</button>
+        <button onclick="onShowUpdateClicked()">Update schedule</button>
+        <button onclick="onDeleteScheduleClicked()">Delete this schedule</button>
     </div>
 
     <div id="populate-schedule" class="hidden content"></div>
 
+</div>
+
+<div id="add-schedule-content" class="hidden content">
+    <h2>Adding a new schedule:</h2>
+    <h3>Select how long your schedule will be:</h3>
+    <form id="add-schedule-form" onsubmit="return false;">
+        <select id="day-number-content" name="day-value">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+        </select>
+        day(s)!
+        <h3>Select the visibility of your schedule:</h3>
+        <select id="schedule-published" name="schedule-published">
+            <option value="false">Private</option>
+            <option value="true">Published</option>
+        </select>
+        <button onclick="onAddScheduleClicked()">Add schedule</button>
+        <br>
+    </form>
+</div>
+
+<div id="update-schedule" class="hidden content">
+    <form id="edit-schedule-content" onsubmit="return false;">
+        <h2>Editing your schedule:</h2>
+        <h3>Select the visibility of your schedule:</h3>
+        <input type="radio" name="schedule-published" value="true">Public
+        <input type="radio" name="schedule-published" value="false">Private
+        <button onclick="onUpdateButtonClicked()">Update</button>
+    </form>
 </div>
 
 <div id="show-tname-hid-table" class="hidden content"></div>
@@ -163,30 +161,55 @@
     </form>
 </div>
 
+
+
 <div id="tasks-content" class="hidden content">
     <h1>Tasks</h1>
 
-    <table id="tasks">
-        <tbody>
+    <button type="button" name="add-task" onclick="onShowAddTaskForm()">Create Task</button>
 
-        </tbody>
-    </table>
+
+    <div id="tasks">
+        <ul>
+
+        </ul>
+    </div>
 
     <div id="task-fields" class="hidden content">
         <ul>
             <li>task name:
-                <bold><span id="task-name"></span></bold>
+                <span id="task-name"></span>
             </li>
             <li>task content:
-                <bold><span id="task-content"></span></bold>
+                <span id="task-content"></span>
             </li>
         </ul>
         <button id="delete-task" onclick="onDeleteTaskClicked()">Delete task</button>
+        <button type="button" name="update-task" onclick="onUpdateTaskForm()">Update Task</button>
     </div>
 
 </div>
 
+<div id="update-task" class="hidden content">
+    <form id="edit-task-content" onsubmit="return false;">
+        <h2>Editing your Task:</h2>
+        <h3>Enter the title and the content of your task:</h3>
+        <input type="text" name="task-name" placeholder="Title" required>
+        <input type="text" name="task-content" placeholder="Content" required>
+        <button onclick="onTaskUpdateButtonClicked()">Update</button>
+    </form>
+</div>
+
+<div id="creat-task-content" class="hidden content">
+    <form id="create-task-form" onsubmit="return false;">
+        <input type="text" name="task-name" placeholder="Title" required>
+        <input type="text" name="task-content" placeholder="Content" required>
+        <button id="onCreateTaskFormSubmit" onclick="onCreateTaskClicked()">Create Task</button>
+    </form>
+</div>
+
 <div id="back-to-profile-content" class="hidden content">
+    <br>
     <button onclick="onBackToProfileClicked();">Back to profile</button>
 </div>
 

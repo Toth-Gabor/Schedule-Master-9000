@@ -161,7 +161,6 @@ function onDeleteTaskResponse() {
 
 }
 function onDeleteTaskLoad(hourIdListforDelete) {
-    console.log(hourIdListforDelete);
     const length = hourIdListforDelete.length;
     const tasksHoursDivEl = document.getElementById("show-hourid-fordelete");
     let table = document.getElementById("taskhour-table");
@@ -180,7 +179,6 @@ function onHourIdDeleteSubmit() {
     const params = new URLSearchParams();
     params.append("hourId", hourId);
 
-
     const xhr = new XMLHttpRequest();
     xhr.addEventListener('error', onNetworkError);
     xhr.open('DELETE', 'protected/taskofschedule?' + params.toString());
@@ -188,4 +186,43 @@ function onHourIdDeleteSubmit() {
     showContents(['link-content', 'back-to-profile-content']);
     alert("Task deleted from this schedule!");
 
+}
+function onCreateTaskClicked() {
+    const inputFieldEl = document.forms['create-task-form'];
+    const taskTitleInputEl = inputFieldEl.querySelector('input[name="task-name"]');
+    const taskContentInputEl = inputFieldEl.querySelector('input[name="task-content"]');
+    const taskTitle = taskTitleInputEl.value;
+    const taskContent = taskContentInputEl.value;
+    const params = new URLSearchParams();
+    params.append('taskTitle', taskTitle);
+    params.append("taskContent", taskContent);
+
+
+    const xhr = new XMLHttpRequest();
+    xhr.addEventListener('error', onNetworkError);
+    xhr.open('POST', 'protected/task?' + params.toString());
+    xhr.send();
+    alert("Task Created!");
+    showContents(['link-content', 'back-to-profile-content']);
+
+}
+function onTaskUpdateButtonClicked() {
+    const taskId = localStorage.getItem("delete-taskId");
+    const inputFieldEl = document.forms['edit-task-content'];
+    const taskTitleInputEl = inputFieldEl.querySelector('input[name="task-name"]');
+    const taskContentInputEl = inputFieldEl.querySelector('input[name="task-content"]');
+    const taskTitle = taskTitleInputEl.value;
+    const taskContent = taskContentInputEl.value;
+    const params = new URLSearchParams();
+    params.append('taskTitle', taskTitle);
+    params.append("taskContent", taskContent);
+    params.append("taskId", taskId);
+
+
+    const xhr = new XMLHttpRequest();
+    xhr.addEventListener('error', onNetworkError);
+    xhr.open('PUT', 'protected/task?' + params.toString());
+    xhr.send();
+    alert("Task Updated!");
+    showContents(['link-content', 'back-to-profile-content']);
 }

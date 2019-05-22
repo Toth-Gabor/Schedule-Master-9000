@@ -57,7 +57,7 @@ CREATE TABLE hour_task
 (
     hour_id INT,
     task_id INT,
-    FOREIGN KEY (hour_id) REFERENCES hour (hour_id),
+    FOREIGN KEY (hour_id) REFERENCES hour (hour_id) ON DELETE CASCADE,
     FOREIGN KEY (task_id) REFERENCES task (task_id) ON DELETE CASCADE
 );
 
