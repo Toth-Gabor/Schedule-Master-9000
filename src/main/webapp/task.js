@@ -161,7 +161,6 @@ function onDeleteTaskResponse() {
 
 }
 function onDeleteTaskLoad(hourIdListforDelete) {
-    console.log(hourIdListforDelete);
     const length = hourIdListforDelete.length;
     const tasksHoursDivEl = document.getElementById("show-hourid-fordelete");
     let table = document.getElementById("taskhour-table");
