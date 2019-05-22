@@ -49,3 +49,8 @@ function onTaskClicked() {
     xhr.open('GET', 'protected/task?' + params.toString());
     xhr.send(params);
 }
+
+function onShowAddTaskForm() {
+    showContents(['link-content', 'back-to-profile-content', 'creat-task-content']);
+
+}
