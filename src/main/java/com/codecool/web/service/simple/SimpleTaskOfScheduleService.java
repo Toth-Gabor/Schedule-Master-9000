@@ -17,4 +17,9 @@ public class SimpleTaskOfScheduleService implements TaskOfScheduleService {
     public void addHourIdAndTask(int hourId, int taskId) throws SQLException {
         taskOfScheduleDao.add(hourId, taskId);
     }
+    
+    @Override
+    public void deleteTaskFromDBById(int taskId) throws SQLException {
+        taskOfScheduleDao.delete(taskId);
+    }
 }
