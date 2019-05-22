@@ -208,3 +208,23 @@ function onCreateTaskClicked() {
     showContents(['link-content', 'back-to-profile-content']);
 
 }
+function onTaskUpdateButtonClicked() {
+    const taskId = localStorage.getItem("delete-taskId");
+    const inputFieldEl = document.forms['edit-task-content'];
+    const taskTitleInputEl = inputFieldEl.querySelector('input[name="task-name"]');
+    const taskContentInputEl = inputFieldEl.querySelector('input[name="task-content"]');
+    const taskTitle = taskTitleInputEl.value;
+    const taskContent = taskContentInputEl.value;
+    const params = new URLSearchParams();
+    params.append('taskTitle', taskTitle);
+    params.append("taskContent", taskContent);
+    params.append("taskId", taskId);
+
+
+    const xhr = new XMLHttpRequest();
+    xhr.addEventListener('error', onNetworkError);
+    xhr.open('PUT', 'protected/task?' + params.toString());
+    xhr.send();
+    alert("Task Updated!");
+    showContents(['link-content', 'back-to-profile-content']);
+}

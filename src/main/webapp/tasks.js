@@ -54,3 +54,7 @@ function onShowAddTaskForm() {
     showContents(['link-content', 'back-to-profile-content', 'creat-task-content']);
 
 }
+function onUpdateTaskForm() {
+    showContents(['link-content', 'back-to-profile-content', 'update-task']);
+
+}
