@@ -57,8 +57,6 @@
     <div id="servlet-form-content">
 
 
-
-
         <form id="remove-schedule-content" class="hidden content" action="index.html" method="post">
             <h2>Removing a schedule:</h2>
             <h3>Select the ID of the schedule, which you would like to delete:</h3>
@@ -111,6 +109,7 @@
         <button onclick="onAddTaskClicked()">Add task</button>
         <button onclick="onDeleteTaskClicked()">Delete task</button>
         <button onclick="onShowUpdateClicked()">Update schedule</button>
+        <button onclick="onDeleteScheduleClicked()">Delete this schedule</button>
     </div>
 
     <div id="populate-schedule" class="hidden content"></div>
@@ -183,10 +182,10 @@
     <div id="task-fields" class="hidden content">
         <ul>
             <li>task name:
-                <bold><span id="task-name"></span></bold>
+                <span id="task-name"></span>
             </li>
             <li>task content:
-                <bold><span id="task-content"></span></bold>
+                <span id="task-content"></span>
             </li>
         </ul>
         <button id="delete-task" onclick="onDeleteTaskClicked()">Delete task</button>
