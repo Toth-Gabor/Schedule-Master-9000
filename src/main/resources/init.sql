@@ -58,8 +58,9 @@ CREATE TABLE hour_task
     hour_id INT,
     task_id INT,
     FOREIGN KEY (hour_id) REFERENCES hour (hour_id),
-    FOREIGN KEY (task_id) REFERENCES task (task_id)
+    FOREIGN KEY (task_id) REFERENCES task (task_id) ON DELETE CASCADE
 );
+
 INSERT INTO public.users (user_id, username, email, user_password, administrator)
 VALUES (1, 'Péter', 'user1@user1', 'user1', TRUE);
 INSERT INTO public.users (user_id, username, email, user_password, administrator)
