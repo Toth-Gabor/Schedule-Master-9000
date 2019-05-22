@@ -171,5 +171,21 @@ function onDeleteTaskLoad(hourIdListforDelete) {
         table.remove();
         tasksHoursDivEl.appendChild(showTHTable(null,length,24,length,hourIdListforDelete));
     }
+}
+
+function onHourIdDeleteSubmit() {
+    const inputFieldEl = document.forms['delete-hourid-form'];
+    const hourIdInputEl = inputFieldEl.querySelector('input[name="hourid"]');
+    const hourId = hourIdInputEl.value;
+    const params = new URLSearchParams();
+    params.append("hourId", hourId);
+
+
+    const xhr = new XMLHttpRequest();
+    xhr.addEventListener('error', onNetworkError);
+    xhr.open('DELETE', 'protected/taskofschedule?' + params.toString());
+    xhr.send();
+    showContents(['link-content', 'back-to-profile-content']);
     alert("Task deleted from this schedule!");
+
 }

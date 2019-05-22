@@ -147,7 +147,13 @@
 
 <div id="show-tname-hid-table" class="hidden content"></div>
 
-<div id="show-hourid-fordelete" class="hidden content"></div>
+<div id="show-hourid-fordelete" class="hidden content">
+    <p id="dayid"></p>
+    <form id="delete-hourid-form" onsubmit="return false;">
+        <input name="hourid" type="number" required>
+        <button id="delete-hourid-button" onclick="onHourIdDeleteSubmit()">Delete</button>
+    </form>
+</div>
 
 <div id="show-alltasks" class="hidden content"></div>
 
