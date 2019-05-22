@@ -93,10 +93,10 @@ public class TaskOfScheduleServlet extends AbstractServlet {
     @Override
     protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try (Connection connection = getConnection(req.getServletContext())){
-            int taskId = Integer.parseInt(req.getParameter("taskId"));
+            int hourId = Integer.parseInt(req.getParameter("hourId"));
             TaskOfScheduleDao taskOfScheduleDao = new DatabaseTaskOfScheduleDao(connection);
             TaskOfScheduleService taskOfScheduleService = new SimpleTaskOfScheduleService(taskOfScheduleDao);
-            taskOfScheduleService.deleteTaskFromScheduleById(taskId);
+            taskOfScheduleService.deleteTaskFromScheduleById(hourId);
         
             sendMessage(resp, HttpServletResponse.SC_OK, null);
         } catch (SQLException e) {

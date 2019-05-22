@@ -19,7 +19,7 @@ public class SimpleTaskOfScheduleService implements TaskOfScheduleService {
     }
     
     @Override
-    public void deleteTaskFromScheduleById(int taskId) throws SQLException {
-        taskOfScheduleDao.delete(taskId);
+    public void deleteTaskFromScheduleById(int hourId) throws SQLException {
+        taskOfScheduleDao.delete(hourId);
     }
 }
