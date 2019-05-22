@@ -179,7 +179,6 @@ function onHourIdDeleteSubmit() {
     const params = new URLSearchParams();
     params.append("hourId", hourId);
 
-
     const xhr = new XMLHttpRequest();
     xhr.addEventListener('error', onNetworkError);
     xhr.open('DELETE', 'protected/taskofschedule?' + params.toString());
