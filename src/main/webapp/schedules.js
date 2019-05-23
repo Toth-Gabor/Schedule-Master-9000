@@ -73,11 +73,10 @@ function onShowUpdateClicked() {
 function onUpdateButtonClicked() {
     const scheduleId = localStorage.getItem("schedule-id");
     const params = new URLSearchParams();
-    const inputField = document.forms['edit-schedule-content'];
-    const schedulePublishedInputEL = inputField.querySelector('input[name="schedule-published"]:checked');
-    const published = schedulePublishedInputEL.value;
+    const publishedInputEl = document.getElementById("schedule-published-update");
+    const published = publishedInputEl.options[publishedInputEl.selectedIndex].value;
     params.append('schedule-id', scheduleId);
-    params.append("published", published);
+    params.append("schedule-published", published);
     const xhr = new XMLHttpRequest();
     xhr.addEventListener('load', onUpdateScheduleResponse);
     xhr.addEventListener('error', onNetworkError);
@@ -88,6 +87,7 @@ function onUpdateButtonClicked() {
 function onUpdateScheduleResponse() {
     alert("Schedule updated!");
     if (this.status === OK) {
+        onScheduleLoad(JSON.parse(this.responseText));
     } else {
         onOtherResponse(schedulesContentDivEl, this);
     }
