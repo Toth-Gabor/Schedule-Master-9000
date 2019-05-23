@@ -2,14 +2,14 @@ function onScheduleLoad(scheduleDto) {
     let scheduleIdSpanEl = document.getElementById('schedule-id');
     let schedulePublishedSpanEl = document.getElementById('schedule-published-show');
     var table = document.getElementById("schedule-table");
-    if(table == null){
+    if (table == null) {
         document.getElementById('populate-schedule').appendChild(populateTable(null, scheduleDto.dayList.length, 24, scheduleDto.dayList.length, scheduleDto.allTaskNames));
-    }else{
+    } else {
         table.remove();
         document.getElementById('populate-schedule').appendChild(populateTable(null, scheduleDto.dayList.length, 24, scheduleDto.dayList.length, scheduleDto.allTaskNames));
     }
     scheduleIdSpanEl.innerHTML = scheduleDto.schedule.id;
-    if(scheduleDto.schedule.published){
+    if (scheduleDto.schedule.published) {
         schedulePublishedSpanEl.innerHTML = "published";
     } else {
         schedulePublishedSpanEl.innerHTML = "not published";
@@ -19,7 +19,7 @@ function onScheduleLoad(scheduleDto) {
 function onScheduleResponse() {
     if (this.status === OK) {
         clearMessages();
-        showContents(['link-content', 'schedules-content','schedules-fields', 'back-to-profile-content', 'populate-schedule']);
+        showContents(['link-content', 'schedules-content', 'schedules-fields', 'back-to-profile-content', 'populate-schedule']);
         onScheduleLoad(JSON.parse(this.responseText));
     } else {
         onOtherResponse(schedulesContentDivEl, this);
@@ -69,4 +69,3 @@ hourList: (3) [{…}, {…}, {…}]
 schedule: {id: 1, userId: 1, published: true}
 taskList: []
 __proto__: Object*/
-
