@@ -111,10 +111,45 @@ public class ScheduleServlet extends AbstractServlet{
             ScheduleDao scheduleDao = new DatabaseScheduleDao(connection);
             ScheduleService scheduleService = new SimpleScheduleService(scheduleDao);
             int scheduleId = Integer.parseInt( req.getParameter("schedule-id"));
-            boolean isPublished = Boolean.parseBoolean( req.getParameter("schedule-published"));
-            
+            boolean isPublished = Boolean.parseBoolean(req.getParameter("schedule-published"));
+            connection.setAutoCommit(true);
+
             Schedule schedule = scheduleService.getbyId(scheduleId);
             scheduleService.update(schedule, isPublished);
+
+            //todo nemtudja melyik érték kell
+
+            DayDao dayDao = new DatabaseDayDao(connection);
+            DayService dayService = new SimpleDayService(dayDao);
+            List<Day> dayList = dayService.getByScheduleId(scheduleId);
+
+            TaskDao taskDao = new DatabaseTaskDao(connection);
+            TaskService taskService = new SimpleTaskService(taskDao);
+            List<Task> taskList = taskService.getbyScheduleId(scheduleId);
+
+            HourDao hourDao = new DatabaseHourDao(connection);
+            HourService hourService = new SimpleHourService(hourDao);
+            List<Integer> dayIdList = new ArrayList<>();
+            String[][] allTaskNames = new String[dayList.size()][24];
+
+
+            for (int i = 0; i < dayList.size() ; i++) {
+                dayIdList.add(dayList.get(i).getId());
+                String[] tasknames = taskDao.findhourContentList(dayList.get(i).getId());
+                allTaskNames[i] = tasknames;
+
+            }
+
+            List<Hour> hourList = new ArrayList<>();
+            for (int i = 0; i < dayIdList.size(); i++) {
+                List<Hour> hourListForDayId = hourService.getbyDayId(dayIdList.get(i));
+                for (Hour hour : hourListForDayId) {
+                    hourList.add(hour);
+                }
+            }
+
+
+            sendMessage(resp, HttpServletResponse.SC_OK, new ScheduleDto(schedule, dayList, taskList, hourList, allTaskNames));
             
         } catch (SQLException e) {
             handleSqlError(resp, e);
