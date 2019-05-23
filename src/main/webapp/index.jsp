@@ -98,7 +98,7 @@
             <li>schedule is <span id="schedule-published-show"></span></li>
         </ul>
         <button onclick="onAddTaskClicked()">Add task</button>
-        <button onclick="onDeleteTaskClicked()">Delete task</button>
+        <button onclick="onDeleteTaskFromScheduleClicked()">Delete task</button>
         <button onclick="onShowUpdateClicked()">Update schedule</button>
         <button onclick="onDeleteScheduleClicked()">Delete this schedule</button>
     </div>
@@ -135,8 +135,10 @@
     <form id="edit-schedule-content" onsubmit="return false;">
         <h2>Editing your schedule:</h2>
         <h3>Select the visibility of your schedule:</h3>
-        <input type="radio" name="schedule-published" value="true">Public
-        <input type="radio" name="schedule-published" value="false">Private
+        <select id="schedule-published-update" name="schedule-published">
+            <option value="false">Private</option>
+            <option value="true">Published</option>
+        </select>
         <button onclick="onUpdateButtonClicked()">Update</button>
     </form>
 </div>

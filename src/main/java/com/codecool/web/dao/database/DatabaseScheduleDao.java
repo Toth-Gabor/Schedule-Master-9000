@@ -150,7 +150,7 @@ public class DatabaseScheduleDao extends AbstractDao implements ScheduleDao {
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setBoolean(1, isPublished);
             statement.setInt(2, schedule.getId());
-            statement.execute();
+            statement.executeUpdate();
         }
     }
 

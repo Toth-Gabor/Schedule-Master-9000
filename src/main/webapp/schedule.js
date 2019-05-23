@@ -11,7 +11,7 @@ function onScheduleLoad(scheduleDto) {
     scheduleIdSpanEl.innerHTML = scheduleDto.schedule.id;
     if (scheduleDto.schedule.published) {
         schedulePublishedSpanEl.innerHTML = "published";
-    } else {
+    } else if(!scheduleDto.schedule.published){
         schedulePublishedSpanEl.innerHTML = "not published";
     }
 }

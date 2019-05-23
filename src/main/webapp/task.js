@@ -136,7 +136,7 @@ function onTaskDeletedResponse() {
     showContents(['back-to-profile-content', 'link-content']);
 }
 
-function onDeleteTaskClicked() {
+function onDeleteTaskFromScheduleClicked() {
     const ScheduleId = localStorage.getItem("schedule-id");
 
     const params = new URLSearchParams();
