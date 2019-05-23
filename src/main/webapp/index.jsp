@@ -98,7 +98,7 @@
             <li>schedule is <span id="schedule-published-show"></span></li>
         </ul>
         <button onclick="onAddTaskClicked()">Add task</button>
-        <button onclick="onDeleteTaskClicked()">Delete task</button>
+        <button onclick="onDeleteTaskFromScheduleClicked()">Delete task</button>
         <button onclick="onShowUpdateClicked()">Update schedule</button>
         <button onclick="onDeleteScheduleClicked()">Delete this schedule</button>
     </div>
