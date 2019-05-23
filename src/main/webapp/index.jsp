@@ -86,11 +86,11 @@
 
     <button type="button" name="add-schedule" onclick="onShowAddScheduleForm()">Add Schedule</button>
 
-    <table id="schedules">
-        <tbody>
+    <div id="schedules">
+        <ul>
 
-        </tbody>
-    </table>
+        </ul>
+    </div>
 
     <div id="schedules-fields" class="hidden content">
         <ul>
@@ -98,7 +98,7 @@
             <li>schedule is <span id="schedule-published-show"></span></li>
         </ul>
         <button onclick="onAddTaskClicked()">Add task</button>
-        <button onclick="onDeleteTaskClicked()">Delete task</button>
+        <button onclick="onDeleteTaskFromScheduleClicked()">Delete task</button>
         <button onclick="onShowUpdateClicked()">Update schedule</button>
         <button onclick="onDeleteScheduleClicked()">Delete this schedule</button>
     </div>
@@ -171,11 +171,11 @@
     <button type="button" name="add-task" onclick="onShowAddTaskForm()">Create Task</button>
 
 
-    <table id="tasks">
-        <tbody>
+    <div id="tasks">
+        <ul>
 
-        </tbody>
-    </table>
+        </ul>
+    </div>
 
     <div id="task-fields" class="hidden content">
         <ul>

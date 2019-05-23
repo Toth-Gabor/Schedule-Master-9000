@@ -1,5 +1,5 @@
-let TasksTableEl;
-let TasksTableBodyEl;
+let TasksEl;
+let TasksUlEl;
 
 function onTasksResponse() {
     if (this.status === OK) {
@@ -11,14 +11,14 @@ function onTasksResponse() {
 }
 
 function onTasksLoad(Tasks) {
-    TasksTableEl = document.getElementById('tasks');
-    TasksTableBodyEl = TasksTableEl.querySelector('tbody');
+    TasksEl = document.getElementById('tasks');
+    TasksUlEl = TasksEl.querySelector('ul');
 
     appendTasks(Tasks);
 }
 
 function appendTasks(Tasks) {
-    removeAllChildren(TasksTableBodyEl);
+    removeAllChildren(TasksUlEl);
 
     for (let i = 0; i < Tasks.length; i++) {
         const task = Tasks[i];
@@ -26,15 +26,16 @@ function appendTasks(Tasks) {
     }
 }
 function appendTask(task) {
+    const taskLiEl = document.createElement('li')
     const aEl = document.createElement('a');
+    taskLiEl.appendChild(aEl);
     aEl.textContent = task.name;
     aEl.href = 'javascript:void(0);';
     aEl.dataset.TaskId = task.id;
     aEl.addEventListener('click', onTaskClicked);
 
-    const trEl = document.createElement('tr');
-    trEl.appendChild(aEl);
-    TasksTableBodyEl.appendChild(trEl);
+
+    TasksUlEl.appendChild(taskLiEl);
 }
 
 function onTaskClicked() {

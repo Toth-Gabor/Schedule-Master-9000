@@ -136,7 +136,7 @@ function onTaskDeletedResponse() {
     showContents(['back-to-profile-content', 'link-content']);
 }
 
-function onDeleteTaskClicked() {
+function onDeleteTaskFromScheduleClicked() {
     const ScheduleId = localStorage.getItem("schedule-id");
 
     const params = new URLSearchParams();
@@ -178,7 +178,6 @@ function onHourIdDeleteSubmit() {
     const hourId = hourIdInputEl.value;
     const params = new URLSearchParams();
     params.append("hourId", hourId);
-
 
     const xhr = new XMLHttpRequest();
     xhr.addEventListener('error', onNetworkError);
