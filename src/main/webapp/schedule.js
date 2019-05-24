@@ -19,7 +19,7 @@ function onScheduleLoad(scheduleDto) {
 function onScheduleResponse() {
     if (this.status === OK) {
         clearMessages();
-        showContents(['link-content', 'schedules-content','schedules-fields', 'back-to-profile-content', 'populate-schedule']);
+        showContents(['topnav', 'schedules-content','schedules-fields', 'populate-schedule']);
         onScheduleLoad(JSON.parse(this.responseText));
     } else {
         onOtherResponse(schedulesContentDivEl, this);

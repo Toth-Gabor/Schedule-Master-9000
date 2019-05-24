@@ -44,7 +44,7 @@ function onSchedulesLoad(Schedules) {
 
 function onSchedulesResponse() {
     if (this.status === OK) {
-        showContents(['back-to-profile-content', 'schedules-content', 'link-content']);
+        showContents(['schedules-content', 'topnav']);
         onSchedulesLoad(JSON.parse(this.responseText));
     } else {
         onOtherResponse(schedulesContentDivEl, this);
@@ -54,19 +54,19 @@ function onSchedulesResponse() {
 function onAddScheduleResponse() {
     alert("Schedule added!");
     if (this.status === OK) {
-        showContents(['link-content', 'profile-content', 'logout-content']);
+        showContents(['topnav', 'profile-content']);
     } else {
         onOtherResponse(schedulesContentDivEl, this);
     }
 }
 
 function onShowAddScheduleForm() {
-    showContents(['link-content', 'back-to-profile-content', 'add-schedule-content']);
+    showContents(['topnav', 'add-schedule-content']);
 
 }
 
 function onShowUpdateClicked() {
-    showContents(['link-content', 'back-to-profile-content', 'update-schedule']);
+    showContents(['topnav', 'update-schedule']);
 }
 
 function onUpdateButtonClicked() {
@@ -106,7 +106,7 @@ function onDeleteScheduleClicked() {
 function onDeleteScheduleResponse() {
     alert("Schedule deleted!");
     if (this.status === OK) {
-        showContents(['link-content', 'profile-content', 'logout-content']);
+        showContents(['topnav', 'profile-content']);
     } else {
         onOtherResponse(schedulesContentDivEl, this);
     }
