@@ -3,7 +3,7 @@ let TasksUlEl;
 
 function onTasksResponse() {
     if (this.status === OK) {
-        showContents(['back-to-profile-content', 'tasks-content', 'link-content']);
+        showContents(['tasks-content', 'topnav']);
         onTasksLoad(JSON.parse(this.responseText));
     } else {
         onOtherResponse(tasksContentDivEl, this);
@@ -52,10 +52,10 @@ function onTaskClicked() {
 }
 
 function onShowAddTaskForm() {
-    showContents(['link-content', 'back-to-profile-content', 'creat-task-content']);
+    showContents(['topnav', 'creat-task-content']);
 
 }
 function onUpdateTaskForm() {
-    showContents(['link-content', 'back-to-profile-content', 'update-task']);
+    showContents(['topnav', 'update-task']);
 
 }

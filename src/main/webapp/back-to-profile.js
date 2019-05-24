@@ -1,3 +1,3 @@
 function onBackToProfileClicked() {
-    showContents(['link-content', 'profile-content', 'logout-content']);
+    showContents(['welcome', 'topnav']);
 }

@@ -2,7 +2,7 @@ let gtaskId;
 function onTaskResponse() {
     if (this.status === OK) {
         clearMessages();
-        showContents(['link-content', 'tasks-content', 'task-fields','back-to-profile-content']);
+        showContents(['topnav', 'tasks-content', 'task-fields']);
         onTaskLoad(JSON.parse(this.responseText));
     } else {
         onOtherResponse(tasksContentDivEl, this);
@@ -34,7 +34,7 @@ function onAddTaskClicked() {
 function onAddTaskResponse() {
     if (this.status === OK) {
         clearMessages();
-        showContents(['link-content', 'show-tname-hid-table','show-alltasks', 'task-fields','back-to-profile-content']);
+        showContents(['topnav', 'show-tname-hid-table','show-alltasks', 'task-fields']);
         onAddTaskLoad(JSON.parse(this.responseText));
     } else {
         onOtherResponse(tasksContentDivEl, this);
@@ -101,7 +101,7 @@ function showTHTable(table, days, rows, cells, content) {
 
 function onTaskNameClicked() {
     gtaskId = this.dataset.taskId;
-    showContents(['add-hourid', 'link-content', 'show-tname-hid-table', 'task-fields', 'back-to-profile-content', 'show-alltasks']);
+    showContents(['add-hourid', 'topnav', 'show-tname-hid-table', 'task-fields', 'show-alltasks']);
 }
 function onHourIdSubmit() {
     const inputFieldEl = document.forms['add-hourid-form'];
@@ -117,7 +117,7 @@ function onHourIdSubmit() {
     xhr.open('POST', 'protected/taskofschedule?' + params.toString());
     xhr.send();
     alert("Task added!");
-    showContents(['link-content', 'back-to-profile-content']);
+    showContents(['topnav', 'welcome']);
 }
 
 function onDeleteTaskClicked() {
@@ -133,7 +133,7 @@ function onDeleteTaskClicked() {
 
 function onTaskDeletedResponse() {
     alert("Task deleted");
-    showContents(['back-to-profile-content', 'link-content']);
+    showContents(['topnav', 'welcome']);
 }
 
 function onDeleteTaskFromScheduleClicked() {
@@ -152,7 +152,7 @@ function onDeleteTaskFromScheduleClicked() {
 function onDeleteTaskResponse() {
     if (this.status === OK) {
         clearMessages();
-        showContents(['show-hourid-fordelete', 'link-content', 'show-tname-hid-table','show-alltasks', 'task-fields','back-to-profile-content']);
+        showContents(['show-hourid-fordelete', 'topnav', 'show-tname-hid-table', 'task-fields']);
         onDeleteTaskLoad(JSON.parse(this.responseText));
     } else {
         onOtherResponse(tasksContentDivEl, this);
@@ -183,7 +183,7 @@ function onHourIdDeleteSubmit() {
     xhr.addEventListener('error', onNetworkError);
     xhr.open('DELETE', 'protected/taskofschedule?' + params.toString());
     xhr.send();
-    showContents(['link-content', 'back-to-profile-content']);
+    showContents(['topnav', 'welcome']);
     alert("Task deleted from this schedule!");
 
 }
@@ -203,7 +203,7 @@ function onCreateTaskClicked() {
     xhr.open('POST', 'protected/task?' + params.toString());
     xhr.send();
     alert("Task Created!");
-    showContents(['link-content', 'back-to-profile-content']);
+    showContents(['topnav', 'welcome']);
 
 }
 function onTaskUpdateButtonClicked() {
@@ -224,5 +224,5 @@ function onTaskUpdateButtonClicked() {
     xhr.open('PUT', 'protected/task?' + params.toString());
     xhr.send();
     alert("Task Updated!");
-    showContents(['link-content', 'back-to-profile-content']);
+    showContents(['topnav', 'welcome']);
 }

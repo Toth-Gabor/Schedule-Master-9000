@@ -32,6 +32,24 @@
     <title>App</title>
 </head>
 <body>
+<div id="topnav" class="hidden content">
+    <a id="logout-menu-button" class="active" href="javascript:void(0);">Logout</a>
+    <a href="javascript:void(0);" onclick="onListSchedulesClicked();">Schedules</a>
+    <a href="javascript:void(0);" onclick="onListTasksClicked();">Tasks</a>
+    <a href="javascript:void(0);" onclick="onBackToProfileClicked();">Back to profile</a>
+</div>
+
+<div id="welcome" class="hidden content">
+    <h1>Welcome</h1>
+    <h2>Founders:</h2>
+    <ul>
+        <li><h3>Péter Taraszvics</h3></li>
+        <li><h3>András Urbin</h3></li>
+        <li>    <h3>Gábor Tóth</h3>
+        </li>
+    </ul>
+</div>
+
 <div id="login-content" class="content">
     <h1>Login</h1>
     <form id="login-form" onsubmit="return false;">
@@ -155,7 +173,9 @@
     </form>
 </div>
 
-<div id="show-alltasks" class="hidden content"></div>
+<div id="show-alltasks" class="hidden content">
+    <h2>Tasks:</h2>
+</div>
 
 <div id="add-hourid" class="hidden content">
     <p id="taskname"></p>
