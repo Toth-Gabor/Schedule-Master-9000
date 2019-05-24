@@ -80,6 +80,10 @@ function showTHTable(table, days, rows, cells, content) {
     table.setAttribute('border', "1px");
     let head = document.createElement('thead');
     table.appendChild(head);
+    let timeThEl = document.createElement('th');
+    timeThEl.appendChild(document.createTextNode('Time'));
+    head.appendChild(timeThEl);
+
 
     for (let x = 1; x <= days; x++) {
         let title = document.createElement('th');
@@ -89,10 +93,13 @@ function showTHTable(table, days, rows, cells, content) {
     let body = document.createElement('tbody');
     for (let i = 0; i < rows; ++i) {
         let row = document.createElement('tr');
+        let timeCellEl = document.createElement('td');
+        timeCellEl.appendChild(document.createTextNode(i + ':00'));
+        row.appendChild(timeCellEl);
         for (let j = 0; j < cells; ++j) {
-            row.appendChild(document.createElement('td'));
-
-            row.cells[j].appendChild(document.createTextNode(content[j][i]));
+            let tdContentEL = document.createElement('td')
+            tdContentEL.appendChild(document.createTextNode(content[j][i]));
+            row.appendChild(tdContentEL);
         }
         table.appendChild(row);
     }
