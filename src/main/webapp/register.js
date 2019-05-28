@@ -19,10 +19,16 @@ function onRegisterButtonClicked() {
     params.append('role', role);
 
     const xhr = new XMLHttpRequest();
-    xhr.addEventListener('load', onLoginResponse);
+    xhr.addEventListener('load', onRegisterResponse);
     xhr.addEventListener('error', onNetworkError);
-    xhr.open('POST', 'reg');
+    xhr.open('POST', 'protected/reg');
     xhr.send(params);
+}
 
-    
+function onRegisterResponse() {
+    if (this.status === OK) {
+        showContents(['topnav', 'profile-content']);
+    } else {
+        onOtherResponse(schedulesContentDivEl, this);
+    }
 }
