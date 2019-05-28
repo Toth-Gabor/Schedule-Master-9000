@@ -50,14 +50,15 @@
 </div>
 
 <div id="reg-content" class="hidden content">
-    <h1>Register</h1>
+    <h1>Registration</h1>
     <form id="reg-form" onsubmit="return false;">
-        <input type="text" name="name" required>Name
+        Name: <input type="text" name="name" required>
         <br>
-        <input type="password" name="password" required>Password
+        Password: <input type="password" name="password" required>
         <br>
-        <input type="email" name="email" required>E-mail
+        E-mail: <input type="email" name="email" required>
         <br>
+        Role:
         <select id="role-content" name="role">
             <option value="false">User</option>
             <option value="true">Admin</option>
