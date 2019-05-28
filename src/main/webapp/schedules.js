@@ -94,7 +94,7 @@ function onSchedulesResponse() {
 function onPublishedScheduleResponse() {
     if (this.status === OK) {
         showContents(['schedules-content', 'topnav']);
-        onSchedulesLoad(JSON.parse(this.responseText));
+        onScheduleLoad(JSON.parse(this.responseText));
     } else {
         onOtherResponse(publicSchedulesDivEl, this);
     }
