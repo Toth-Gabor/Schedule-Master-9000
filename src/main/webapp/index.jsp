@@ -103,6 +103,11 @@
 
         </ul>
     </div>
+    <div id="published-schedules">
+        <ul>
+
+        </ul>
+    </div>
     <div id="schedules-fields" class="hidden content">
         <ul>
             <li>schedule id: <span id="schedule-id"></span></li>
