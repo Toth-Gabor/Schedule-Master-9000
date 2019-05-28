@@ -61,12 +61,12 @@ CREATE TABLE hour_task
     FOREIGN KEY (task_id) REFERENCES task (task_id) ON DELETE CASCADE
 );
 
-INSERT INTO public.users (user_id, username, email, user_password, administrator)
-VALUES (1, 'Péter', 'user1@user1', 'user1', TRUE);
-INSERT INTO public.users (user_id, username, email, user_password, administrator)
-VALUES (2, 'Gábor', 'user2@user2', 'user2', FALSE);
-INSERT INTO public.users (user_id, username, email, user_password, administrator)
-VALUES (3, 'Andris', 'user2@user3', 'user3', TRUE);
+INSERT INTO public.users (username, email, user_password, administrator)
+VALUES ('Péter', 'user1@user1', 'user1', TRUE);
+INSERT INTO public.users (username, email, user_password, administrator)
+VALUES ('Gábor', 'user2@user2', 'user2', FALSE);
+INSERT INTO public.users (username, email, user_password, administrator)
+VALUES ('Andris', 'user2@user3', 'user3', TRUE);
 
 INSERT INTO public.schedule (schedule_published, user_id)
 VALUES (TRUE, 1);
