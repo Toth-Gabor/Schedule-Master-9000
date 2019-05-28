@@ -11,6 +11,7 @@
     <c:url value="/schedules.js" var="schedulesScriptUrl"/>
     <c:url value="/task.js" var="taskScriptUrl"/>
     <c:url value="/tasks.js" var="tasksScriptUrl"/>
+    <c:url value="/register.js" var="tasksScriptUrl"/>
     <c:url value="/login.js" var="loginScriptUrl"/>
     <c:url value="/profile.js" var="profileScriptUrl"/>
     <c:url value="/back-to-profile.js" var="backToProfileScriptUrl"/>
@@ -21,6 +22,7 @@
     <script src="${indexScriptUrl}"></script>
     <script src="${loginScriptUrl}"></script>
     <script src="${scheduleScriptUrl}"></script>
+    <script src="${registerScriptUrl}"></script>
     <script src="${schedulesScriptUrl}"></script>
     <script src="${taskScriptUrl}"></script>
     <script src="${tasksScriptUrl}"></script>
@@ -48,11 +50,14 @@
 </div>
 
 <div id="reg-content" class="hidden content">
-    <h1>Login</h1>
+    <h1>Register</h1>
     <form id="reg-form" onsubmit="return false;">
-        <input type="text" name="name">
-        <input type="password" name="password">
-        <input type="email" name="email">
+        <input type="text" name="name" required>Name
+        <br>
+        <input type="password" name="password" required>Password
+        <br>
+        <input type="email" name="email" required>E-mail
+        <br>
         <select id="role-content" name="role">
             <option value="false">User</option>
             <option value="true">Admin</option>
