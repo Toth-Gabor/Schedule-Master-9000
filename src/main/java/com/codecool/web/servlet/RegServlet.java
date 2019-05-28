@@ -18,7 +18,7 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
 
-@WebServlet("/protected/reg")
+@WebServlet("/reg")
 public class RegServlet extends AbstractServlet{
     
     private static final Logger logger = LoggerFactory.getLogger(RegServlet.class);
@@ -36,6 +36,8 @@ public class RegServlet extends AbstractServlet{
             UserService userService = new SimpleUserService(userDao);
             userService.addUser(name, email, password, Boolean.parseBoolean(role));
             logger.info("New user registered");
+
+            sendMessage(resp, HttpServletResponse.SC_OK, null);
             
         } catch (ServiceException ex) {
             sendMessage(resp, HttpServletResponse.SC_UNAUTHORIZED, ex.getMessage());
