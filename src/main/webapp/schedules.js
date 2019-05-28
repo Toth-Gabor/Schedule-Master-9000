@@ -77,7 +77,7 @@ function onSchedulesLoad(schedulesListsDto) {
 
     publicSchedulesDivEl = document.getElementById('published-schedules');
     publicScheduleUlEl = publicSchedulesDivEl.querySelector('ul');
-    console.log(schedulesListsDto);
+
     appendSchedules(schedulesListsDto.ownSchedules);
     appendPublicSchedules(schedulesListsDto.publishedSchedules);
 }
@@ -93,8 +93,8 @@ function onSchedulesResponse() {
 
 function onPublishedScheduleResponse() {
     if (this.status === OK) {
-        showContents(['schedules-content', 'topnav']);
-        onSchedulesLoad(JSON.parse(this.responseText));
+        showContents(['topnav', 'schedules-content','schedules-fields', 'populate-schedule']);
+        onPublishedScheduleLoad(JSON.parse(this.responseText));
     } else {
         onOtherResponse(publicSchedulesDivEl, this);
     }
