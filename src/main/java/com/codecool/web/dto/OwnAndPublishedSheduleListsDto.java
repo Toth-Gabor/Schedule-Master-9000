@@ -10,9 +10,9 @@ public class OwnAndPublishedSheduleListsDto {
     private List<Schedule> ownSchedules;
     private List<Schedule> publishedSchedules;
     
-    public OwnAndPublishedSheduleListsDto() {
-        this.ownSchedules = new ArrayList<>();
-        this.publishedSchedules = new ArrayList<>();
+    public OwnAndPublishedSheduleListsDto(List<Schedule> ownSchedules, List<Schedule> publishedSchedules) {
+        this.ownSchedules = ownSchedules;
+        this.publishedSchedules = publishedSchedules;
     }
     
     public List<Schedule> getOwnSchedules() {
