@@ -59,6 +59,7 @@ public class ScheduleServlet extends AbstractServlet{
             String[][] allTaskNames = new String[dayList.size()][24];
 
 
+            //service
             for (int i = 0; i < dayList.size() ; i++) {
                 dayIdList.add(dayList.get(i).getId());
                 String[] tasknames = taskDao.findhourContentList(dayList.get(i).getId());
@@ -94,6 +95,7 @@ public class ScheduleServlet extends AbstractServlet{
             String dValue = req.getParameter("day-value");
             int dayValue = Integer.parseInt(dValue);
             SimpleScheduleService simpleScheduleService = new SimpleScheduleService(scheduleDao);
+            //service
             String[] dayNames = simpleScheduleService.dayNames;
             for (int i = 0; i < simpleScheduleService.dayNames.length - (7 - dayValue); i++) {
                 dayNames[i] = simpleScheduleService.dayNames[i];
@@ -112,13 +114,11 @@ public class ScheduleServlet extends AbstractServlet{
             ScheduleService scheduleService = new SimpleScheduleService(scheduleDao);
             int scheduleId = Integer.parseInt( req.getParameter("schedule-id"));
             boolean isPublished = Boolean.parseBoolean(req.getParameter("schedule-published"));
-            connection.setAutoCommit(true);
 
             Schedule schedule = scheduleService.getbyId(scheduleId);
             scheduleService.update(schedule, isPublished);
 
-            //todo nemtudja melyik érték kell
-
+            //innentől a callbackhez kell
             DayDao dayDao = new DatabaseDayDao(connection);
             DayService dayService = new SimpleDayService(dayDao);
             List<Day> dayList = dayService.getByScheduleId(scheduleId);
