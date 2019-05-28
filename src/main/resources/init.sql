@@ -11,7 +11,7 @@ CREATE TABLE users
 (
     user_id       SERIAL NOT NULL PRIMARY KEY,
     username      TEXT   NOT NULL,
-    email         TEXT   NOT NULL,
+    email         TEXT   NOT NULL unique ,
     user_password TEXT   NOT NULL,
     administrator BOOLEAN DEFAULT FALSE,
     CONSTRAINT email_not_empty CHECK (email <> ''),
