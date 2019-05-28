@@ -43,9 +43,22 @@
     <ul>
         <li><h3>Péter Taraszvics</h3></li>
         <li><h3>András Urbin</h3></li>
-        <li>    <h3>Gábor Tóth</h3>
-        </li>
+        <li><h3>Gábor Tóth</h3></li>
     </ul>
+</div>
+
+<div id="reg-content" class="hidden content">
+    <h1>Login</h1>
+    <form id="reg-form" onsubmit="return false;">
+        <input type="text" name="name">
+        <input type="password" name="password">
+        <input type="email" name="email">
+        <select id="role-content" name="role">
+            <option value="false">User</option>
+            <option value="true">Admin</option>
+        </select>
+        <button id="reg-button" onclick="onRegisterButtonClicked()">Register</button>
+    </form>
 </div>
 
 <div id="login-content" class="content">
@@ -54,6 +67,7 @@
         <input type="text" name="email">
         <input type="password" name="password">
         <button id="login-button">Login</button>
+        <button id="go-reg-button" onclick="showRegisterDiv()">Register</button>
     </form>
 </div>
 <div id="container">
