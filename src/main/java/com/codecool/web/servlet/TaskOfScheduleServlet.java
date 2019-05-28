@@ -80,13 +80,17 @@ public class TaskOfScheduleServlet extends AbstractServlet {
         try (Connection connection = getConnection(req.getServletContext())){
             int hourId = Integer.parseInt(req.getParameter("hourId"));
             int taskId = Integer.parseInt(req.getParameter("taskId"));
+            int scheduleId = Integer.parseInt(req.getParameter("schedule-id"));
+
             TaskOfScheduleDao taskOfScheduleDao = new DatabaseTaskOfScheduleDao(connection);
             TaskOfScheduleService taskOfScheduleService = new SimpleTaskOfScheduleService(taskOfScheduleDao);
-            taskOfScheduleService.addHourIdAndTask(hourId, taskId);
+            taskOfScheduleService.addHourIdAndTask(hourId, taskId, scheduleId);
             
             sendMessage(resp, HttpServletResponse.SC_OK, null);
         } catch (SQLException e) {
             handleSqlError(resp, e);
+        } catch (ServiceException e) {
+            sendMessage(resp, HttpServletResponse.SC_BAD_REQUEST, null);
         }
     }
 
