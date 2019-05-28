@@ -24,8 +24,8 @@ public class SimpleScheduleService implements ScheduleService {
     }
 
     @Override
-    public List<Schedule> getbyIsPublished(boolean isPublished) throws SQLException {
-        return scheduleDao.findbyIsPublished(isPublished);
+    public List<Schedule> getbyIsPublishedButNowOwn(int userId) throws SQLException {
+        return scheduleDao.findbyIsPublishedButNowOwn(userId);
     }
 
     @Override
