@@ -1,4 +1,4 @@
 package com.codecool.web.servlet;
 
-public class RegServlet {
+public class RegServlet extends AbstractServlet {
 }
