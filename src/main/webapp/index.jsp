@@ -52,11 +52,11 @@
 <div id="reg-content" class="hidden content">
     <h1>Registration</h1>
     <form id="reg-form" onsubmit="return false;">
-        Name: <input type="text" name="name" required>
+        Name: <input type="text" name="name" required placeholder="First name">
         <br>
-        E-mail: <input type="email" name="email" required>
+        E-mail: <input type="email" name="email" required placeholder="E-mail">
         <br>
-        Password: <input type="password" name="password" required>
+        Password: <input type="password" name="password" required placeholder="*****">
         <br>
         Role:
         <select id="role-content" name="role">
