@@ -23,15 +23,14 @@ function onRegisterButtonClicked() {
     const xhr = new XMLHttpRequest();
     xhr.addEventListener('load', onRegisterResponse);
     xhr.addEventListener('error', onNetworkError);
-    xhr.open('POST', 'protected/reg' + params.toString());
+    xhr.open('POST', 'reg?' + params.toString());
     xhr.send();
 }
 
 function onRegisterResponse() {
+    console.log(this);
     if (this.status === OK) {
-        const user = JSON.parse(this.responseText);
-        console.log(user);
-        showContents(['topnav', 'profile-content']);
+        showContents(['login-content']);
     } else {
         onOtherResponse(schedulesContentDivEl, this);
     }
