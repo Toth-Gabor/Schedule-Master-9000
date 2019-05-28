@@ -104,6 +104,7 @@
         </ul>
     </div>
     <div id="published-schedules">
+        <h2>Published schedules</h2>
         <ul>
 
         </ul>
