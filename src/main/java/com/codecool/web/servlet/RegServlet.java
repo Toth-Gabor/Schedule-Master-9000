@@ -27,9 +27,9 @@ public class RegServlet extends AbstractServlet{
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         try (Connection connection = getConnection(req.getServletContext())) {
+            String name = req.getParameter("name");
             String email = req.getParameter("email");
             String password = req.getParameter("password");
-            String name = req.getParameter("name");
             String role = req.getParameter("role");
             
             UserDao userDao = new DatabaseUserDao(connection);

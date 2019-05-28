@@ -15,7 +15,7 @@ public class SimpleUserService implements UserService {
     }
     
     @Override
-    public void addUser(String name, String password, String email, boolean isAdmin) throws SQLException, SecurityException{
+    public void addUser(String name, String email, String password, boolean isAdmin) throws SQLException, SecurityException{
         userDao.add(name, email, password, isAdmin);
     }
 }

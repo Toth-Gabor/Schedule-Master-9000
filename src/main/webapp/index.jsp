@@ -54,9 +54,9 @@
     <form id="reg-form" onsubmit="return false;">
         Name: <input type="text" name="name" required>
         <br>
-        Password: <input type="password" name="password" required>
-        <br>
         E-mail: <input type="email" name="email" required>
+        <br>
+        Password: <input type="password" name="password" required>
         <br>
         Role:
         <select id="role-content" name="role">
