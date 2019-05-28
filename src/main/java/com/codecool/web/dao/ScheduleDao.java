@@ -10,7 +10,7 @@ public interface ScheduleDao {
 
     List<Schedule> findAll() throws SQLException;
 
-    List<Schedule> findbyIsPublished(boolean isPublished) throws SQLException;
+    List<Schedule> findbyIsPublishedButNowOwn(int userId) throws SQLException;
 
     List<Schedule> findbyUserId(int userId) throws SQLException;
 

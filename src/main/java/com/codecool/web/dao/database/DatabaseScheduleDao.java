@@ -33,10 +33,10 @@ public class DatabaseScheduleDao extends AbstractDao implements ScheduleDao {
     }
 
     @Override
-    public List<Schedule> findbyIsPublished(boolean isPublished) throws SQLException {
-        String sql = "SELECT schedule_id, schedule_published, user_id FROM schedule WHERE schedule_published = ?";
+    public List<Schedule> findbyIsPublishedButNowOwn(int userId) throws SQLException {
+        String sql = "SELECT schedule_id, schedule_published, user_id FROM schedule WHERE NOT user_id = ?";
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
-            statement.setBoolean(1, isPublished);
+            statement.setInt(1, userId);
             List<Schedule> schedules = new ArrayList<>();
             try (ResultSet resultSet = statement.executeQuery()) {
                 while (resultSet.next()) {
