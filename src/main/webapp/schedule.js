@@ -16,6 +16,17 @@ function onScheduleLoad(scheduleDto) {
     }
 }
 
+function onPublishedScheduleLoad(scheduleDto) {
+    let table = document.getElementById("schedule-table");
+    if(table == null){
+        document.getElementById('populate-schedule').appendChild(populateTable(null, scheduleDto.dayList.length, 24, scheduleDto.dayList.length, scheduleDto.allTaskNames));
+    }else{
+        table.remove();
+        document.getElementById('populate-schedule').appendChild(populateTable(null, scheduleDto.dayList.length, 24, scheduleDto.dayList.length, scheduleDto.allTaskNames));
+    }
+
+}
+
 function onScheduleResponse() {
     if (this.status === OK) {
         clearMessages();
