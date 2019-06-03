@@ -1,5 +1,13 @@
 function onSignIn(googleUser) {
   var profile = googleUser.getBasicProfile();
+  var id_token = googleUser.getAuthResponse().id_token;
+  const xhr = new XMLHttpRequest();
+  const params = new URLSearchParams();
+  params.append('id-token', id_token);
+  xhr.open('POST', 'auth');
+  xhr.send(params);
+
+
   console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
   console.log('Name: ' + profile.getName());
   console.log('Image URL: ' + profile.getImageUrl());
