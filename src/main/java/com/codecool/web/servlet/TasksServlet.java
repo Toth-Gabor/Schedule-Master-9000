@@ -17,7 +17,6 @@ import java.util.List;
 
 @WebServlet("/protected/tasks")
 public class TasksServlet extends AbstractServlet {
-    private static final String SQL_ERROR_CODE_UNIQUE_VIOLATION = "23505";
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
