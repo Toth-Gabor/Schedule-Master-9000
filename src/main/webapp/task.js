@@ -111,20 +111,33 @@ function onTaskNameClicked() {
     showContents(['add-hourid', 'topnav', 'show-tname-hid-table', 'task-fields', 'show-alltasks']);
 }
 function onHourIdSubmit() {
+    const scheduleId = localStorage.getItem("schedule-id");
     const inputFieldEl = document.forms['add-hourid-form'];
     const hourIdInputEl = inputFieldEl.querySelector('input[name="hourid"]');
     const hourId = hourIdInputEl.value;
     const params = new URLSearchParams();
     params.append('taskId', gtaskId);
     params.append("hourId", hourId);
+    params.append("schedule-id", scheduleId);
 
 
     const xhr = new XMLHttpRequest();
     xhr.addEventListener('error', onNetworkError);
+    xhr.addEventListener('load', onHourIdSubmitResponse);
     xhr.open('POST', 'protected/taskofschedule?' + params.toString());
     xhr.send();
-    alert("Task added!");
-    showContents(['topnav', 'welcome']);
+}
+
+function onHourIdSubmitResponse() {
+    if (this.status === OK) {
+        clearMessages();
+        showContents(['topnav', 'welcome']);
+        alert("Task added!");
+    } else {
+        showContents(['topnav', 'schedules-content']);
+        alert("Task already exsisted on current schedule!");
+    }
+
 }
 
 function onDeleteTaskClicked() {

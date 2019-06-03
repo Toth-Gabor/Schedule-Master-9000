@@ -19,6 +19,8 @@ import com.codecool.web.service.simple.SimpleDayService;
 import com.codecool.web.service.simple.SimpleHourService;
 import com.codecool.web.service.simple.SimpleScheduleService;
 import com.codecool.web.service.simple.SimpleTaskService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -34,6 +36,7 @@ import java.util.List;
 public class ScheduleServlet extends AbstractServlet{
     
     private static final String SQL_ERROR_CODE_UNIQUE_VIOLATION = "23505";
+    private static final Logger logger = LoggerFactory.getLogger(ScheduleServlet.class);
 
     
     @Override
@@ -59,6 +62,7 @@ public class ScheduleServlet extends AbstractServlet{
             String[][] allTaskNames = new String[dayList.size()][24];
 
 
+            //service
             for (int i = 0; i < dayList.size() ; i++) {
                 dayIdList.add(dayList.get(i).getId());
                 String[] tasknames = taskDao.findhourContentList(dayList.get(i).getId());
@@ -94,14 +98,17 @@ public class ScheduleServlet extends AbstractServlet{
             String dValue = req.getParameter("day-value");
             int dayValue = Integer.parseInt(dValue);
             SimpleScheduleService simpleScheduleService = new SimpleScheduleService(scheduleDao);
+            //service
             String[] dayNames = simpleScheduleService.dayNames;
             for (int i = 0; i < simpleScheduleService.dayNames.length - (7 - dayValue); i++) {
                 dayNames[i] = simpleScheduleService.dayNames[i];
             }
             scheduleService.add(isPublished, user.getId(), dayValue, dayNames);
             sendMessage(resp, HttpServletResponse.SC_OK, null);
+            logger.info("schedule added");
         } catch (SQLException e) {
             handleSqlError(resp, e);
+            logger.error("exception on adding schedule", e);
         }
     }
     
@@ -112,13 +119,11 @@ public class ScheduleServlet extends AbstractServlet{
             ScheduleService scheduleService = new SimpleScheduleService(scheduleDao);
             int scheduleId = Integer.parseInt( req.getParameter("schedule-id"));
             boolean isPublished = Boolean.parseBoolean(req.getParameter("schedule-published"));
-            connection.setAutoCommit(true);
 
             Schedule schedule = scheduleService.getbyId(scheduleId);
             scheduleService.update(schedule, isPublished);
 
-            //todo nemtudja melyik érték kell
-
+            //innentől a callbackhez kell
             DayDao dayDao = new DatabaseDayDao(connection);
             DayService dayService = new SimpleDayService(dayDao);
             List<Day> dayList = dayService.getByScheduleId(scheduleId);
@@ -150,11 +155,14 @@ public class ScheduleServlet extends AbstractServlet{
 
 
             sendMessage(resp, HttpServletResponse.SC_OK, new ScheduleDto(schedule, dayList, taskList, hourList, allTaskNames));
+            logger.info("schedule updated");
             
         } catch (SQLException e) {
             handleSqlError(resp, e);
+            logger.error("sql error on updating", e);
         } catch (ServiceException e) {
             e.printStackTrace();
+            logger.error("error on updating schedule");
         }
     }
     
@@ -166,11 +174,14 @@ public class ScheduleServlet extends AbstractServlet{
             int scheduleId = Integer.parseInt(req.getParameter("schedule-id"));
             Schedule schedule = scheduleService.getbyId(scheduleId);
             scheduleService.delete(schedule);
+            logger.info("schedule deleted");
             
         } catch (SQLException e) {
             handleSqlError(resp, e);
+            logger.error("sql exception on deleting schedule", e);
         } catch (ServiceException e) {
             e.printStackTrace();
+            logger.error("exception on deleting schedule", e);
         }
     }
 }

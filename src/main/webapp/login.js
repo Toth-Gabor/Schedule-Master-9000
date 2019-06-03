@@ -27,3 +27,7 @@ function onLoginButtonClicked() {
     xhr.open('POST', 'login');
     xhr.send(params);
 }
+
+function showRegisterDiv() {
+    showContents('reg-content');
+}

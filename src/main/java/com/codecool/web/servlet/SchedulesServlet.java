@@ -2,6 +2,7 @@ package com.codecool.web.servlet;
 
 import com.codecool.web.dao.ScheduleDao;
 import com.codecool.web.dao.database.DatabaseScheduleDao;
+import com.codecool.web.dto.OwnAndPublishedSheduleListsDto;
 import com.codecool.web.model.Schedule;
 import com.codecool.web.model.User;
 import com.codecool.web.service.ScheduleService;
@@ -28,8 +29,9 @@ public class SchedulesServlet extends AbstractServlet {
             ScheduleService scheduleService = new SimpleScheduleService(scheduleDao);
             User user = (User) req.getSession().getAttribute("user");
             List<Schedule> schedules = scheduleService.getbyUserId(user.getId());
-            
-            sendMessage(resp, HttpServletResponse.SC_OK, schedules);
+            List<Schedule> publishedSchedules = scheduleService.getbyIsPublishedButNowOwn(user.getId());
+
+            sendMessage(resp, HttpServletResponse.SC_OK, new OwnAndPublishedSheduleListsDto(schedules, publishedSchedules));
             
         } catch (SQLException e) {
             handleSqlError(resp, e);

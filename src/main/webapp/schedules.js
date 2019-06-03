@@ -1,5 +1,7 @@
-let SchedulesTableEl;
-let SchedulesTableBodyEl;
+let SchedulesDivEl;
+let SchedulesUlEl;
+let publicSchedulesDivEl;
+let publicScheduleUlEl;
 
 function onScheduleClicked() {
     const ScheduleId = this.dataset.ScheduleId;
@@ -15,6 +17,20 @@ function onScheduleClicked() {
     xhr.send(params);
 }
 
+function onPublishedScheduleClicked() {
+    const ScheduleId = this.dataset.ScheduleId;
+    localStorage.setItem("schedule-id", ScheduleId);
+
+    const params = new URLSearchParams();
+    params.append('schedule-id', ScheduleId);
+
+    const xhr = new XMLHttpRequest();
+    xhr.addEventListener('load', onPublishedScheduleResponse);
+    xhr.addEventListener('error', onNetworkError);
+    xhr.open('GET', 'protected/schedule?' + params.toString());
+    xhr.send(params);
+}
+
 function appendSchedule(Schedule) {
     const schLiEl = document.createElement('li');
     const aEl = document.createElement('a');
@@ -23,11 +39,22 @@ function appendSchedule(Schedule) {
     aEl.href = 'javascript:void(0);';
     aEl.dataset.ScheduleId = Schedule.id;
     aEl.addEventListener('click', onScheduleClicked);
-    SchedulesTableBodyEl.appendChild(schLiEl);
+    SchedulesUlEl.appendChild(schLiEl);
+}
+
+function appendPublishedSchedule(Schedule) {
+    const schLiEl = document.createElement('li');
+    const aEl = document.createElement('a');
+    schLiEl.appendChild(aEl);
+    aEl.textContent = Schedule.id;
+    aEl.href = 'javascript:void(0);';
+    aEl.dataset.ScheduleId = Schedule.id;
+    aEl.addEventListener('click', onPublishedScheduleClicked);
+    publicScheduleUlEl.appendChild(schLiEl);
 }
 
 function appendSchedules(Schedules) {
-    removeAllChildren(SchedulesTableBodyEl);
+    removeAllChildren(SchedulesUlEl);
 
     for (let i = 0; i < Schedules.length; i++) {
         const Schedule = Schedules[i];
@@ -35,11 +62,24 @@ function appendSchedules(Schedules) {
     }
 }
 
-function onSchedulesLoad(Schedules) {
-    SchedulesTableEl = document.getElementById('schedules');
-    SchedulesTableBodyEl = SchedulesTableEl.querySelector('ul');
+function appendPublicSchedules(publicSchedules) {
+    removeAllChildren(publicScheduleUlEl);
 
-    appendSchedules(Schedules);
+    for (let i = 0; i < publicSchedules.length; i++) {
+        const Schedule = publicSchedules[i];
+        appendPublishedSchedule(Schedule);
+    }
+}
+
+function onSchedulesLoad(schedulesListsDto) {
+    SchedulesDivEl = document.getElementById('schedules');
+    SchedulesUlEl = SchedulesDivEl.querySelector('ul');
+
+    publicSchedulesDivEl = document.getElementById('published-schedules');
+    publicScheduleUlEl = publicSchedulesDivEl.querySelector('ul');
+
+    appendSchedules(schedulesListsDto.ownSchedules);
+    appendPublicSchedules(schedulesListsDto.publishedSchedules);
 }
 
 function onSchedulesResponse() {
@@ -48,6 +88,15 @@ function onSchedulesResponse() {
         onSchedulesLoad(JSON.parse(this.responseText));
     } else {
         onOtherResponse(schedulesContentDivEl, this);
+    }
+}
+
+function onPublishedScheduleResponse() {
+    if (this.status === OK) {
+        showContents(['topnav', 'schedules-content','schedules-fields', 'populate-schedule']);
+        onPublishedScheduleLoad(JSON.parse(this.responseText));
+    } else {
+        onOtherResponse(publicSchedulesDivEl, this);
     }
 }
 

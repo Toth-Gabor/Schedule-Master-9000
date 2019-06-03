@@ -11,6 +11,7 @@
     <c:url value="/schedules.js" var="schedulesScriptUrl"/>
     <c:url value="/task.js" var="taskScriptUrl"/>
     <c:url value="/tasks.js" var="tasksScriptUrl"/>
+    <c:url value="/register.js" var="tasksScriptUrl"/>
     <c:url value="/login.js" var="loginScriptUrl"/>
     <c:url value="/profile.js" var="profileScriptUrl"/>
     <c:url value="/back-to-profile.js" var="backToProfileScriptUrl"/>
@@ -21,6 +22,7 @@
     <script src="${indexScriptUrl}"></script>
     <script src="${loginScriptUrl}"></script>
     <script src="${scheduleScriptUrl}"></script>
+    <script src="${registerScriptUrl}"></script>
     <script src="${schedulesScriptUrl}"></script>
     <script src="${taskScriptUrl}"></script>
     <script src="${tasksScriptUrl}"></script>
@@ -43,9 +45,26 @@
     <ul>
         <li><h3>Péter Taraszvics</h3></li>
         <li><h3>András Urbin</h3></li>
-        <li>    <h3>Gábor Tóth</h3>
-        </li>
+        <li><h3>Gábor Tóth</h3></li>
     </ul>
+</div>
+
+<div id="reg-content" class="hidden content">
+    <h1>Registration</h1>
+    <form id="reg-form" onsubmit="return false;">
+        Name: <input type="text" name="name" required placeholder="First name">
+        <br>
+        E-mail: <input type="email" name="email" required placeholder="E-mail">
+        <br>
+        Password: <input type="password" name="password" required placeholder="*****">
+        <br>
+        Role:
+        <select id="role-content" name="role">
+            <option value="false">User</option>
+            <option value="true">Admin</option>
+        </select>
+        <button id="reg-button" onclick="onRegisterButtonClicked()">Register</button>
+    </form>
 </div>
 
 <div id="login-content" class="content">
@@ -54,44 +73,21 @@
         <input type="text" name="email">
         <input type="password" name="password">
         <button id="login-button">Login</button>
+        <button id="go-reg-button" onclick="showRegisterDiv()">Register</button>
     </form>
 </div>
-<div id="container">
-    <div id="header-content" class="hidden content">
-        <a href="#">View Schedules</a>
-        <a href="#">View Profile</a>
-        <a href="#">View Tasks</a>
-    </div>
-</div>
-<div id="container">
-    <div id="form-buttons-content" class="hidden content">
-        <button type="button" name="add-schedule">Add Schedule</button>
-        <button type="button" name="edit-schedule">Edit Schedule</button>
-        <button type="button" name="remove-schedule">Remove Schedule</button>
-        <button type="button" name="add-task">Add Task</button>
-        <button type="button" name="edit-task">Edit Task</button>
-        <button type="button" name="remove-task">Remove Task</button>
-    </div>
-    <div id="servlet-form-content">
 
-
-        <form id="remove-schedule-content" class="hidden content" action="index.html" method="post">
-            <h2>Removing a schedule:</h2>
-            <h3>Select the ID of the schedule, which you would like to delete:</h3>
-            <input type="number" name="schedule-id" min="minValue" max="maxValue">
-            <input type="submit" name="Submit" value="submit">
-        </form>
-
-
-        <form id="remove-task-content" class="hidden content" action="index.html" method="post">
-
-        </form>
-
-    </div>
+<div id="servlet-form-content">
+    <form id="remove-schedule-content" class="hidden content" action="index.html" method="post">
+        <h2>Removing a schedule:</h2>
+        <h3>Select the ID of the schedule, which you would like to delete:</h3>
+        <input type="number" name="schedule-id" min="minValue" max="maxValue">
+        <input type="submit" name="Submit" value="submit">
+    </form>
+    <form id="remove-task-content" class="hidden content" action="index.html" method="post"></form>
 </div>
 
 <div id="link-content" class="hidden content">
-
     <h2>Links</h2>
     <ul>
         <li><a href="javascript:void(0);" onclick="onListSchedulesClicked();">Schedules</a></li>
@@ -101,15 +97,18 @@
 
 <div id="schedules-content" class="hidden content">
     <h1>Schedules</h1>
-
     <button type="button" name="add-schedule" onclick="onShowAddScheduleForm()">Add Schedule</button>
-
     <div id="schedules">
         <ul>
 
         </ul>
     </div>
+    <div id="published-schedules">
+        <h2>Published schedules</h2>
+        <ul>
 
+        </ul>
+    </div>
     <div id="schedules-fields" class="hidden content">
         <ul>
             <li>schedule id: <span id="schedule-id"></span></li>
@@ -120,9 +119,7 @@
         <button onclick="onShowUpdateClicked()">Update schedule</button>
         <button onclick="onDeleteScheduleClicked()">Delete this schedule</button>
     </div>
-
     <div id="populate-schedule" class="hidden content"></div>
-
 </div>
 
 <div id="add-schedule-content" class="hidden content">
@@ -184,19 +181,14 @@
 </div>
 
 
-
 <div id="tasks-content" class="hidden content">
     <h1>Tasks</h1>
-
     <button type="button" name="add-task" onclick="onShowAddTaskForm()">Create Task</button>
-
-
     <div id="tasks">
         <ul>
 
         </ul>
     </div>
-
     <div id="task-fields" class="hidden content">
         <ul>
             <li>task name:
@@ -209,7 +201,6 @@
         <button id="delete-task" onclick="onDeleteTaskClicked()">Delete task</button>
         <button type="button" name="update-task" onclick="onUpdateTaskForm()">Update Task</button>
     </div>
-
 </div>
 
 <div id="update-task" class="hidden content">
