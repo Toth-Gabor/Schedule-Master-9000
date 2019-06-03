@@ -12,10 +12,9 @@ CREATE TABLE users
     user_id       SERIAL NOT NULL PRIMARY KEY,
     username      TEXT   NOT NULL,
     email         TEXT   NOT NULL unique ,
-    user_password TEXT   NOT NULL,
+    user_password TEXT,
     administrator BOOLEAN DEFAULT FALSE,
-    CONSTRAINT email_not_empty CHECK (email <> ''),
-    CONSTRAINT pw_not_empty CHECK (user_password <> '')
+    CONSTRAINT email_not_empty CHECK (email <> '')
 );
 
 CREATE TABLE schedule
