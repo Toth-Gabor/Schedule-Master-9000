@@ -10,6 +10,7 @@ let tasksContentDivEl;
 let profileContentDivEl;
 let backToProfileContentDivEl;
 let logoutContentDivEl;
+let googleAuthContentDivEl;
 
 function newInfo(targetEl, message) {
     newMessage(targetEl, 'info', message);
