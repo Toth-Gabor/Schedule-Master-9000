@@ -5,14 +5,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="google-signin-client_id" content="212389894216-2mat3goncqggvbvqhjfsrb4lods3g2d8.apps.googleusercontent.com">
+    <meta name="google-signin-client_id"
+          content="212389894216-2mat3goncqggvbvqhjfsrb4lods3g2d8.apps.googleusercontent.com">
     <script src="https://apis.google.com/js/platform.js" async defer></script>
     <c:url value="/style.css" var="styleUrl"/>
-    <c:url value="/index.js" var="indexScriptUrl"/>
     <c:url value="/schedule.js" var="scheduleScriptUrl"/>
     <c:url value="/schedules.js" var="schedulesScriptUrl"/>
-    <c:url value="/task.js" var="taskScriptUrl"/>
     <c:url value="/tasks.js" var="tasksScriptUrl"/>
+    <c:url value="/task.js" var="taskScriptUrl"/>
+    <c:url value="/index.js" var="indexScriptUrl"/>
     <c:url value="/register.js" var="tasksScriptUrl"/>
     <c:url value="/googleAuth.js" var="googleAuthScriptUrl"/>
     <c:url value="/login.js" var="loginScriptUrl"/>
@@ -23,13 +24,13 @@
     <script src="https://code.jquery.com/jquery-3.4.1.js"
             integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
     <script src="${indexScriptUrl}"></script>
+    <script src="${taskScriptUrl}"></script>
+    <script src="${tasksScriptUrl}"></script>
     <script src="${loginScriptUrl}"></script>
     <script src="${scheduleScriptUrl}"></script>
     <script src="${registerScriptUrl}"></script>
     <script src="${schedulesScriptUrl}"></script>
     <script src="${googleAuthScriptUrl}"></script>
-    <script src="${taskScriptUrl}"></script>
-    <script src="${tasksScriptUrl}"></script>
     <script src="${profileScriptUrl}"></script>
     <script src="${backToProfileScriptUrl}"></script>
     <script src="${logoutScriptUrl}"></script>
@@ -83,7 +84,7 @@
 
 </div>
 
-<div class="g-signin2 content" data-onsuccess="onSignIn", id="google-signin-content">
+<div class="g-signin2 content" data-onsuccess="onSignIn" , id="google-signin-content">
 
 </div>
 
