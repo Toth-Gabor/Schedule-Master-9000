@@ -132,6 +132,9 @@
         <button onclick="onDeleteTaskFromScheduleClicked()">Delete task</button>
         <button onclick="onShowUpdateClicked()">Update schedule</button>
         <button onclick="onDeleteScheduleClicked()">Delete this schedule</button>
+        <div id="share" class="hidden content">
+            <button onclick="onShareClicked()">Share this schedule</button>
+        </div>
     </div>
     <div id="populate-schedule" class="hidden content"></div>
 </div>
