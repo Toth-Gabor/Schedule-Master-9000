@@ -84,7 +84,7 @@ function onSchedulesLoad(schedulesListsDto) {
 
 function onSchedulesResponse() {
     if (this.status === OK) {
-        showContents(['schedules-content', 'topnav']);
+        showContents(['schedules-content', 'topnav', 'published-schedules']);
         onSchedulesLoad(JSON.parse(this.responseText));
     } else {
         onOtherResponse(schedulesContentDivEl, this);
@@ -93,7 +93,7 @@ function onSchedulesResponse() {
 
 function onPublishedScheduleResponse() {
     if (this.status === OK) {
-        showContents(['topnav', 'schedules-content', 'populate-schedule']);
+        showContents(['topnav', 'published-schedules', 'populate-schedule']);
         onPublishedScheduleLoad(JSON.parse(this.responseText));
     } else {
         onOtherResponse(publicSchedulesDivEl, this);
