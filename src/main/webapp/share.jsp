@@ -14,25 +14,20 @@
     <c:url value="/style.css" var="styleUrl"/>
     <c:url value="/schedule.js" var="scheduleScriptUrl"/>
     <c:url value="/schedules.js" var="schedulesScriptUrl"/>
+    <c:url value="/share.js" var="shareScriptUrl"/>
+    <c:url value="/index.js" var="indexScriptUrl"/>
     <script src="${scheduleScriptUrl}"></script>
     <script src="${schedulesScriptUrl}"></script>
+    <script src="${shareScriptUrl}"></script>
+    <script src="${indexScriptUrl}"></script>
     <script src="https://code.jquery.com/jquery-3.4.1.js"
             integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
 
 
 </head>
 <body>
-<p id="scheduleDto">${scheduleDto}</p>
-<p id="scheduleDtod">${scheduleDto.dayList}</p>
-<p id="scheduleDtoa">${scheduleDto.allTaskNames}</p>
 
-<div id="share-content">
-    <script>
-        const scheduleDto = document.getElementById("scheduleDto").value;
-        let shraheDivEl = document.getElementById("share-content");
-        shraheDivEl.appendChild(populateTable(null, scheduleDto.dayList.length, 24, scheduleDto.dayList.length, scheduleDto.allTaskNames));
-    </script>
-</div>
+<div id="share-content" scheduleId = "${scheduleId}"></div>
 
 </body>
 </html>
