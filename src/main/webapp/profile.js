@@ -18,7 +18,6 @@ function onListTasksClicked() {
     const params = new URLSearchParams();
     const user = getAuthorization();
     const dayValue = null;
-    const isPublished =
     params.append('id', user.id);
     params.append("dayValue",dayValue);
 
