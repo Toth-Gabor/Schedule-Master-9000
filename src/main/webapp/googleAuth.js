@@ -26,6 +26,7 @@ function signOut() {
     console.log('User signed out.');
     $(".g-signin2").css("display", "block");
   });
+  localStorage.clear();
   showContents(['login-content', 'google-signin-content']);
 
 }
