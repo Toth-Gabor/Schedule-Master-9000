@@ -61,41 +61,41 @@ public class ShareServlet extends AbstractServlet {
             String schId = req.getParameter("scheduleId");
             int scheduleId = Integer.parseInt(schId);
             Schedule schedule = scheduleService.getbyId(scheduleId);
+            if (schedule.isPublished()) {
+                DayDao dayDao = new DatabaseDayDao(connection);
+                DayService dayService = new SimpleDayService(dayDao);
+                List<Day> dayList = dayService.getByScheduleId(scheduleId);
 
-            DayDao dayDao = new DatabaseDayDao(connection);
-            DayService dayService = new SimpleDayService(dayDao);
-            List<Day> dayList = dayService.getByScheduleId(scheduleId);
+                TaskDao taskDao = new DatabaseTaskDao(connection);
+                TaskService taskService = new SimpleTaskService(taskDao);
+                List<Task> taskList = taskService.getbyScheduleId(scheduleId);
 
-            TaskDao taskDao = new DatabaseTaskDao(connection);
-            TaskService taskService = new SimpleTaskService(taskDao);
-            List<Task> taskList = taskService.getbyScheduleId(scheduleId);
-
-            HourDao hourDao = new DatabaseHourDao(connection);
-            HourService hourService = new SimpleHourService(hourDao);
-            List<Integer> dayIdList = new ArrayList<>();
-            String[][] allTaskNames = new String[dayList.size()][24];
+                HourDao hourDao = new DatabaseHourDao(connection);
+                HourService hourService = new SimpleHourService(hourDao);
+                List<Integer> dayIdList = new ArrayList<>();
+                String[][] allTaskNames = new String[dayList.size()][24];
 
 
-            //service
-            for (int i = 0; i < dayList.size() ; i++) {
-                dayIdList.add(dayList.get(i).getId());
-                String[] tasknames = taskDao.findhourContentList(dayList.get(i).getId());
-                allTaskNames[i] = tasknames;
+                //service
+                for (int i = 0; i < dayList.size(); i++) {
+                    dayIdList.add(dayList.get(i).getId());
+                    String[] tasknames = taskDao.findhourContentList(dayList.get(i).getId());
+                    allTaskNames[i] = tasknames;
 
-            }
-
-            List<Hour> hourList = new ArrayList<>();
-            for (int i = 0; i < dayIdList.size(); i++) {
-                List<Hour> hourListForDayId = hourService.getbyDayId(dayIdList.get(i));
-                for (Hour hour : hourListForDayId) {
-                    hourList.add(hour);
                 }
+
+                List<Hour> hourList = new ArrayList<>();
+                for (int i = 0; i < dayIdList.size(); i++) {
+                    List<Hour> hourListForDayId = hourService.getbyDayId(dayIdList.get(i));
+                    for (Hour hour : hourListForDayId) {
+                        hourList.add(hour);
+                    }
+                }
+                sendMessage(resp, HttpServletResponse.SC_OK, new ScheduleDto(schedule, dayList, taskList, hourList, allTaskNames));
+
+            } else {
+                sendMessage(resp, HttpServletResponse.SC_BAD_GATEWAY, null);
             }
-
-
-            sendMessage(resp, HttpServletResponse.SC_OK, new ScheduleDto(schedule, dayList, taskList, hourList, allTaskNames));
-
-
         } catch (SQLException e) {
             handleSqlError(resp, e);
         } catch (ServiceException e) {
