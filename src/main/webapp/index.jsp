@@ -24,8 +24,8 @@
     <script src="https://code.jquery.com/jquery-3.4.1.js"
             integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
     <script src="${indexScriptUrl}"></script>
-    <script src="${taskScriptUrl}"></script>
     <script src="${tasksScriptUrl}"></script>
+    <script src="${taskScriptUrl}"></script>
     <script src="${loginScriptUrl}"></script>
     <script src="${scheduleScriptUrl}"></script>
     <script src="${registerScriptUrl}"></script>
@@ -122,12 +122,7 @@
 
         </ul>
     </div>
-    <div id="published-schedules">
-        <h2>Published schedules</h2>
-        <ul>
 
-        </ul>
-    </div>
     <div id="schedules-fields" class="hidden content">
         <ul>
             <li>schedule id: <span id="schedule-id"></span></li>
@@ -139,6 +134,13 @@
         <button onclick="onDeleteScheduleClicked()">Delete this schedule</button>
     </div>
     <div id="populate-schedule" class="hidden content"></div>
+</div>
+
+<div id="published-schedules" class="hidden content">
+    <h2>Published schedules</h2>
+    <ul>
+
+    </ul>
 </div>
 
 <div id="add-schedule-content" class="hidden content">
