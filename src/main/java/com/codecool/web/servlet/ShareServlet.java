@@ -33,10 +33,28 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+
 @WebServlet("/share")
 public class ShareServlet extends AbstractServlet {
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        try (Connection connection = getConnection(req.getServletContext())) {
+            ScheduleDao scheduleDao = new DatabaseScheduleDao(connection);
+            ScheduleService scheduleService = new SimpleScheduleService(scheduleDao);
+            String schId = req.getParameter("scheduleId");
+            int scheduleId = Integer.parseInt(schId);
+
+            req.setAttribute("scheduleId", scheduleId);
+            req.getRequestDispatcher("share.jsp").forward(req, resp);
+
+        } catch (SQLException e) {
+            handleSqlError(resp, e);
+        }
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try (Connection connection = getConnection(req.getServletContext())) {
             ScheduleDao scheduleDao = new DatabaseScheduleDao(connection);
             ScheduleService scheduleService = new SimpleScheduleService(scheduleDao);
@@ -59,7 +77,7 @@ public class ShareServlet extends AbstractServlet {
 
 
             //service
-            for (int i = 0; i < dayList.size(); i++) {
+            for (int i = 0; i < dayList.size() ; i++) {
                 dayIdList.add(dayList.get(i).getId());
                 String[] tasknames = taskDao.findhourContentList(dayList.get(i).getId());
                 allTaskNames[i] = tasknames;
@@ -73,8 +91,10 @@ public class ShareServlet extends AbstractServlet {
                     hourList.add(hour);
                 }
             }
-            req.setAttribute("scheduleDto", new ScheduleDto(schedule, dayList, taskList, hourList, allTaskNames));
-            req.getRequestDispatcher("share.jsp").forward(req, resp);
+
+
+            sendMessage(resp, HttpServletResponse.SC_OK, new ScheduleDto(schedule, dayList, taskList, hourList, allTaskNames));
+
 
         } catch (SQLException e) {
             handleSqlError(resp, e);
