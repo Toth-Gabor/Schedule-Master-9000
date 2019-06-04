@@ -93,7 +93,7 @@ function onSchedulesResponse() {
 
 function onPublishedScheduleResponse() {
     if (this.status === OK) {
-        showContents(['topnav', 'schedules-content','schedules-fields', 'populate-schedule']);
+        showContents(['topnav', 'schedules-content', 'populate-schedule']);
         onPublishedScheduleLoad(JSON.parse(this.responseText));
     } else {
         onOtherResponse(publicSchedulesDivEl, this);
