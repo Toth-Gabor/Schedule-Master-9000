@@ -4,6 +4,7 @@ function onSignIn(googleUser) {
   const xhr = new XMLHttpRequest();
   const params = new URLSearchParams();
   params.append('id-token', id_token);
+  xhr.addEventListener('load', onLoginResponse);
   xhr.open('POST', 'auth');
   xhr.send(params);
 
