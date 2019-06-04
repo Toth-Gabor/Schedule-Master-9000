@@ -75,15 +75,3 @@ function removeAllChildren(el) {
     }
 }
 
-/*$(document).ready(function () {
-    document.getElementById('schedules-content')
-        .appendChild(populateTable(null, 7, 24, 7, "content"));
-});*/
-
-/*{schedule: {…}, dayList: Array(2), taskList: Array(0), hourList: Array(3)}
-dayList: (2) [{…}, {…}]
-hourList: (3) [{…}, {…}, {…}]
-schedule: {id: 1, userId: 1, published: true}
-taskList: []
-__proto__: Object*/
-
