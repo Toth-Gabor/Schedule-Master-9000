@@ -27,7 +27,7 @@ import com.google.api.client.json.jackson2.JacksonFactory;
 
 
 @WebServlet("/auth")
-public class GoogleAuthServlet extends AbstractServlet{
+public class GoogleAuthServlet extends AbstractServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         try (Connection connection = getConnection(req.getServletContext())) {
@@ -46,21 +46,21 @@ public class GoogleAuthServlet extends AbstractServlet{
                 Payload payload = idToken.getPayload();
                 // Get profile information from payload
                 String email = payload.getEmail();
-                if (userService.validateEmail(email)){
+                if (userService.validateEmail(email)) {
                     //ha van email akkor session vagy valami
                     User user = userService.getbyEmail(email);
                     req.getSession().setAttribute("user", user);
+                    sendMessage(resp, HttpServletResponse.SC_OK, user);
                 } else {
                     String name = (String) payload.get("name");
                     String emailToDb = payload.getEmail();
                     String password = "";
                     boolean isAdmin = false;
-                    userService.addUser(name, email, password ,isAdmin);
+                    userService.addUser(name, email, password, isAdmin);
+                    sendMessage(resp, HttpServletResponse.SC_OK, userService.getbyEmail(emailToDb));
                 }
 
             }
-
-            sendMessage(resp, HttpServletResponse.SC_OK, null);
         } catch (SQLException ex) {
             handleSqlError(resp, ex);
 
