@@ -30,8 +30,13 @@ function onPublishedScheduleLoad(scheduleDto) {
 function onScheduleResponse() {
     if (this.status === OK) {
         clearMessages();
-        showContents(['topnav', 'schedules-content','schedules-fields', 'populate-schedule']);
-        onScheduleLoad(JSON.parse(this.responseText));
+        let scheduleDto = JSON.parse(this.responseText);
+        if (scheduleDto.schedule.published){
+            showContents(['topnav', 'schedules-content','schedules-fields', 'populate-schedule', 'share']);
+        } else {
+            showContents(['topnav', 'schedules-content','schedules-fields', 'populate-schedule']);
+        }
+        onScheduleLoad(scheduleDto);
     } else {
         onOtherResponse(schedulesContentDivEl, this);
     }
