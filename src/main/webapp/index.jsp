@@ -14,7 +14,7 @@
     <c:url value="/tasks.js" var="tasksScriptUrl"/>
     <c:url value="/task.js" var="taskScriptUrl"/>
     <c:url value="/index.js" var="indexScriptUrl"/>
-    <c:url value="/register.js" var="tasksScriptUrl"/>
+    <c:url value="/register.js" var="registerScriptUrl"/>
     <c:url value="/googleAuth.js" var="googleAuthScriptUrl"/>
     <c:url value="/login.js" var="loginScriptUrl"/>
     <c:url value="/profile.js" var="profileScriptUrl"/>
