@@ -1,10 +1,14 @@
 package com.codecool.web.service.simple;
 
 import com.codecool.web.dao.ScheduleDao;
+import com.codecool.web.dao.TaskDao;
+import com.codecool.web.dao.database.DatabaseTaskDao;
+import com.codecool.web.model.Day;
 import com.codecool.web.model.Schedule;
 import com.codecool.web.service.ScheduleService;
 import com.codecool.web.service.exception.ServiceException;
 
+import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -64,5 +68,18 @@ public class SimpleScheduleService implements ScheduleService {
     @Override
     public void addDays(String dayName, int scheduleId) throws SQLException {
         scheduleDao.addDays(dayName, scheduleId);
+    }
+
+    @Override
+    public String[][] getAllTaskNames(List<Day> dayList, Connection connection) throws SQLException {
+        TaskDao taskDao = new DatabaseTaskDao(connection);
+        String[][] allTaskNames = new String[dayList.size()][24];
+        //service
+        for (int i = 0; i < dayList.size(); i++) {
+            String[] tasknames = taskDao.findhourContentList(dayList.get(i).getId());
+            allTaskNames[i] = tasknames;
+
+        }
+        return allTaskNames;
     }
 }
