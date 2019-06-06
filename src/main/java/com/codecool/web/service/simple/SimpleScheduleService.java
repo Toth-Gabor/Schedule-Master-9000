@@ -99,4 +99,13 @@ public class SimpleScheduleService implements ScheduleService {
         }
         return hourList;
     }
+
+    @Override
+    public String[] fillDayNames(int dayValue) throws SQLException {
+        String[] dayNamesArr = dayNames;
+        for (int i = 0; i <dayNames.length - (7 - dayValue); i++) {
+            dayNamesArr[i] = dayNames[i];
+        }
+        return dayNamesArr;
+    }
 }

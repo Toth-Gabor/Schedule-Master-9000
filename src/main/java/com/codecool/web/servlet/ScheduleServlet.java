@@ -83,10 +83,8 @@ public class ScheduleServlet extends AbstractServlet {
             int dayValue = Integer.parseInt(dValue);
             SimpleScheduleService simpleScheduleService = new SimpleScheduleService(scheduleDao);
             //service
-            String[] dayNames = simpleScheduleService.dayNames;
-            for (int i = 0; i < simpleScheduleService.dayNames.length - (7 - dayValue); i++) {
-                dayNames[i] = simpleScheduleService.dayNames[i];
-            }
+            String[] dayNames = simpleScheduleService.fillDayNames(dayValue);
+
             scheduleService.add(isPublished, user.getId(), dayValue, dayNames);
             sendMessage(resp, HttpServletResponse.SC_OK, null);
             logger.info("schedule added");

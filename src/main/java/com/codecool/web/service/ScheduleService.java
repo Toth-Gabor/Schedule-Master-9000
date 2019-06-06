@@ -21,4 +21,5 @@ public interface ScheduleService {
     void addDays(String dayName, int scheduleId) throws SQLException;
     String[][] getAllTaskNames(List<Day> dayList, Connection connection) throws SQLException;
     List<Hour> getHourList(List<Day> dayList, HourService hourService) throws SQLException, ServiceException;
+    String[] fillDayNames(int dayValue) throws SQLException;
 }
