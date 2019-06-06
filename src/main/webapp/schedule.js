@@ -24,7 +24,6 @@ function onPublishedScheduleLoad(scheduleDto) {
         table.remove();
         document.getElementById('populate-schedule').appendChild(populateTable(null, scheduleDto.dayList.length, 24, scheduleDto.dayList.length, scheduleDto.allTaskNames));
     }
-
 }
 
 function onScheduleResponse() {
@@ -122,13 +121,13 @@ function onPublishedScheduleClicked() {
     xhr.addEventListener('load', onPublishedScheduleResponse);
     xhr.addEventListener('error', onNetworkError);
     xhr.open('GET', 'protected/schedule?' + params.toString());
-    xhr.send(params);
+    xhr.send();
 }
 
 function onPublishedScheduleResponse() {
     if (this.status === OK) {
-        showContents(['topnav', 'published-schedules', 'populate-schedule']);
         onPublishedScheduleLoad(JSON.parse(this.responseText));
+        showContents(['topnav', 'published-schedules', 'populate-schedule']);
     } else {
         onOtherResponse(publicSchedulesDivEl, this);
     }
