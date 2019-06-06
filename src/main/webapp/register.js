@@ -11,15 +11,11 @@ function onRegisterButtonClicked() {
     const password = passwordInputEl.value;
     const name = nameInputEl.value;
 
-    console.log(email,name, role, password);
-
     const params = new URLSearchParams();
     params.append('email', email);
     params.append('password', password);
     params.append('name', name);
     params.append('role', role);
-    console.log(params.toString());
-
     const xhr = new XMLHttpRequest();
     xhr.addEventListener('load', onRegisterResponse);
     xhr.addEventListener('error', onNetworkError);
@@ -28,7 +24,6 @@ function onRegisterButtonClicked() {
 }
 
 function onRegisterResponse() {
-    console.log(this);
     if (this.status === OK) {
         showContents(['login-content']);
     } else {
