@@ -72,21 +72,11 @@ public class ShareServlet extends AbstractServlet {
 
                 HourDao hourDao = new DatabaseHourDao(connection);
                 HourService hourService = new SimpleHourService(hourDao);
-                List<Integer> dayIdList = new ArrayList<>();
-                String[][] allTaskNames = new String[dayList.size()][24];
-
-
-                //service
-                for (int i = 0; i < dayList.size(); i++) {
-                    dayIdList.add(dayList.get(i).getId());
-                    String[] tasknames = taskDao.findhourContentList(dayList.get(i).getId());
-                    allTaskNames[i] = tasknames;
-
-                }
+                String[][] allTaskNames = scheduleService.getAllTaskNames(dayList, connection);
 
                 List<Hour> hourList = new ArrayList<>();
-                for (int i = 0; i < dayIdList.size(); i++) {
-                    List<Hour> hourListForDayId = hourService.getbyDayId(dayIdList.get(i));
+                for (int i = 0; i < dayList.size(); i++) {
+                    List<Hour> hourListForDayId = hourService.getbyDayId(dayList.get(i).getId());
                     for (Hour hour : hourListForDayId) {
                         hourList.add(hour);
                     }
