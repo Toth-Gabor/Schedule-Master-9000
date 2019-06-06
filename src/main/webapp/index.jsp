@@ -208,7 +208,7 @@
 
 <div id="tasks-content" class="hidden content">
     <h1>Tasks</h1>
-    <button type="button" name="add-task" onclick="onShowAddTaskForm()">Create Task</button>
+    <button type="button" name="add-task" onclick="onShowCreateTaskForm()">Create Task</button>
     <div id="tasks">
         <ul>
 

@@ -25,37 +25,18 @@ function appendTasks(Tasks) {
         appendTask(task);
     }
 }
-function appendTask(task) {
-    const taskLiEl = document.createElement('li')
-    const aEl = document.createElement('a');
-    taskLiEl.appendChild(aEl);
-    aEl.textContent = task.name;
-    aEl.href = 'javascript:void(0);';
-    aEl.dataset.TaskId = task.id;
-    aEl.addEventListener('click', onTaskClicked);
 
-
-    TasksUlEl.appendChild(taskLiEl);
-}
-
-function onTaskClicked() {
-    const TaskId = this.dataset.TaskId;
-
+function onListTasksClicked() {
     const params = new URLSearchParams();
-    params.append('task-id', TaskId);
+    const user = getAuthorization();
+    const dayValue = null;
+    params.append('id', user.id);
+    params.append("dayValue",dayValue);
+
 
     const xhr = new XMLHttpRequest();
-    xhr.addEventListener('load', onTaskResponse);
+    xhr.addEventListener('load', onTasksResponse);
     xhr.addEventListener('error', onNetworkError);
-    xhr.open('GET', 'protected/task?' + params.toString());
-    xhr.send(params);
-}
-
-function onShowAddTaskForm() {
-    showContents(['topnav', 'creat-task-content']);
-
-}
-function onUpdateTaskForm() {
-    showContents(['topnav', 'update-task']);
-
+    xhr.open('GET', 'protected/tasks?' + params.toString());
+    xhr.send();
 }
