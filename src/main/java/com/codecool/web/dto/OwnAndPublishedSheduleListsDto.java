@@ -2,7 +2,7 @@ package com.codecool.web.dto;
 
 import com.codecool.web.model.Schedule;
 
-import java.util.ArrayList;
+
 import java.util.List;
 
 public class OwnAndPublishedSheduleListsDto {

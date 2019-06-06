@@ -3,10 +3,8 @@ package com.codecool.web.servlet;
 import com.codecool.web.dao.UserDao;
 import com.codecool.web.dao.database.DatabaseUserDao;
 import com.codecool.web.model.User;
-import com.codecool.web.service.LoginService;
 import com.codecool.web.service.UserService;
 import com.codecool.web.service.exception.ServiceException;
-import com.codecool.web.service.simple.SimpleLoginService;
 
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -21,7 +19,6 @@ import com.codecool.web.service.simple.SimpleUserService;
 import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken;
 import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken.Payload;
 import com.google.api.client.googleapis.auth.oauth2.GoogleIdTokenVerifier;
-import com.google.api.client.auth.openidconnect.IdTokenVerifier;
 import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.jackson2.JacksonFactory;
 
