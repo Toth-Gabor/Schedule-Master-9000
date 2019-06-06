@@ -47,6 +47,7 @@ public class TaskServlet extends AbstractServlet {
             TaskService taskService = new SimpleTaskService(taskDao);
             String taskName = req.getParameter("taskTitle");
             String taskContent = req.getParameter("taskContent");
+            //nemkell a user object, csak az id
             User user = (User) req.getSession().getAttribute("user");
             taskService.add(taskName, taskContent, user.getId());
             logger.info("task added");

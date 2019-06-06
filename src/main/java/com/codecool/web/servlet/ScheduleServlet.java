@@ -62,6 +62,7 @@ public class ScheduleServlet extends AbstractServlet {
             String[][] allTaskNames = scheduleService.getAllTaskNames(dayList, connection);
     
             List<Hour> hourList = scheduleService.getHourList(dayList, hourService);
+            //serviceben történjen a kapcsolódás
     
             sendMessage(resp, HttpServletResponse.SC_OK, new ScheduleDto(schedule, dayList, taskList, hourList, allTaskNames));
 

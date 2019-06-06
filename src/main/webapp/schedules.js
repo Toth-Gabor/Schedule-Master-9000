@@ -72,5 +72,6 @@ function onListSchedulesClicked() {
     xhr.addEventListener('error', onNetworkError);
     xhr.open('GET', 'protected/schedules?' + params.toString());
     xhr.send(params);
+    //van e kétszer para debugban
 }
 

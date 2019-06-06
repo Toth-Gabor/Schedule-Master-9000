@@ -35,7 +35,7 @@
     <script src="${backToProfileScriptUrl}"></script>
     <script src="${logoutScriptUrl}"></script>
 
-    <title>App</title>
+    <title>Schedule Master</title>
 </head>
 <body>
 <div id="topnav" class="hidden content">

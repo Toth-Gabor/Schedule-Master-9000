@@ -18,6 +18,7 @@ public class DatabaseScheduleDao extends AbstractDao implements ScheduleDao {
     public DatabaseScheduleDao(Connection connection) {
         super(connection);
     }
+    //string sql kiemelni egy konstansba
 
     @Override
     public List<Schedule> findAll() throws SQLException {
