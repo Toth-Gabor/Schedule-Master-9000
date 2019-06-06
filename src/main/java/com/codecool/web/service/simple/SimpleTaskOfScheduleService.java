@@ -43,5 +43,16 @@ public class SimpleTaskOfScheduleService implements TaskOfScheduleService {
         return taskNameAndHourIdList;
     }
 
+    @Override
+    public Object[][] getHourIdListforDelete(List<Day> dayList, TaskService taskService) throws SQLException, ServiceException {
+        Object[][] hourIdListforDelete = new Object[dayList.size()][24];
+        for (int i = 0; i < dayList.size(); i++) {
+            Object[] tasknames = taskService.gethourIdListforDeletTask(dayList.get(i).getId());
+            hourIdListforDelete[i] = tasknames;
+
+        }
+        return hourIdListforDelete;
+    }
+
 
 }

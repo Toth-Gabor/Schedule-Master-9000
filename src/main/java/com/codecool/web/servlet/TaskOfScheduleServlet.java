@@ -122,15 +122,10 @@ public class TaskOfScheduleServlet extends AbstractServlet {
             TaskDao taskDao = new DatabaseTaskDao(connection);
             TaskService taskService = new SimpleTaskService(taskDao);
 
-
-            //service
-            Object[][] hourIdListforDelete = new Object[dayList.size()][24];
-
-            for (int i = 0; i < dayList.size(); i++) {
-                Object[] tasknames = taskService.gethourIdListforDeletTask(dayList.get(i).getId());
-                hourIdListforDelete[i] = tasknames;
-
-            }
+            TaskOfScheduleDao taskOfScheduleDao = new DatabaseTaskOfScheduleDao(connection);
+            TaskOfScheduleService taskOfScheduleService = new SimpleTaskOfScheduleService(taskOfScheduleDao);
+            
+            Object[][] hourIdListforDelete = taskOfScheduleService.getHourIdListforDelete(dayList, taskService);
 
             sendMessage(resp, HttpServletResponse.SC_OK, hourIdListforDelete);
 

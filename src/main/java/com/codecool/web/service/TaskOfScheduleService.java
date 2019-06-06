@@ -12,6 +12,5 @@ public interface TaskOfScheduleService {
     void deleteTaskFromScheduleById(int hourId) throws SQLException;
 
     Object[][] getTaskNameAndHourIdList(List<Day> dayList, TaskService taskService) throws SQLException, ServiceException;
-
-
+    Object[][] getHourIdListforDelete(List<Day> dayList, TaskService taskService) throws SQLException, ServiceException;
 }
