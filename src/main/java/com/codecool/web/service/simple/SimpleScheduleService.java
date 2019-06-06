@@ -1,15 +1,20 @@
 package com.codecool.web.service.simple;
 
+import com.codecool.web.dao.HourDao;
 import com.codecool.web.dao.ScheduleDao;
 import com.codecool.web.dao.TaskDao;
+import com.codecool.web.dao.database.DatabaseHourDao;
 import com.codecool.web.dao.database.DatabaseTaskDao;
 import com.codecool.web.model.Day;
+import com.codecool.web.model.Hour;
 import com.codecool.web.model.Schedule;
+import com.codecool.web.service.HourService;
 import com.codecool.web.service.ScheduleService;
 import com.codecool.web.service.exception.ServiceException;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class SimpleScheduleService implements ScheduleService {
@@ -81,5 +86,17 @@ public class SimpleScheduleService implements ScheduleService {
 
         }
         return allTaskNames;
+    }
+    
+    @Override
+    public List<Hour> getHourList(List<Day> dayList, HourService hourService) throws SQLException, ServiceException {
+        List<Hour> hourList = new ArrayList<>();
+        for (int i = 0; i < dayList.size(); i++) {
+            List<Hour> hourListForDayId = hourService.getbyDayId(dayList.get(i).getId());
+            for (Hour hour : hourListForDayId) {
+                hourList.add(hour);
+            }
+        }
+        return hourList;
     }
 }

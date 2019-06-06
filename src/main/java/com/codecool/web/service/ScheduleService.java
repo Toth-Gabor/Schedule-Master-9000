@@ -1,6 +1,8 @@
 package com.codecool.web.service;
 
+import com.codecool.web.dao.HourDao;
 import com.codecool.web.model.Day;
+import com.codecool.web.model.Hour;
 import com.codecool.web.model.Schedule;
 import com.codecool.web.service.exception.ServiceException;
 
@@ -18,4 +20,5 @@ public interface ScheduleService {
     void update(Object object, boolean isPublished) throws SQLException, ServiceException;
     void addDays(String dayName, int scheduleId) throws SQLException;
     String[][] getAllTaskNames(List<Day> dayList, Connection connection) throws SQLException;
+    List<Hour> getHourList(List<Day> dayList, HourService hourService) throws SQLException, ServiceException;
 }
