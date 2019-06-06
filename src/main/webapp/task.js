@@ -34,8 +34,8 @@ function onAddTaskClicked() {
 function onAddTaskResponse() {
     if (this.status === OK) {
         clearMessages();
-        showContents(['topnav', 'show-tname-hid-table','show-alltasks', 'task-fields']);
         onAddTaskLoad(JSON.parse(this.responseText));
+        showContents(['topnav', 'show-tname-hid-table','show-alltasks', 'task-fields']);
     } else {
         onOtherResponse(tasksContentDivEl, this);
     }
@@ -131,8 +131,8 @@ function onHourIdSubmit() {
 function onHourIdSubmitResponse() {
     if (this.status === OK) {
         clearMessages();
-        showContents(['topnav', 'welcome']);
         alert("Task added!");
+        afterEditSchedule();
     } else {
         showContents(['topnav', 'schedules-content']);
         alert("Task already exsisted on current schedule!");
@@ -153,7 +153,7 @@ function onDeleteTaskClicked() {
 
 function onTaskDeletedResponse() {
     alert("Task deleted");
-    showContents(['topnav', 'welcome']);
+    onListTasksClicked();//showContents(['topnav', 'welcome']);
 }
 
 function onDeleteTaskFromScheduleClicked() {
@@ -203,7 +203,7 @@ function onHourIdDeleteSubmit() {
     xhr.addEventListener('error', onNetworkError);
     xhr.open('DELETE', 'protected/taskofschedule?' + params.toString());
     xhr.send();
-    showContents(['topnav', 'welcome']);
+    afterEditSchedule();
     alert("Task deleted from this schedule!");
 
 }
@@ -223,7 +223,7 @@ function onCreateTaskClicked() {
     xhr.open('POST', 'protected/task?' + params.toString());
     xhr.send();
     alert("Task Created!");
-    showContents(['topnav', 'welcome']);
+    onListTasksClicked();//showContents(['topnav', 'welcome']);
 
 }
 function onTaskUpdateButtonClicked() {
@@ -244,7 +244,7 @@ function onTaskUpdateButtonClicked() {
     xhr.open('PUT', 'protected/task?' + params.toString());
     xhr.send();
     alert("Task Updated!");
-    showContents(['topnav', 'welcome']);
+    onListTasksClicked();//showContents(['topnav', 'welcome']);
 }
 
 
