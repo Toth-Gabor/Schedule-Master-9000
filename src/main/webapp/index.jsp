@@ -76,8 +76,8 @@
 <div id="login-content" class="content">
     <h1>Login</h1>
     <form id="login-form" onsubmit="return false;">
-        <input type="text" name="email">
-        <input type="password" name="password">
+        <input type="text" name="email" required>
+        <input type="password" name="password" required>
         <button id="login-button">Login</button>
         <button id="go-reg-button" onclick="showRegisterDiv()">Register</button>
     </form>
@@ -136,7 +136,6 @@
             <button onclick="onShareClicked()">Share this schedule</button>
         </div>
     </div>
-    <div id="populate-schedule" class="hidden content"></div>
 </div>
 
 <div id="published-schedules" class="hidden content">
@@ -145,6 +144,8 @@
 
     </ul>
 </div>
+
+<div id="populate-schedule" class="hidden content"></div>
 
 <div id="add-schedule-content" class="hidden content">
     <h2>Adding a new schedule:</h2>

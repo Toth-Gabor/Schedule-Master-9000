@@ -163,8 +163,6 @@ function onDeleteScheduleResponse() {
 
 function onShareClicked() {
     const scheduleId = localStorage.getItem("schedule-id");
-    alert(scheduleId);
-
     const text = document.createElement("textarea");
     let link = "http://localhost:8080/schedule-master-9000/share?scheduleId=" + scheduleId;
     text.value = link;
