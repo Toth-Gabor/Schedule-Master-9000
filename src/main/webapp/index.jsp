@@ -81,12 +81,9 @@
         <button id="login-button">Login</button>
         <button id="go-reg-button" onclick="showRegisterDiv()">Register</button>
     </form>
-
 </div>
 
-<div class="g-signin2 content" data-onsuccess="onSignIn" , id="google-signin-content">
-
-</div>
+<div class="g-signin2 content" data-onsuccess="onSignIn" , id="google-signin-content"></div>
 
 <div class="hidden content" id="google-content">
     <p>Profile details</p>
@@ -119,7 +116,6 @@
     <button type="button" name="add-schedule" onclick="onShowAddScheduleForm()">Add Schedule</button>
     <div id="schedules">
         <ul>
-
         </ul>
     </div>
 
@@ -141,7 +137,6 @@
 <div id="published-schedules" class="hidden content">
     <h2>Published schedules</h2>
     <ul>
-
     </ul>
 </div>
 
@@ -205,13 +200,11 @@
     </form>
 </div>
 
-
 <div id="tasks-content" class="hidden content">
     <h1>Tasks</h1>
     <button type="button" name="add-task" onclick="onShowCreateTaskForm()">Create Task</button>
     <div id="tasks">
         <ul>
-
         </ul>
     </div>
     <div id="task-fields" class="hidden content">
