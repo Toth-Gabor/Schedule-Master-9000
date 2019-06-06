@@ -110,6 +110,18 @@ function onScheduleClicked() {
     xhr.send(params);
 }
 
+function afterEditSchedule() {
+    let scheduleId = localStorage.getItem("schedule-id");
+    const params = new URLSearchParams();
+    params.append('schedule-id', scheduleId);
+
+    const xhr = new XMLHttpRequest();
+    xhr.addEventListener('load', onScheduleResponse);
+    xhr.addEventListener('error', onNetworkError);
+    xhr.open('GET', 'protected/schedule?' + params.toString());
+    xhr.send(params);
+}
+
 function onPublishedScheduleClicked() {
     const ScheduleId = this.dataset.ScheduleId;
     localStorage.setItem("schedule-id", ScheduleId);
@@ -136,7 +148,7 @@ function onPublishedScheduleResponse() {
 function onAddScheduleResponse() {
     alert("Schedule added!");
     if (this.status === OK) {
-        showContents(['topnav', 'profile-content']);
+        onListSchedulesClicked();
     } else {
         onOtherResponse(schedulesContentDivEl, this);
     }
@@ -167,7 +179,7 @@ function onUpdateButtonClicked() {
 function onUpdateScheduleResponse() {
     alert("Schedule updated!");
     if (this.status === OK) {
-        onScheduleLoad(JSON.parse(this.responseText));
+        afterEditSchedule();
     } else {
         onOtherResponse(schedulesContentDivEl, this);
     }
@@ -187,7 +199,7 @@ function onDeleteScheduleClicked() {
 function onDeleteScheduleResponse() {
     alert("Schedule deleted!");
     if (this.status === OK) {
-        showContents(['topnav', 'profile-content']);
+        onListSchedulesClicked();//showContents(['topnav', 'link-content']);
     } else {
         onOtherResponse(schedulesContentDivEl, this);
     }
