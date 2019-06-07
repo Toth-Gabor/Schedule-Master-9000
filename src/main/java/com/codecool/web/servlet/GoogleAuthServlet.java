@@ -43,20 +43,20 @@ public class GoogleAuthServlet extends AbstractServlet {
                 Payload payload = idToken.getPayload();
                 // Get profile information from payload
                 String email = payload.getEmail();
+                User user;
                 if (userService.validateEmail(email)) {
                     //ha van email akkor session vagy valami
-                    User user = userService.getbyEmail(email);
-                    req.getSession().setAttribute("user", user);
-                    sendMessage(resp, HttpServletResponse.SC_OK, user);
+                    user = userService.getbyEmail(email);
                 } else {
                     String name = (String) payload.get("name");
                     String emailToDb = payload.getEmail();
-                    String password = "";
+                    String password = null;
                     boolean isAdmin = false;
                     userService.addUser(name, email, password, isAdmin);
-                    sendMessage(resp, HttpServletResponse.SC_OK, userService.getbyEmail(emailToDb));
+                    user = userService.getbyEmail(emailToDb);
                 }
-
+                req.getSession().setAttribute("user", user);
+                sendMessage(resp, HttpServletResponse.SC_OK, user);
             }
         } catch (SQLException ex) {
             handleSqlError(resp, ex);
